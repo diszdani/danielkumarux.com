@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ==========================================================================
+     DANIEL KUMAR M · UX PORTFOLIO
+     Senior UX Lead · UX Architect
+
+     Double-click any .html file to open it. No server, no build step.
+
+     WHERE THINGS LIVE
+       index.html / work.html / about.html ....... the three main pages
+       case-studies/*.html ....................... one file per case study
+       assets/css/site.css ....................... ALL styling, every page
+       assets/js/site.js ......................... theme control, anchors
+       assets/ .................................. images, icons, résumé PDF
+
+     EDITING
+       · Page text  -> edit the HTML in that page's <main> below.
+       · Colours    -> assets/css/site.css, the DESIGN TOKENS block at the top.
+       · Header and footer are repeated in each file. Change one, change all
+         six, a find-and-replace across the folder does it in one pass.
+       · Images     -> drop a new file over the old one in assets/, same
+         filename. No HTML editing needed.
+     ========================================================================== -->
+
+<title>Work · Daniel Kumar M</title>
+<meta name="description" content="Enterprise UX case studies: an enterprise data platform, the ETL tool that feeds it, and an internal billing and consumption tool.">
+<link rel="icon" type="image/png" href="assets/icons/favicon.png">
+
+<!-- FONTS, needs internet. Without it the site falls back to Georgia / Arial
+     and still reads correctly. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<link rel="stylesheet" href="assets/css/site.css">
+
+<!-- The only inline script on the site: it sets the theme before the first
+     paint so the page never flashes the wrong background. -->
+<script>(function(){try{var t=localStorage.getItem('dk-portfolio-theme')||((window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+
+<body data-page="work">
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ==========================================================================
+     NAVIGATION
+     Four destinations only. The theme control is NOT a nav item, it sits in
+     the .util zone, past a dividing rule, styled as a button.
+     ========================================================================== -->
+<header class="hdr">
+  <div class="shell hdr-in">
+
+    <a class="mark" href="index.html">Daniel Kumar<span>Senior UX Lead · UX Architect</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="work.html" data-nav="work">Work</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a href="assets/Daniel_Kumar_Resume.pdf" class="res" target="_blank" rel="noopener"
+         aria-label="Résumé (PDF, opens in a new tab)">Résumé</a>
+      <a href="#footer">Contact</a>
+    </nav>
+
+    <!-- UTILITY CONTROL, changes appearance, does not navigate. -->
+    <div class="util">
+      <button class="theme-btn" id="themeBtn" type="button">
+        <span id="themeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span id="themeLabel">Light</span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<main id="main" class="shell" tabindex="-1">
+
+<section class="band tight" aria-labelledby="h-widx" style="padding-top:var(--space-64);">
+  <p class="hero-eb" style="margin-bottom:var(--space-16);">Work</p>
+  <h1 id="h-widx" class="claim" style="max-width:22ch;">Enterprise products, design systems and interfaces</h1>
+  <p class="hero-sub" style="margin-top:var(--space-16);">Substantial case studies. I owned the UX on each, from requirements through reviewed build. Some of this work is a long argument; some of it is a single good decision.</p>
+  <div class="shead" style="margin-top:var(--space-40);">
+    <span class="eb">Case studies</span>
+    <span class="ct">Flagship first</span>
+  </div>
+  <div class="wlist"><a class="proj" href="case-studies/enterprise-data-platform.html">
+        <!-- text column -->
+        <span class="p-txt">
+          <span class="idx"><span class="n">01</span><span class="f">Case study · Flagship</span></span>
+          <span class="prob">Warehouse and lake in one platform, under one set of rules</span>
+          <span class="nm">Enterprise Data Platform</span>
+          <span class="desc">A data lakehouse that unifies warehouse and lake in one platform, holding legacy archiving, live production copies and analytics under one approach to management, security and governance. End-to-end UX ownership across archiving, governance and administration: strategy, architecture, complex workflow design, design system, and developer handoff.</span>
+          <span class="meta">Senior UX Lead · UI/UX 100% · 2022–2026<br>8 modules · 5 user roles · Led 1–2 UX designers</span>
+          <span class="go">Read the case study &rarr;</span>
+        </span>
+        <!-- image column -->
+        <span class="thumb"><img src="assets/ads/ads-two-level-rail.svg" width="487" height="282" loading="lazy"
+           alt="Diagram: two navigation levels. Global destinations stay on the rail, application modules only inside an application."></span>
+      </a><a class="proj" href="case-studies/enterprise-etl-platform.html">
+        <!-- text column -->
+        <span class="p-txt">
+          <span class="idx"><span class="n">02</span><span class="f">Case study</span></span>
+          <span class="prob">Nine source systems, one way of working</span>
+          <span class="nm">Enterprise ETL Platform</span>
+          <span class="desc">The extraction, transformation and load tool that feeds an enterprise archive platform. It profiles a source system, maps its metadata, defines what to extract, runs the job and proves what moved.</span>
+          <span class="meta">Senior UX Lead · UI/UX 100% · 2019 onward<br>9 source families · 13 database types · Directed a small UX team</span>
+          <span class="go">Read the case study &rarr;</span>
+        </span>
+        <!-- image column -->
+        <span class="thumb"><img src="assets/etl/etl-six-stage-spine.svg" width="487" height="282" loading="lazy"
+           alt="Diagram: the six-stage spine every source family travels: source profile, workspace, metadata entity, extraction entity, execution, monitoring."></span>
+      </a><a class="proj" href="case-studies/billing-consumption.html">
+        <!-- text column -->
+        <span class="p-txt">
+          <span class="idx"><span class="n">03</span><span class="f">Case study · Focused</span></span>
+          <span class="prob">Client consumption, read against what was purchased</span>
+          <span class="nm">Billing &amp; Consumption</span>
+          <span class="desc">An internal operational tool for selecting clients, comparing their consumption with purchased limits, following usage trends, configuring threshold alerts and supporting internal billing activities.</span>
+          <span class="meta">Senior UX Lead · UI/UX 100% · 2025–2026<br>Internal tool · Individual ownership</span>
+          <span class="go">Read the case study &rarr;</span>
+        </span>
+        <!-- image column -->
+        <span class="thumb"><img src="assets/billing/billing-two-tier-ladders.svg" width="487" height="282" loading="lazy"
+           alt="Diagram: a client sits on a data tier and a usage tier at the same time, and the two move independently."></span>
+      </a></div>
+</section>
+</main>
+
+<!-- ==========================================================================
+     FOOTER
+     Edit your email, LinkedIn and Behance links here. Repeated on every page.
+     ========================================================================== -->
+<footer class="ftr" id="footer">
+  <div class="shell">
+    <div class="ftr-in">
+
+      <div>
+        <h2>Contact</h2>
+        <a class="em" href="mailto:daniel.kumar25@gmail.com">daniel.kumar25@gmail.com</a>
+        <p class="av">Open to Senior UX Lead, UX Architect and design leadership roles,
+          in India and remote internationally. Based in Chennai, India.</p>
+      </div>
+
+      <div>
+        <h2>Elsewhere</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/danielkumar25/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+          <li><a href="https://www.behance.net/danielkumar25" target="_blank" rel="noopener">Behance ↗</a></li>
+          <li><a href="assets/Daniel_Kumar_Resume.pdf" target="_blank" rel="noopener">Résumé (PDF) ↓</a></li>
+        </ul>
+      </div>
+
+      <nav aria-label="Footer">
+        <h2>Case studies</h2>
+        <ul>
+          <li><a href="case-studies/enterprise-data-platform.html">Enterprise Data Platform</a></li>
+          <li><a href="case-studies/enterprise-etl-platform.html">Enterprise ETL Platform</a></li>
+          <li><a href="case-studies/billing-consumption.html">Billing &amp; Consumption</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+    </div>
+    <div class="colo">
+      <span>Daniel Kumar M</span><span>Senior UX Lead · UX Architect</span>
+      <span>16+ years</span><span>Chennai, India</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

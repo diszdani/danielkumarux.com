@@ -1,0 +1,504 @@
+/* ==========================================================================
+   DANIEL KUMAR M · UX PORTFOLIO
+   One stylesheet for every page.
+
+   DESIGN TOKENS
+   Two layers. PRIMITIVE values (--slate-500, --oxblood-500) are referenced only
+   by the SEMANTIC layer below. Everything else in this file uses semantic roles
+   (--fg-muted, --action-default), never a raw hex.
+
+   To change a colour: edit the primitive. Both themes update together.
+   Two rules worth keeping:
+     · oxblood = ACTION only (links, buttons, focus ring)
+     · ink blue = APPARATUS only (eyebrows, figure numbers, numerals)
+   ========================================================================== */
+/* ===== PRIMITIVES ===== */
+:root{
+  --slate-0:#FFFFFF;--slate-50:#F5F6F7;--slate-100:#E9ECEF;--slate-150:#E4E8EB;--slate-200:#DCE0E4;
+  --slate-300:#C5CBD2;--slate-400:#9AA3AD;--slate-450:#7E8894;--slate-500:#5B6470;--slate-600:#454E5A;
+  --slate-650:#68727F;--slate-700:#333B46;--slate-800:#2A3038;--slate-850:#232932;--slate-900:#1A1E25;
+  --slate-950:#14181F;--slate-1000:#0F1216;
+  --oxblood-50:#F6E9EA;--oxblood-200:#E39BA2;--oxblood-300:#D4737C;--oxblood-400:#B4525C;
+  --oxblood-500:#8C2F39;--oxblood-600:#73262E;--oxblood-700:#5E1F26;--oxblood-950:#2A1214;
+  --blue-50:#E8EDF3;--blue-300:#8FA8C4;--blue-500:#1F3A5F;--blue-600:#16304F;--blue-950:#131C27;
+  --font-display:"Instrument Serif",Georgia,serif;
+  --font-reading:"Source Serif 4",Georgia,serif;
+  --font-ui:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --space-4:4px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;
+  --space-32:32px;--space-40:40px;--space-48:48px;--space-64:64px;--space-96:96px;--space-128:128px;--space-160:160px;
+  --radius-1:1px;--radius-2:2px;
+  --dur-fast:120ms;--dur-base:180ms;--ease:cubic-bezier(.2,0,0,1);
+}
+/* ===== SEMANTIC · LIGHT ===== */
+:root{
+  --bg-page:var(--slate-50);--bg-surface:var(--slate-0);--bg-mat:var(--slate-100);
+  --bg-inset:var(--slate-150);--bg-inverse:var(--slate-950);--bg-panel:var(--slate-0);
+  --fg-default:var(--slate-950);--fg-reading:var(--slate-700);--fg-muted:var(--slate-500);--fg-inverse:var(--slate-50);
+  --border-subtle:var(--slate-150);--border-default:var(--slate-200);--border-strong:var(--slate-950);
+  --border-interactive:var(--slate-450);
+  --action-default:var(--oxblood-500);--action-hover:var(--oxblood-600);--action-active:var(--oxblood-700);
+  --action-tint:var(--oxblood-50);
+  --apparatus-default:var(--blue-500);--apparatus-tint:var(--blue-50);
+  --focus-ring:var(--oxblood-500);
+  /* Status hues used only inside interface reconstructions. In the products
+     these drawings reconstruct, state is carried by colour, so dropping it
+     would misrepresent the design. Never used by the site's own components. */
+  --fig-ok:#2E6B4F;--fig-warn:#8A6218;--fig-stop:#8C2F39;--fig-idle:#5B6470;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg-page:var(--slate-950);--bg-surface:var(--slate-900);--bg-mat:var(--slate-850);
+  --bg-inset:var(--slate-800);--bg-inverse:var(--slate-100);--bg-panel:var(--slate-900);
+  --fg-default:var(--slate-100);--fg-reading:#C4CBD3;--fg-muted:#8B95A2;--fg-inverse:var(--slate-950);
+  --border-subtle:var(--slate-850);--border-default:var(--slate-800);--border-strong:var(--slate-100);
+  --border-interactive:var(--slate-650);
+  --action-default:var(--oxblood-300);--action-hover:var(--oxblood-200);--action-active:var(--oxblood-400);
+  --action-tint:var(--oxblood-950);
+  --apparatus-default:var(--blue-300);--apparatus-tint:var(--blue-950);
+  --focus-ring:var(--oxblood-300);
+  --fig-ok:#6FB491;--fig-warn:#C9A24B;--fig-stop:#D4737C;--fig-idle:#8B95A2;
+}}
+:root[data-theme="dark"]{
+  --bg-page:var(--slate-950);--bg-surface:var(--slate-900);--bg-mat:var(--slate-850);
+  --bg-inset:var(--slate-800);--bg-inverse:var(--slate-100);--bg-panel:var(--slate-900);
+  --fg-default:var(--slate-100);--fg-reading:#C4CBD3;--fg-muted:#8B95A2;--fg-inverse:var(--slate-950);
+  --border-subtle:var(--slate-850);--border-default:var(--slate-800);--border-strong:var(--slate-100);
+  --border-interactive:var(--slate-650);
+  --action-default:var(--oxblood-300);--action-hover:var(--oxblood-200);--action-active:var(--oxblood-400);
+  --action-tint:var(--oxblood-950);
+  --apparatus-default:var(--blue-300);--apparatus-tint:var(--blue-950);
+  --focus-ring:var(--oxblood-300);
+  --fig-ok:#6FB491;--fig-warn:#C9A24B;--fig-stop:#D4737C;--fig-idle:#8B95A2;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg-page);color:var(--fg-default);font-family:var(--font-ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+:where(a,button,[tabindex]):focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px;border-radius:var(--radius-2);}
+.skip{position:absolute;left:-9999px;top:0;z-index:99;background:var(--bg-inverse);color:var(--fg-inverse);
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:12px 18px;}
+.skip:focus{left:12px;top:12px;}
+.shell{max-width:1280px;margin:0 auto;padding:0 var(--space-40);}
+@media (max-width:900px){
+  .ed{grid-template-columns:minmax(0,1fr);gap:0;}
+  .ed .mg.gap{border-top:0;padding-top:var(--space-32);}
+  .ed .ct.gap{border-top:0;padding-top:var(--space-12);}
+  .ed .claim{font-size:1.6rem;}
+  .band-head{grid-template-columns:minmax(0,1fr);gap:var(--space-16);align-items:start;}
+  .shell{padding:0 var(--space-24);}}
+@media (max-width:520px){.shell{padding:0 var(--space-20);}}
+
+/* ===== HEADER ===== */
+.hdr{border-bottom:1px solid var(--border-subtle);}
+/* padding-top/bottom only, a `padding` shorthand here would override the
+   horizontal padding .shell sets, and the header would touch the viewport
+   edge at every width below 1280px. */
+.hdr-in{display:flex;align-items:center;gap:var(--space-24);
+  padding-top:var(--space-24);padding-bottom:var(--space-24);}
+.mark{font-family:var(--font-display);font-size:1.35rem;letter-spacing:-.01em;color:var(--fg-default);margin-right:auto;line-height:1;}
+.mark span{display:block;font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-muted);margin-top:5px;}
+.nav{display:flex;align-items:center;gap:var(--space-24);}
+.nav a{font-size:13.5px;font-weight:500;color:var(--fg-reading);padding:4px 0;transition:color var(--dur-fast) var(--ease);}
+.nav a:hover{color:var(--fg-default);}
+.nav a[aria-current="page"]{color:var(--fg-default);box-shadow:0 1px 0 var(--fg-default);}
+/* Résumé is a normal nav item. It opens a PDF, which the aria-label states;
+   it is not styled as an action, so the four links read as one set. */
+.nav a.res{font-family:inherit;font-size:13.5px;font-weight:500;letter-spacing:normal;
+  text-transform:none;color:var(--fg-reading);box-shadow:none;}
+.nav a.res:hover{color:var(--fg-default);box-shadow:none;}
+/* utility zone, visually separated from navigation */
+.util{display:flex;align-items:center;gap:var(--space-16);padding-left:var(--space-24);margin-left:var(--space-8);border-left:1px solid var(--border-default);align-self:stretch;}
+.theme-btn{display:inline-flex;align-items:center;gap:7px;background:var(--bg-surface);color:var(--fg-muted);
+  border:1px solid var(--border-interactive);border-radius:var(--radius-2);padding:7px 11px;cursor:pointer;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;min-height:32px;
+  transition:color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease);}
+/* Utility, not navigation: transparent at rest so it never reads as a fifth
+   destination, and the label drops away on small screens where it was the
+   loudest thing on the page. */
+.theme-btn{background:transparent;border-color:transparent;}
+.theme-btn:hover{color:var(--fg-default);border-color:var(--border-interactive);background:var(--bg-surface);}
+@media (max-width:760px){.theme-btn #themeLabel{display:none;}
+  .theme-btn{padding:9px;min-width:40px;justify-content:center;}}
+.theme-btn svg{width:13px;height:13px;flex:none;}
+@media (max-width:760px){
+  .hdr-in{flex-wrap:wrap;gap:var(--space-16);}
+  .mark{margin-right:auto;}
+  .util{order:2;border-left:0;padding-left:0;margin-left:0;}
+  .nav{order:3;flex-basis:100%;gap:var(--space-20);border-top:1px solid var(--border-subtle);padding-top:var(--space-12);}
+  .theme-btn{min-height:40px;}
+}
+
+/* ===== SECTION HEADS ===== */
+.band{padding:var(--space-96) 0 0;}
+.band.tight{padding-top:var(--space-64);}
+.shead{display:flex;align-items:baseline;gap:var(--space-16);padding-bottom:var(--space-12);border-bottom:1px solid var(--border-strong);margin-bottom:var(--space-32);}
+.shead .eb{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--apparatus-default);}
+.shead .ct{margin-left:auto;font-family:var(--font-mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-muted);white-space:nowrap;}
+.shead h2{font-family:var(--font-display);font-weight:400;font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.12;margin:0;letter-spacing:-.008em;}
+
+/* ===== HERO ===== */
+/* Statement left, portrait right. Shorter than the old hero on purpose:
+   the first case study has to be reachable on the opening screen. */
+.hero{padding:var(--space-48) 0 var(--space-32);display:grid;
+  grid-template-columns:minmax(0,1fr) 260px;gap:var(--space-64);align-items:center;}
+.hero-txt{min-width:0;}
+.hero-portrait{margin:0;}
+/* A working headshot, not the subject of the page: held to a calm frame and
+   slightly desaturated so it sits in the palette instead of competing with the
+   statement beside it. */
+.hero-portrait img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;
+  display:block;background:var(--bg-mat);border:1px solid var(--border-default);
+  filter:saturate(.72) contrast(1.04);}
+.hero-eb{font-family:var(--font-mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--apparatus-default);margin-bottom:var(--space-24);}
+.hero-eb b{color:var(--fg-default);font-weight:400;}
+.hero h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2.3rem,4.4vw,3.5rem);line-height:1.04;letter-spacing:-.015em;margin:0;max-width:20ch;text-wrap:balance;}
+.hero-sub{font-family:var(--font-reading);font-size:1.125rem;line-height:1.66;color:var(--fg-reading);max-width:56ch;margin:var(--space-24) 0 0;}
+.hero-cta{display:flex;flex-wrap:wrap;gap:var(--space-24);align-items:center;margin-top:var(--space-32);}
+.btn{background:var(--bg-inverse);color:var(--fg-inverse);font-family:var(--font-ui);font-weight:500;font-size:13.5px;
+  padding:13px 24px;border-radius:var(--radius-1);border:0;cursor:pointer;transition:background var(--dur-fast) var(--ease);}
+.btn:hover{background:var(--slate-700);}
+:root[data-theme="dark"] .btn:hover{background:var(--slate-300);}
+/* Secondary action, paired with .btn. The résumé is a destination, not a
+   sentence, so it is shaped like the primary button rather than underlined as
+   inline text, same height, same type, outline instead of fill. The border
+   meets WCAG 2.2 1.4.11 (3:1) via --border-interactive. */
+.btn-2{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-ui);font-weight:500;
+  font-size:13.5px;color:var(--fg-default);background:transparent;
+  padding:12px 22px;border:1px solid var(--border-interactive);border-radius:var(--radius-1);
+  transition:color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease),
+             background var(--dur-fast) var(--ease);}
+.btn-2 .ar{color:var(--fg-muted);transition:color var(--dur-fast) var(--ease);}
+.btn-2:hover{color:var(--action-default);border-color:var(--action-default);background:var(--bg-surface);}
+.btn-2:hover .ar{color:var(--action-default);}
+.tlink{font-family:var(--font-ui);font-weight:500;font-size:13.5px;color:var(--action-default);box-shadow:0 1px 0 var(--action-default);padding-bottom:2px;transition:color var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease);}
+.tlink:hover{color:var(--action-hover);box-shadow:0 2px 0 var(--action-hover);}
+.hero-app{border-top:1px solid var(--border-strong);padding-top:var(--space-12);}
+.hero-app dl{margin:0;display:flex;flex-direction:column;}
+.hero-app div{display:flex;justify-content:space-between;gap:var(--space-12);padding:9px 0;border-bottom:1px solid var(--border-subtle);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;}
+.hero-app dt{color:var(--fg-muted);text-transform:uppercase;letter-spacing:.11em;}
+.hero-app dd{margin:0;color:var(--fg-reading);text-align:right;}
+/* The hero facts run as one strip, using the same component as a case-study
+   fact row, so the same kind of information looks the same everywhere. */
+/* No bottom margin: the Selected Work band supplies its own top padding, and
+   stacking both pushed the first case study off the opening screen. */
+.hero-facts{margin-top:var(--space-8);margin-bottom:0;}
+.hero-facts a{color:var(--action-default);overflow-wrap:anywhere;box-shadow:0 1px 0 color-mix(in srgb,var(--action-default) 40%,transparent);}
+.hero-facts a:hover{box-shadow:0 1px 0 var(--action-default);}
+.facts.hero-facts{grid-template-columns:repeat(6,minmax(0,1fr));gap:0 var(--space-24);}
+@media (max-width:1100px){.facts.hero-facts{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (max-width:640px){.facts.hero-facts{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .facts.hero-facts dd{font-size:11px;}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--space-24);}
+.chips span{font-family:var(--font-mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-muted);
+  border:1px solid var(--border-default);background:var(--bg-surface);border-radius:var(--radius-2);padding:5px 9px;}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr);gap:var(--space-32);padding:var(--space-48) 0 var(--space-32);}
+  .hero-portrait{max-width:240px;order:-1;}}
+@media (max-width:520px){.hero h1{font-size:2.35rem;}.hero-sub{font-size:1.02rem;}}
+
+/* ===== PROJECT ROWS =====
+   One row per project. All three rows are identical: there is no flagship /
+   secondary split, so the three case studies read as one set rather than as
+   one project plus two afterthoughts.
+
+   Row anatomy:  text column (left, 0.9fr) | image (right, 1.1fr)
+   The image is the largest element in the row, and every row carries the same
+   fields, index, problem, name, what it is, facts, read link, so nothing on
+   either side is left empty. */
+.wlist{display:flex;flex-direction:column;gap:var(--space-64);}
+.proj{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);
+  gap:var(--space-48);align-items:start;color:inherit;position:relative;
+  padding-top:var(--space-32);border-top:1px solid var(--border-strong);}
+/* The oxblood wipe runs along the rule at the TOP of the row, so the row reads
+   as a labelled entry rather than a picture with a caption underneath. */
+.proj::after{content:"";position:absolute;left:0;top:-1px;height:1px;width:0;
+  background:var(--action-default);transition:width var(--dur-base) var(--ease);}
+.proj:hover::after,.proj:focus-visible::after{width:100%;}
+.p-txt{display:flex;flex-direction:column;align-items:flex-start;
+  gap:var(--space-16);min-width:0;}
+
+.proj .prob{font-family:var(--font-display);font-weight:400;
+  font-size:clamp(1.6rem,2.5vw,2.1rem);line-height:1.11;letter-spacing:-.008em;
+  color:var(--fg-default);max-width:20ch;margin-top:var(--space-4);
+  transition:color var(--dur-fast) var(--ease);}
+.proj:hover .prob{color:var(--action-default);}
+.proj .nm{font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--fg-default);}
+.proj .desc{font-family:var(--font-reading);font-size:1rem;line-height:1.62;
+  color:var(--fg-reading);max-width:44ch;}
+/* Facts sit below a hairline: they are apparatus, not prose. */
+.proj .meta{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;
+  color:var(--fg-muted);line-height:1.7;width:100%;padding-top:var(--space-16);
+  border-top:1px solid var(--border-subtle);}
+.proj .go{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--action-default);padding-bottom:3px;
+  box-shadow:0 1px 0 color-mix(in srgb,var(--action-default) 45%,transparent);
+  transition:box-shadow var(--dur-fast) var(--ease);}
+.proj:hover .go{box-shadow:0 1px 0 var(--action-default);}
+
+/* Image: same frame and same crop for a screenshot and for a structural mark,
+   so the three rows sit on one visual baseline. */
+.proj .thumb{width:100%;background:var(--bg-mat);overflow:hidden;line-height:0;
+  aspect-ratio:16/10;}
+.proj .thumb img,.proj .thumb svg{width:100%;height:100%;
+  object-fit:cover;object-position:top left;}
+
+.idx{display:flex;align-items:baseline;gap:var(--space-12);font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;}
+.idx .n{color:var(--apparatus-default);}
+.idx .f{color:var(--fg-muted);}
+.idx .flag{margin-left:auto;color:var(--action-default);border:1px solid color-mix(in srgb,var(--action-default) 40%,transparent);border-radius:var(--radius-2);padding:2px 7px;letter-spacing:.1em;}
+
+/* Below 900px the row stacks: image first, then the text under it. */
+@media (max-width:900px){
+  .wlist{gap:var(--space-48);}
+  .proj{grid-template-columns:minmax(0,1fr);gap:var(--space-24);}
+  .proj .thumb{order:-1;}
+  .proj .prob{max-width:26ch;font-size:1.65rem;}
+  .proj .desc{max-width:60ch;}}
+@media (max-width:520px){.proj .prob{font-size:1.45rem;}}
+
+
+/* ===== CASE-STUDY ADDITIONS =====
+   Two components the updated case studies need and the old ones did not:
+   a pair of parallel labelled lists, and a closing line under a section. */
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-48);
+  padding-top:var(--space-24);padding-bottom:var(--space-16);}
+.cols2 h3{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fg-muted);font-weight:400;margin:0 0 var(--space-12);
+  padding-bottom:var(--space-8);border-bottom:1px solid var(--border-default);}
+.cols2 ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-8);}
+.cols2 li{font-family:var(--font-reading);font-size:.95rem;line-height:1.5;color:var(--fg-reading);
+  padding-left:var(--space-16);position:relative;}
+.cols2 li::before{content:"";position:absolute;left:0;top:.6em;width:4px;height:4px;border-radius:50%;
+  background:var(--apparatus-default);}
+@media (max-width:760px){.cols2{grid-template-columns:minmax(0,1fr);gap:var(--space-32);}}
+
+/* This carries real sentences from the case study, so it is set as reading
+   type. It was 10.5px mono, which is the label style, not a prose style. */
+.after{font-family:var(--font-reading);font-size:.98rem;line-height:1.62;
+  color:var(--fg-muted);margin:var(--space-20) 0 0;max-width:68ch;
+  padding-top:var(--space-16);border-top:1px solid var(--border-subtle);}
+
+/* ===== CAPABILITY GRID ===== */
+.caps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-32);}
+.caps > div{border-top:1px solid var(--border-default);padding-top:var(--space-16);}
+.caps h3{font-family:var(--font-ui);font-weight:600;font-size:.95rem;margin:0 0 var(--space-8);}
+.caps p{margin:0;font-size:.9rem;line-height:1.6;color:var(--fg-muted);}
+@media (max-width:900px){.caps{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-24);}}
+@media (max-width:520px){.caps{grid-template-columns:minmax(0,1fr);}}
+
+/* ===== DESIGN SYSTEM BAND ===== */
+.ds{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:var(--space-48);align-items:start;}
+.ds-spec{display:flex;flex-direction:column;gap:var(--space-24);}
+.ds-ramp{display:flex;border:1px solid var(--border-default);border-radius:var(--radius-2);overflow:hidden;}
+.ds-ramp i{flex:1;height:52px;display:block;}
+.ds-type{display:flex;flex-direction:column;gap:var(--space-12);border-top:1px solid var(--border-default);padding-top:var(--space-16);}
+.ds-type div{display:grid;grid-template-columns:112px minmax(0,1fr);gap:var(--space-16);align-items:baseline;}
+.ds-type b{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-muted);font-weight:400;}
+.ds-note{border-top:1px solid var(--border-strong);padding-top:var(--space-16);}
+.ds-note p{font-family:var(--font-reading);font-size:1rem;line-height:1.68;color:var(--fg-reading);margin:0 0 var(--space-16);}
+.ds-list{display:flex;flex-direction:column;}
+.ds-list div{display:flex;justify-content:space-between;gap:var(--space-12);padding:8px 0;border-bottom:1px solid var(--border-subtle);font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--fg-muted);}
+.ds-list div b{color:var(--apparatus-default);font-weight:400;}
+@media (max-width:900px){.ds{grid-template-columns:minmax(0,1fr);gap:var(--space-32);}}
+
+/* ===== EXPERIENCE / LISTS ===== */
+.tl{display:flex;flex-direction:column;border-top:1px solid var(--border-strong);}
+.tl > div{display:grid;grid-template-columns:172px minmax(0,1fr);gap:var(--space-32);padding:var(--space-16) 0;border-bottom:1px solid var(--border-subtle);align-items:start;}
+.tl .y{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;color:var(--apparatus-default);font-variant-numeric:tabular-nums;padding-top:3px;}
+.tl h3{font-family:var(--font-ui);font-weight:600;font-size:.95rem;margin:0 0 3px;}
+.tl .co{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:7px;}
+.tl p{margin:0;font-size:.9rem;line-height:1.6;color:var(--fg-muted);max-width:62ch;}
+@media (max-width:900px){.tl > div{grid-template-columns:minmax(0,1fr);gap:var(--space-4);}}
+
+.rl{display:flex;flex-direction:column;border-top:1px solid var(--border-strong);}
+.rl > div{display:grid;grid-template-columns:230px minmax(0,1fr);gap:var(--space-32);padding:var(--space-16) 0;border-bottom:1px solid var(--border-subtle);align-items:start;}
+.rl .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--apparatus-default);padding-top:2px;}
+.rl .v{font-size:.92rem;line-height:1.68;color:var(--fg-reading);}
+.rl .v.mono{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--fg-muted);}
+@media (max-width:900px){.rl > div{grid-template-columns:minmax(0,1fr);gap:var(--space-4);}}
+
+/* ===== EDITORIAL (case study / about) ===== */
+/* Rail + measure, centred. The old 168px|1fr grid left a third of every section
+   empty on the right, because the prose capped long before the column did. */
+.ed{display:grid;grid-template-columns:200px minmax(0,880px);gap:0 var(--space-48);
+  align-items:start;justify-content:center;}
+/* Section labels are static. Sticky was tried and removed: inside this grid the
+   labels of adjacent rows pile into the same band. The rule above each section
+   and the sans heading carry the rhythm instead. */
+.mg{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.ct{display:flex;flex-direction:column;min-width:0;}
+.gap{margin-top:var(--space-64);}
+.gap-s{margin-top:var(--space-40);}
+.mg .eb{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--apparatus-default);}
+.mg .fn{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--apparatus-default);}
+.mg .cap{font-family:var(--font-mono);font-size:11px;line-height:1.7;letter-spacing:.04em;color:var(--fg-muted);}
+.mg .dis{font-family:var(--font-mono);font-size:9.5px;line-height:1.6;letter-spacing:.03em;color:var(--fg-muted);opacity:.72;margin-top:10px;}
+.mg .full{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--action-default);margin-top:4px;box-shadow:0 1px 0 color-mix(in srgb,var(--action-default) 45%,transparent);align-self:flex-start;padding-bottom:2px;}
+.mg .note{font-family:var(--font-mono);font-size:10.5px;line-height:1.62;color:var(--fg-muted);}
+.mg .scale{display:flex;flex-direction:column;border-top:1px solid var(--border-default);margin-top:var(--space-8);}
+.mg .scale div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;padding:6px 0;border-bottom:1px solid var(--border-subtle);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--fg-muted);font-variant-numeric:tabular-nums;}
+.mg .scale div b{color:var(--apparatus-default);font-weight:400;}
+/* ===== ABOUT HEAD =====
+   Text left, portrait right, so the portrait has a column to sit in instead of
+   interrupting the reading measure. */
+.ab-head{display:grid;grid-template-columns:minmax(0,1fr) 280px;
+  gap:var(--space-48);align-items:start;}
+.ab-head-a{min-width:0;}
+.ab-head figure.portrait{max-width:100%;margin:0;}
+.ab-head .hero-app{max-width:420px;}
+@media (max-width:900px){.ab-head{grid-template-columns:minmax(0,1fr);gap:var(--space-32);}
+  .ab-head figure.portrait{max-width:220px;}}
+
+/* Band headings sit above a full-width band, so they take a wider measure
+   than a case-study claim (which is deliberately narrow at 18ch). */
+.band-head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
+  gap:var(--space-48);align-items:end;margin:0 0 var(--space-40);}
+.band-h{font-family:var(--font-display);font-weight:400;
+  font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1.08;letter-spacing:-.01em;
+  margin:0;max-width:26ch;text-wrap:balance;}
+.band-note{font-family:var(--font-reading);font-size:1rem;line-height:1.62;
+  color:var(--fg-muted);margin:0;max-width:44ch;}
+/* A band heading used on its own (not paired with a note inside .band-head)
+   had no space beneath it, so the capability rules and the colour ramp were
+   colliding with its descenders. */
+.band > .band-h{margin-bottom:var(--space-40);}
+/* Page-level claims stay in the display serif. */
+.claim{font-family:var(--font-display);font-weight:400;font-size:clamp(2rem,4.3vw,3.1rem);line-height:1.05;letter-spacing:-.01em;margin:0;max-width:18ch;text-wrap:balance;}
+/* Section headings inside a case study drop to the UI sans at a third of the
+   size. Twenty-four serif headings at 56px gave the page no hierarchy and made
+   an argument read like a run of magazine openers. */
+.ed .claim{font-family:var(--font-ui);font-weight:600;font-size:1.9rem;line-height:1.2;
+  letter-spacing:-.018em;max-width:26ch;}
+.ed .qual{font-size:1.02rem;margin-top:var(--space-8);max-width:52ch;}
+/* A hairline over every section gives the long page a countable rhythm. */
+.ed .mg.gap{padding-top:var(--space-40);}
+.ed .ct.gap{padding-top:var(--space-40);border-top:1px solid var(--border-default);}
+.qual{font-family:var(--font-reading);font-style:italic;font-size:1.19rem;line-height:1.42;color:var(--fg-muted);margin:var(--space-12) 0 0;max-width:44ch;}
+.prose{font-family:var(--font-reading);font-size:1.09rem;line-height:1.74;color:var(--fg-reading);max-width:62ch;margin:var(--space-24) 0 0;display:flex;flex-direction:column;gap:var(--space-16);}
+.prose p{margin:0;}
+.pull{font-family:var(--font-display);font-size:1.6rem;line-height:1.24;color:var(--fg-default);max-width:32ch;padding-left:var(--space-20);border-left:2px solid var(--action-default);margin-top:var(--space-32);}
+.fig:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px;}
+.fig{background:var(--bg-mat);border:1px solid var(--border-subtle);padding:var(--space-24);line-height:0;overflow-x:auto;margin-top:var(--space-8);}
+.fig img{width:100%;min-width:760px;height:auto;}
+.fig svg{width:100%;min-width:0;height:auto;}
+.annos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-32) var(--space-40);
+  border-top:1px solid var(--border-default);padding-top:var(--space-24);margin-top:var(--space-32);}
+.anno{display:grid;grid-template-columns:26px minmax(0,1fr);gap:var(--space-12);align-items:start;}
+.anno .n{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--apparatus-default);padding-top:2px;}
+.anno h3{font-family:var(--font-ui);font-weight:600;font-size:.95rem;line-height:1.34;margin:0 0 5px;letter-spacing:-.005em;}
+.anno p{margin:0;font-family:var(--font-reading);font-size:.95rem;line-height:1.6;color:var(--fg-muted);}
+.anno p:empty{display:none;}
+@media (max-width:900px){
+  .ed{display:flex;flex-direction:column;align-items:stretch;}
+  .gap{margin-top:var(--space-40);}.gap-s{margin-top:var(--space-24);}
+  .mg + .ct{margin-top:var(--space-12);}
+  .annos{grid-template-columns:minmax(0,1fr);gap:var(--space-20);}
+  .fig{padding:var(--space-12);}.fig img{min-width:700px;}
+  /* Reconstructions are dense desktop interfaces. Below ~820px, scaling them
+     to the column would make their labels unreadable, so they keep a working
+     width and the plate scrolls sideways instead. */
+  .fig svg{min-width:760px;}
+  .ct.gap-s figure::after{content:"Scroll sideways to see the whole figure.";
+    display:block;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.04em;
+    color:var(--fg-muted);margin-top:var(--space-8);}
+  .prose{font-size:1.02rem;}.claim{font-size:1.85rem;}.qual{font-size:1.04rem;}
+}
+@media (max-width:520px){.fig{padding:var(--space-8);}.claim{font-size:1.65rem;}}
+
+/* ===== CASE STUDY HERO + FACTS ===== */
+/* ===== CASE-STUDY HEAD =====
+   Intro left, section index right. These pages run long, so a hiring manager
+   gets a skim path before committing to the read, and the right-hand column
+   carries information instead of sitting empty. */
+.cs-hero{padding:var(--space-40) 0 var(--space-40);border-bottom:1px solid var(--border-strong);}
+.back{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fg-muted);display:inline-block;margin-bottom:var(--space-32);
+  transition:color var(--dur-fast) var(--ease);}
+.back:hover{color:var(--action-default);}
+.cs-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:var(--space-64);align-items:start;}
+.cs-head-a,.cs-head-b{min-width:0;}
+.toc{border-top:1px solid var(--border-strong);padding-top:var(--space-12);}
+.toc-h{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fg-muted);margin:0 0 var(--space-8);}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--space-24);}
+.toc li a{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--space-12);
+  padding:7px 0;border-bottom:1px solid var(--border-subtle);align-items:baseline;}
+.toc .n{font-family:var(--font-mono);font-size:10px;color:var(--apparatus-default);}
+.toc .t{font-family:var(--font-ui);font-size:12.5px;line-height:1.35;color:var(--fg-reading);}
+.toc li a:hover .t{color:var(--action-default);}
+@media (max-width:900px){.cs-head{grid-template-columns:minmax(0,1fr);gap:var(--space-32);}}
+@media (max-width:640px){
+  /* Twenty-four rows is four phone screens of contents before any content, so
+     it scrolls inside its own box instead. */
+  .toc ol{grid-template-columns:minmax(0,1fr);max-height:min(46vh,380px);overflow-y:auto;}
+  .toc li a{padding:5px 0;}
+  .toc .t{font-size:12px;}}
+.cs-eb{font-family:var(--font-mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--apparatus-default);}
+.cs-eb .flag{color:var(--action-default);margin-left:var(--space-12);border:1px solid color-mix(in srgb,var(--action-default) 40%,transparent);border-radius:var(--radius-2);padding:2px 7px;letter-spacing:.1em;font-size:9.5px;}
+.cs-hero h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2.2rem,4.2vw,3.4rem);line-height:1.02;letter-spacing:-.014em;margin:var(--space-16) 0 0;max-width:20ch;text-wrap:balance;}
+.cs-hero .sub{font-family:var(--font-reading);font-size:1.125rem;line-height:1.66;color:var(--fg-reading);max-width:60ch;margin-top:var(--space-16);}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--space-32);margin-top:var(--space-40);border-top:1px solid var(--border-default);}
+.facts div{padding:var(--space-16) 0 0;display:flex;flex-direction:column;gap:5px;}
+.facts dt{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-muted);}
+.facts dd{margin:0;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.04em;color:var(--fg-default);font-variant-numeric:tabular-nums;}
+@media (max-width:900px){.facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--space-24);}}
+@media (max-width:520px){.facts{grid-template-columns:minmax(0,1fr);}}
+@media (max-width:400px){.facts.hero-facts{grid-template-columns:minmax(0,1fr);}}
+
+/* ===== PAGE FOOTER / NEXT ===== */
+.nextbar{margin-top:var(--space-96);border-top:1px solid var(--border-strong);padding-top:var(--space-24);display:flex;flex-wrap:wrap;gap:var(--space-24);align-items:baseline;}
+.nextbar .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-muted);}
+.nextbar .nx{font-family:var(--font-display);font-size:1.5rem;line-height:1.16;color:var(--fg-default);transition:color var(--dur-fast) var(--ease);}
+.nextbar a:hover .nx{color:var(--action-default);}
+.nextbar .sp{margin-left:auto;font-family:var(--font-mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-muted);}
+
+.ftr{margin-top:var(--space-96);border-top:1px solid var(--border-strong);padding:var(--space-40) 0 var(--space-64);}
+.ftr-in{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:var(--space-40);align-items:start;}
+.ftr .em{font-family:var(--font-display);font-size:clamp(1.25rem,4.6vw,1.75rem);line-height:1.16;
+  color:var(--fg-default);display:inline-block;max-width:100%;overflow-wrap:anywhere;}
+.ftr .em:hover{color:var(--action-default);}
+.ftr .av{font-family:var(--font-reading);font-size:1rem;color:var(--fg-reading);margin-top:var(--space-16);max-width:46ch;line-height:1.6;}
+.ftr h2{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);margin:0 0 var(--space-12);font-weight:400;}
+.ftr ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
+.ftr ul a{font-size:13.5px;color:var(--fg-reading);}
+.ftr ul a:hover{color:var(--action-default);}
+.ftr .colo{margin-top:var(--space-40);padding-top:var(--space-16);border-top:1px solid var(--border-subtle);font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--fg-muted);display:flex;flex-wrap:wrap;gap:6px 24px;}
+@media (max-width:900px){.ftr-in{grid-template-columns:minmax(0,1fr);gap:var(--space-32);}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;}
+}
+
+/* ===== PORTRAIT (About) =====
+   Scoped as `.ct figure.portrait` so it outranks the generic `.ct figure`
+   rule further down. Change max-width here to resize the photo. */
+.ct figure.portrait{margin:0 0 var(--space-24);max-width:280px;}
+.portrait{margin:0 0 var(--space-24);max-width:280px;}
+.portrait img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;display:block;
+  background:var(--bg-mat);border-radius:var(--radius-2);}
+@media (max-width:900px){.ct figure.portrait,.portrait{max-width:220px;}}
+@media (max-width:520px){.ct figure.portrait,.portrait{max-width:200px;}}
+
+/* ===== EXTERNAL ASSET IMAGES ===== */
+/* The ramp is a 480x56 artefact. Stretched to the column it read as twelve
+   oversized blocks; held to its own size it reads as a token ramp. */
+img.ds-ramp{width:100%;max-width:440px;height:auto;border:1px solid var(--border-default);
+  border-radius:var(--radius-2);display:block;}
+/* All three project rows share one image treatment: a plate on a mat.
+   The screenshot fills its mat; the diagrams are inset on the same mat,
+   so a diagram and a screenshot read as the same kind of object. */
+.proj .thumb{background:var(--bg-mat);overflow:hidden;}
+.proj .thumb img{width:100%;height:100%;object-fit:cover;object-position:top left;}
+.proj .thumb img[src$=".svg"]{object-fit:contain;padding:var(--space-32);}
+@media (max-width:520px){.proj .thumb img[src$=".svg"]{padding:var(--space-20);}}
+.fig img[src$=".svg"]{min-width:0;}
+.ed > *{min-width:0;}
+.fig{max-width:100%;}
+.ct figure{margin:0;max-width:100%;}

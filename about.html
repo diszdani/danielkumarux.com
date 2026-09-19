@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ==========================================================================
+     DANIEL KUMAR M · UX PORTFOLIO
+     Senior UX Lead · UX Architect
+
+     Double-click any .html file to open it. No server, no build step.
+
+     WHERE THINGS LIVE
+       index.html / work.html / about.html ....... the three main pages
+       case-studies/*.html ....................... one file per case study
+       assets/css/site.css ....................... ALL styling, every page
+       assets/js/site.js ......................... theme control, anchors
+       assets/ .................................. images, icons, résumé PDF
+
+     EDITING
+       · Page text  -> edit the HTML in that page's <main> below.
+       · Colours    -> assets/css/site.css, the DESIGN TOKENS block at the top.
+       · Header and footer are repeated in each file. Change one, change all
+         six, a find-and-replace across the folder does it in one pass.
+       · Images     -> drop a new file over the old one in assets/, same
+         filename. No HTML editing needed.
+     ========================================================================== -->
+
+<title>About · Daniel Kumar M</title>
+<meta name="description" content="Sixteen years of making hard systems legible. Senior UX Lead and UX Architect, Chennai, India.">
+<link rel="icon" type="image/png" href="assets/icons/favicon.png">
+
+<!-- FONTS, needs internet. Without it the site falls back to Georgia / Arial
+     and still reads correctly. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<link rel="stylesheet" href="assets/css/site.css">
+
+<!-- The only inline script on the site: it sets the theme before the first
+     paint so the page never flashes the wrong background. -->
+<script>(function(){try{var t=localStorage.getItem('dk-portfolio-theme')||((window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+
+<body data-page="about">
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ==========================================================================
+     NAVIGATION
+     Four destinations only. The theme control is NOT a nav item, it sits in
+     the .util zone, past a dividing rule, styled as a button.
+     ========================================================================== -->
+<header class="hdr">
+  <div class="shell hdr-in">
+
+    <a class="mark" href="index.html">Daniel Kumar<span>Senior UX Lead · UX Architect</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="work.html" data-nav="work">Work</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a href="assets/Daniel_Kumar_Resume.pdf" class="res" target="_blank" rel="noopener"
+         aria-label="Résumé (PDF, opens in a new tab)">Résumé</a>
+      <a href="#footer">Contact</a>
+    </nav>
+
+    <!-- UTILITY CONTROL, changes appearance, does not navigate. -->
+    <div class="util">
+      <button class="theme-btn" id="themeBtn" type="button">
+        <span id="themeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span id="themeLabel">Light</span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<main id="main" class="shell" tabindex="-1">
+<section class="ed" style="padding-top:var(--space-64);"><div class="mg"><span class="eb">About</span></div><div class="ct"><div class="ab-head"><div class="ab-head-a"><p class="cs-eb">Senior UX Lead · UX Architect · 16+ years</p><h1 class="claim" style="margin-top:var(--space-16);max-width:14ch;">Daniel Kumar M</h1><p class="hero-sub" style="margin-top:var(--space-16);">I design complex digital products and the systems that hold them together: enterprise platforms, product and UI design, design systems and UX architecture.</p><div class="hero-app" style="margin-top:var(--space-24);"><dl><div><dt>Based</dt><dd>Chennai, India</dd></div><div><dt>Open to</dt><dd>India · remote · international</dd></div><div><dt>Now</dt><dd>Senior UX Lead, Platform 3 Solutions</dd></div><div><dt>Email</dt><dd><a class="tlink" href="mailto:daniel.kumar25@gmail.com">daniel.kumar25@gmail.com</a></dd></div></dl></div></div>
+      <!-- PORTRAIT, replace assets/portrait/daniel-kumar-portrait.png with your own photo.
+           Keep the filename and this markup; 4:5 ratio, 1200x1500px or larger. -->
+      <figure class="portrait">
+        <img src="assets/portrait/daniel-kumar-portrait.png" width="611" height="729"
+             alt="Portrait of Daniel Kumar M.">
+      </figure>
+      </div></div><div class="mg gap"><span class="eb">The story</span><div class="scale"><div><b>2008–10</b><span>Trained, built</span></div><div><b>2010–17</b><span>Public sector</span></div><div><b>2017–19</b><span>Telecom</span></div><div><b>2019–</b><span>Data platforms</span></div></div></div><div class="ct gap"><h2 class="claim">Sixteen years of making hard systems legible</h2><div class="prose"><p>I trained as a multimedia visualiser and started by building interfaces by hand: HTML, CSS, JavaScript, jQuery, WordPress. That is where the technical fluency comes from, and it is why I design around engineering constraints rather than discovering them in QA.</p><p>Seven years at Onward Group went on responsive, accessible websites and web application interfaces, including Tamil Nadu government projects (LFAD, DISH and the Election Commission web application), where accessibility, usability and compliance were requirements rather than preferences. Then a year on the UX revamp of IVAPP, a Verizon enterprise application: complex telecom workflows, someone else’s design standards, and implemented screens reviewed against approved designs.</p><p>Since 2019 I have owned the UX for an enterprise data platform family end to end: the ETL tool that moves the data, the platform that holds it under retention and governance, and the internal system that turns consumption into an invoice. Eight modules, five user roles, nine source families, one design system across two products.</p></div><div class="pull">The thread is not a set of tools. It is that I keep taking systems where nothing fails in front of the user.</div></div><div class="mg gap"><span class="eb">Principles</span><span class="note">Drawn from the case studies. Each links to the project it came from.</span></div><div class="ct gap"><h2 class="claim">How I work</h2><div class="rl" style="margin-top:var(--space-24);"><div><div class="k">Variety belongs inside the shell</div><div class="v">Nine source families could have become nine flows. Keeping one wizard and varying only the questions inside it meant the product scaled with the connector list rather than against it. <a class="tlink" href="case-studies/enterprise-etl-platform.html">Enterprise ETL Platform →</a></div></div><div><div class="k">Graduate complexity</div><div class="v">Four extraction modes on one ladder served both the user archiving a whole database and the one extracting a single reporting slice. A single compromise mode would have served neither. <a class="tlink" href="case-studies/enterprise-etl-platform.html">Enterprise ETL Platform →</a></div></div><div><div class="k">Name the consequence</div><div class="v">Where an action cannot be undone, make the user pass through a state that names the consequence. Deletion opens a review page, not a dialog; disposition separates the user who generates a purge list from the manager who approves it. <a class="tlink" href="case-studies/enterprise-data-platform.html">Enterprise Data Platform →</a></div></div><div><div class="k">Defaults are decisions</div><div class="v">The default behaviour is a design decision by omission. Blob files named by random ID were nobody’s decision. Naming that default as a problem, and giving the user the join that fixes it, was the whole of the work. <a class="tlink" href="case-studies/enterprise-etl-platform.html">Enterprise ETL Platform →</a></div></div></div></div><div class="mg gap"><span class="eb">Leadership</span></div><div class="ct gap"><h2 class="claim">How I lead</h2><div class="prose"><p>I established a review gate before high-fidelity work: ideation and rough design, UX review, feedback and refinement, then high-fidelity mockup. UX issues surfaced before high-fidelity work started, rework dropped because direction was agreed first, and established patterns got reused rather than reinvented.</p><p>I directed a small UX team of one to two designers: direction, prioritisation, assigning work, reviews and critiques, mentoring and performance discussions. Designers owned feature-level execution.</p><p>The harder job was not either product. The ETL tool and the archive platform were built on one shared component language, and most of the design leadership was deciding which differences between them were real and which were habit.</p></div></div><div class="mg gap"><span class="eb">Evidence</span></div><div class="ct gap"><h2 class="claim">How I get evidence</h2><div class="prose"><p>On these products the research channel ran through our internal implementation team, who work directly with clients and carry first-hand knowledge of what those clients expect and where they get stuck. Interviews and usability sessions with end users were not part of the engagement.</p><p>Design was validated through UX and design reviews inside the team, stakeholder walkthroughs and demonstrations, technical feasibility discussions with engineering, QA and design review before release, and implementation review against approved designs.</p><p>One input, worked through: the implementation team raised a need for an application count on the listing. Without it, the volume of the estate was only inferable by scanning the grid. The count now sits in the listing header, beside the title.</p></div></div><div class="mg gap"><span class="eb">Skills</span></div><div class="ct gap"><h2 class="claim">What I do</h2><div class="rl" style="margin-top:var(--space-24);"><div><div class="k">UX strategy &amp; architecture</div><div class="v">UX strategy · Information architecture · Product thinking · Requirement translation · Navigation models · Scalable system design · Competitive analysis</div></div><div><div class="k">Complex workflow &amp; product design</div><div class="v">Enterprise workflow design · User flows · Journey mapping · Wireframing · Prototyping · Interaction design · Designing for irreversible actions · Asynchronous work · Data-heavy interfaces</div></div><div><div class="k">Design systems &amp; UX guidelines</div><div class="v">Design systems · Design tokens · Component libraries · UX guidelines and documentation · Interaction patterns · Light and dark theming · Cross-product consistency · Responsive design · Accessibility (WCAG)</div></div><div><div class="k">Research, validation &amp; quality</div><div class="v">Stakeholder and implementation-team research · Usability evaluation and heuristics · Design reviews and critique · Design QA against approved designs · Developer specification and handoff</div></div><div><div class="k">Leadership &amp; collaboration</div><div class="v">Design leadership · Team direction and mentoring · Work allocation and prioritisation · Design review process · Stakeholder management · Cross-functional collaboration with product, engineering and QA · Client communication</div></div><div><div class="k">Tools</div><div class="v mono">Figma · Adobe XD · Photoshop · Illustrator · Miro · HTML5 &amp; CSS3</div></div></div></div><div class="mg gap"><span class="eb">Experience</span></div><div class="ct gap"><h2 class="claim">Where I have worked</h2><div class="tl" style="margin-top:var(--space-24);"><div><div class="y">Feb 2019 to present</div><div><h3>Senior UX Lead</h3><div class="co">Platform 3 Solutions</div><p>End-to-end UX strategy and product design for an enterprise data platform family: the archive platform, the ETL tool that feeds it, and the internal billing and consumption tool. Design system and UX guidelines across the product family. Directed a small UX team; established the design-review process.</p></div></div><div><div class="y">Oct 2018 to Jan 2019</div><div><h3>Senior UI (UX) Developer</h3><div class="co">Onward Technologies</div><p>Design reviews and UX recommendations on ongoing application development; identified usability issues, workflow gaps and design inconsistencies.</p></div></div><div><div class="y">Sep 2017 to Oct 2018</div><div><h3>Senior UI/UX Developer</h3><div class="co">Newt Global</div><p>UX revamp of IVAPP, a Verizon enterprise application. Complex telecom workflows designed to Verizon’s design standards and accessibility requirements, with implemented screens reviewed against approved designs.</p></div></div><div><div class="y">May 2010 to Sep 2017</div><div><h3>Senior UI (UX) Developer</h3><div class="co">Onward Group of Companies</div><p>Responsive, accessible websites and web application interfaces, including Tamil Nadu government projects: LFAD, DISH and the Election Commission web application.</p></div></div></div></div><div class="mg gap-s"><span class="eb">Education</span></div><div class="ct gap-s"><div class="rl"><div><div class="k">2025 to 2027</div><div class="v mono">M.Sc. · Alagappa University · in progress</div></div><div><div class="k">2022 to 2025</div><div class="v mono">B.Sc. · Alagappa University, Chennai</div></div><div><div class="k">2014 to 2017</div><div class="v mono">B.M.S. · ISBM</div></div><div><div class="k">2008 to 2009</div><div class="v mono">Master in Multimedia Visualizer · Apollo Colleges Group</div></div></div></div></section></main>
+
+<!-- ==========================================================================
+     FOOTER
+     Edit your email, LinkedIn and Behance links here. Repeated on every page.
+     ========================================================================== -->
+<footer class="ftr" id="footer">
+  <div class="shell">
+    <div class="ftr-in">
+
+      <div>
+        <h2>Contact</h2>
+        <a class="em" href="mailto:daniel.kumar25@gmail.com">daniel.kumar25@gmail.com</a>
+        <p class="av">Open to Senior UX Lead, UX Architect and design leadership roles,
+          in India and remote internationally. Based in Chennai, India.</p>
+      </div>
+
+      <div>
+        <h2>Elsewhere</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/danielkumar25/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+          <li><a href="https://www.behance.net/danielkumar25" target="_blank" rel="noopener">Behance ↗</a></li>
+          <li><a href="assets/Daniel_Kumar_Resume.pdf" target="_blank" rel="noopener">Résumé (PDF) ↓</a></li>
+        </ul>
+      </div>
+
+      <nav aria-label="Footer">
+        <h2>Case studies</h2>
+        <ul>
+          <li><a href="case-studies/enterprise-data-platform.html">Enterprise Data Platform</a></li>
+          <li><a href="case-studies/enterprise-etl-platform.html">Enterprise ETL Platform</a></li>
+          <li><a href="case-studies/billing-consumption.html">Billing &amp; Consumption</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+    </div>
+    <div class="colo">
+      <span>Daniel Kumar M</span><span>Senior UX Lead · UX Architect</span>
+      <span>16+ years</span><span>Chennai, India</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
