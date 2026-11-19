@@ -1434,7 +1434,7 @@ a {
   font-size: 1.9rem;
   line-height: 1.2;
   letter-spacing: -.018em;
-  max-width: 26ch;
+  max-width: 60ch;
 }
 
 .ed .qual {
@@ -2037,15 +2037,34 @@ img.ds-ramp {
   object-position: top left;
 }
 
-.proj .thumb img[src$=".svg"] {
+.proj .thumb img[src$=".svg"],
+.proj .thumb img[src$=".svg#dark"] {
   object-fit: contain;
   padding: var(--space-32);
 }
 
 @media (max-width:520px) {
-  .proj .thumb img[src$=".svg"] {
+
+  .proj .thumb img[src$=".svg"],
+  .proj .thumb img[src$=".svg#dark"] {
     padding: var(--space-20);
   }
+}
+
+/* THEMED THUMBNAILS. An <img> cannot see the page's data-theme, so a
+   themed SVG is placed twice: once plain (light) and once as file.svg#dark,
+   which the SVG renders in its dark colours. The site theme, not the OS,
+   decides which one shows, and the theme button switches it instantly. */
+.thm-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .thm-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .thm-dark {
+  display: block;
 }
 
 .fig img[src$=".svg"] {
