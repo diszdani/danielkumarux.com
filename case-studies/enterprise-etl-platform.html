@@ -480,9 +480,9 @@
           <p>The platform migrates and archives data from legacy systems. It connects to a source, learns its structure,
             extracts what is asked for, and loads it into a long-term archive target, with a chain-of-custody record of
             what moved.</p>
-          <p>It handles nine source families across thirteen database types: relational databases, flat files, SharePoint,
-            Lotus Notes, network file shares, mainframe file systems, report archives, multi-value
-            databases and custom connectors. Each has a different shape and a different set of questions to answer.</p>
+          <p>Archon ETL supports nine source families: RDBMS (13 database types), Flat File, SharePoint, File Share,
+            Lotus Notes, VSAM, Mobius, Universe DB and Custom Solutions. Each has a different shape and a different set
+            of questions to answer.</p>
           <p>A microservices architecture runs the work as distributed background jobs. Automation of mapping,
             extraction, transformation and load is the product’s stated purpose, so the interface exists to configure
             and prove that automation.</p>
@@ -759,7 +759,7 @@
           <li class="anno"><span class="n">05</span>
             <div>
               <h3>Configuration screens carry the risk</h3>
-              <p>Some configuration errors only become visible when a job runs against production data.</p>
+              <p>Some configuration errors only become visible when a job runs against the source system.</p>
             </div>
           </li>
         </ol>
@@ -774,8 +774,8 @@
           <p>Source profile (connect and learn the structure) → Workspace (scope, users and groups) → Metadata entity
             (tables, columns, relationships) → Extraction entity (what to take, and how) → Execution (run, schedule or
             template) → Monitoring (watch, log and prove).</p>
-          <p>Every extractor reuses this spine, relational database, SharePoint, file share, mainframe, flat file and
-            report archive alike. The guide says so plainly: the remaining tools follow the same steps in their own
+          <p>Every extractor reuses this spine across RDBMS, Flat File, SharePoint, File Share, Lotus Notes, VSAM, Mobius,
+            Universe DB and Custom Solutions. The guide says so plainly: the remaining tools follow the same steps in their own
             workspace.</p>
         </div>
       </div>
@@ -807,9 +807,9 @@
       </div>
       <div class="mg gap-s"></div>
       <div class="ct gap-s">
-        <p class="after">Where the spine is reused: relational · SharePoint · Lotus Notes · file share · mainframe file
-          system · flat file · report archive · multi-value database · custom connectors. Each gets its own workspace
-          and its own entities. None gets its own flow.</p>
+        <p class="after">Where the spine is reused: RDBMS · Flat File · SharePoint · File Share · Lotus Notes · VSAM ·
+          Mobius · Universe DB · Custom Solutions. Each gets its own workspace and its own entities. None gets its own
+          flow.</p>
       </div>
       <div class="mg gap" id="s-one-wizard-nine-sources"><span class="eb">Scalable interaction</span></div>
       <div class="ct gap">
@@ -1330,9 +1330,9 @@
           </li>
           <li class="anno"><span class="n">02</span>
             <div>
-              <h3>Validity is shown during the drag</h3>
-              <p>A compatible target highlights white. A datatype mismatch is highlighted in red, helping users
-                identify incompatible columns when defining a join.</p>
+              <h3>Compatibility is visible when defining the join</h3>
+              <p>A compatible target highlights white. A datatype mismatch highlights red, so incompatible columns are
+                visible before the join is created.</p>
             </div>
           </li>
           <li class="anno"><span class="n">03</span>
@@ -2685,7 +2685,7 @@
             <ul>
               <li>One wizard shell across nine source families, so learning one profile type teaches the rest</li>
               <li>Extraction complexity graduated across four modes rather than averaged into one</li>
-              <li>Joins created by direct manipulation, with datatype validity shown during the interaction</li>
+              <li>Joins created by direct manipulation, with datatype compatibility made visible when defining the relationship.</li>
               <li>Blob extractions that produce identifiable files instead of randomly named ones</li>
             </ul>
           </div>
