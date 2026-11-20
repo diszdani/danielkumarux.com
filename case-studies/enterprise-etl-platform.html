@@ -27,9 +27,9 @@
          filename. No HTML editing needed.
      ========================================================================== -->
 
-  <title>Enterprise ETL Platform · Daniel Kumar M</title>
+  <title>Archon ETL · UX Case Study · Daniel Kumar M</title>
   <meta name="description"
-    content="Case study: nine source systems, one way of working. Nine source families, thirteen database types, 2019 onward. Product identity withheld under confidentiality.">
+    content="UX case study: Archon ETL by Platform 3 Solutions. Nine source families, one way of working: nine source families, thirteen database types. Senior UX Lead, February 2019 – September 2026.">
   <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
 
   <!-- FONTS, needs internet. Without it the site falls back to Georgia / Arial
@@ -40,6 +40,260 @@
     href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
 
   <link rel="stylesheet" href="../assets/css/site.css">
+
+  <!-- PAGE-SCOPED ADDITIONS, ETL case study only. The layout mirrors the ADS
+     case study: a sticky section index on the left, the case study as one
+     column on the right. ETL adds a second level to the index (its 22
+     subsections under six sections) and a functional-areas list in the hero.
+     Semantic tokens only, so both themes follow site.css. -->
+  <style>
+    /* ===== HERO: subtitle under the product name ===== */
+    /* Same display serif as the H1, at roughly half its size and in the
+       reading colour, so the product name leads and the phrase follows. */
+    .cs-hero .cs-subtitle {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+      line-height: 1.15;
+      letter-spacing: -.008em;
+      color: var(--fg-reading);
+      margin: var(--space-12) 0 0;
+      max-width: 32ch;
+      text-wrap: balance;
+    }
+
+    /* ===== HERO: functional areas ===== */
+    .cs-areas {
+      margin-top: var(--space-24);
+    }
+
+    .cs-areas-h {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin: 0;
+    }
+
+    .cs-areas .chips {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-12) 0 0;
+    }
+
+    /* ===== LAYOUT: section index left, case study right ===== */
+    .cs-layout {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 0 var(--space-48);
+      align-items: start;
+      padding-top: var(--space-64);
+    }
+
+    /* The index is sticky on every desktop window and never scrolls on its own.
+       When it is taller than the window, the small script at the end of the
+       page moves its sticky offset with the page scroll, so scrolling down
+       brings its last links into view and scrolling up brings back the first. */
+    .cs-side {
+      min-width: 0;
+    }
+
+    @media (min-width:1025px) {
+      .cs-side {
+        position: sticky;
+        top: var(--space-24);
+      }
+    }
+
+    .cs-side .toc ol {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .cs-side .toc li a {
+      padding: 7px 0;
+    }
+
+    .cs-side .toc .t {
+      font-size: 12px;
+    }
+
+    /* Section rows lead; subsection rows sit indented under them, quieter. */
+    .cs-toc .cs-toc-sec>a .t {
+      font-weight: 600;
+      color: var(--fg-default);
+    }
+
+    .cs-toc .cs-toc-sub {
+      padding: 0 0 6px;
+    }
+
+    .cs-side .toc .cs-toc-sub a {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 3px 0 3px 26px;
+      border-bottom: 0;
+    }
+
+    .cs-side .toc .cs-toc-sub .t {
+      font-size: 11.5px;
+      color: var(--fg-muted);
+    }
+
+    .ed.cs-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      max-width: 920px;
+    }
+
+    .ed.cs-flow .mg:empty {
+      display: none;
+    }
+
+    /* Subsections: a hairline above each one. */
+    .ed.cs-flow .mg.gap {
+      margin-top: var(--space-64);
+      padding-top: var(--space-40);
+      border-top: 1px solid var(--border-default);
+    }
+
+    /* Sections: a stronger rule and more air, so the two levels read apart. */
+    .ed.cs-flow .mg.cs-part {
+      margin-top: var(--space-96);
+      padding-top: var(--space-40);
+      border-top: 1px solid var(--border-strong);
+    }
+
+    .ed.cs-flow .mg.cs-part:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .ed.cs-flow .ct.gap {
+      margin-top: var(--space-12);
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .ed.cs-flow .mg.gap-s,
+    .ed.cs-flow .ct.gap-s {
+      margin-top: var(--space-40);
+    }
+
+    /* Annotation labels ("WHAT THE TOOL HAS TO RECONCILE") sit above their list. */
+    .ed.cs-flow .mg:not(.gap):not(.gap-s):not(:empty) {
+      margin-top: var(--space-32);
+    }
+
+    .ed.cs-flow .mg:not(:empty)+.ct {
+      margin-top: var(--space-12);
+    }
+
+    /* The first subsection under a section heading skips its own hairline. */
+    .ed.cs-flow .cs-part+.ct+.mg.gap {
+      margin-top: var(--space-48);
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .ed.cs-flow .mg .cap,
+    .ed.cs-flow .mg .dis {
+      max-width: 80ch;
+    }
+
+    .ed.cs-flow .prose {
+      max-width: 72ch;
+    }
+
+    /* Subsection headings, one step below the section heading (as on ADS). */
+    .ed .cs-h {
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 1.3rem;
+      line-height: 1.3;
+      letter-spacing: -.012em;
+      color: var(--fg-default);
+      margin: 0;
+      max-width: 60ch;
+      text-wrap: balance;
+    }
+
+    /* A second paragraph inside the same after-note. */
+    .after.cs-after-more {
+      margin-top: var(--space-8);
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    /* Below 1024px a sidebar would squeeze the content: the index moves above
+       the case study and shows the six sections only. */
+    @media (max-width:1024px) {
+      .cs-layout {
+        display: block;
+        padding-top: var(--space-40);
+      }
+
+      .cs-side {
+        margin-bottom: var(--space-48);
+      }
+
+      .cs-side .toc {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .cs-side .toc ol {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 var(--space-24);
+      }
+
+      .cs-toc .cs-toc-sub {
+        display: none;
+      }
+
+      .ed.cs-flow {
+        max-width: none;
+      }
+    }
+
+    @media (max-width:900px) {
+      .ed .cs-h {
+        font-size: 1.2rem;
+      }
+
+      .ed.cs-flow .mg.gap {
+        margin-top: var(--space-48);
+        padding-top: var(--space-32);
+      }
+
+      .ed.cs-flow .mg.cs-part {
+        margin-top: var(--space-64);
+        padding-top: var(--space-32);
+      }
+
+      .ed.cs-flow .mg.gap-s,
+      .ed.cs-flow .ct.gap-s {
+        margin-top: var(--space-32);
+      }
+
+      .ed.cs-flow .cs-part+.ct+.mg.gap {
+        margin-top: var(--space-40);
+      }
+    }
+
+    @media (max-width:640px) {
+      .cs-side .toc ol {
+        grid-template-columns: minmax(0, 1fr);
+        max-height: none;
+      }
+
+      .cs-side .toc li a {
+        padding: 6px 0;
+      }
+    }
+  </style>
 
   <!-- The only inline script on the site: it sets the theme before the first
      paint so the page never flashes the wrong background. -->
@@ -84,68 +338,19 @@
 
   <main id="main" class="shell" tabindex="-1">
     <section class="cs-hero"><a class="back" href="../work.html">&larr; All work</a>
-      <div class="cs-head">
-        <div class="cs-head-a">
-          <p class="cs-eb">Enterprise ETL Platform &middot; UX Case Study &middot; Enterprise ETL</p>
-          <h1>Nine source systems, one way of working</h1>
-          <p class="sub">The extraction, transformation and load tool that feeds an enterprise archive platform. It
-            profiles a source system, maps its metadata, defines what to extract, runs the job and proves what moved.
-            End-to-end UX ownership: strategy, architecture, complex workflow design, interaction design, design system
-            and developer handoff.</p>
-        </div>
-        <div class="cs-head-b">
-          <nav class="toc" aria-label="Sections in this case study">
-            <p class="toc-h">In this case study</p>
-            <ol>
-              <li><a href="#s-what-this-deck-shows-and-what-it-withholds"><span class="n">01</span><span class="t">What
-                    this deck shows, and what it withholds</span></a></li>
-              <li><a href="#s-what-the-tool-does"><span class="n">02</span><span class="t">What the tool does</span></a>
-              </li>
-              <li><a href="#s-who-configures-who-watches"><span class="n">03</span><span class="t">Who configures, who
-                    watches</span></a></li>
-              <li><a href="#s-what-i-owned"><span class="n">04</span><span class="t">What I owned</span></a></li>
-              <li><a href="#s-closest-to-the-client"><span class="n">05</span><span class="t">Closest to the
-                    client</span></a></li>
-              <li><a href="#s-one-path-for-most-features"><span class="n">06</span><span class="t">One path for most
-                    features</span></a></li>
-              <li><a href="#s-five-patterns"><span class="n">07</span><span class="t">Five patterns</span></a></li>
-              <li><a href="#s-one-spine-six-stages"><span class="n">08</span><span class="t">One spine, six
-                    stages</span></a></li>
-              <li><a href="#s-one-wizard-nine-sources"><span class="n">09</span><span class="t">One wizard, nine
-                    sources</span></a></li>
-              <li><a href="#s-room-for-a-new-capability"><span class="n">10</span><span class="t">Room for a new
-                    capability</span></a></li>
-              <li><a href="#s-making-a-join-safe-to-draw"><span class="n">11</span><span class="t">Making a join safe to
-                    draw</span></a></li>
-              <li><a href="#s-two-ways-to-list-entities"><span class="n">12</span><span class="t">Two ways to list
-                    entities</span></a></li>
-              <li><a href="#s-four-ways-to-say-what-to-take"><span class="n">13</span><span class="t">Four ways to say
-                    what to take</span></a></li>
-              <li><a href="#s-a-job-is-a-pipeline-not-a-form"><span class="n">14</span><span class="t">A job is a
-                    pipeline, not a form</span></a></li>
-              <li><a href="#s-sources-that-don-t-match-the-model"><span class="n">15</span><span class="t">Sources that
-                    don’t match the model</span></a></li>
-              <li><a href="#s-designing-around-safe-defaults"><span class="n">16</span><span class="t">Designing around
-                    safe defaults</span></a></li>
-              <li><a href="#s-the-one-action-with-no-way-back"><span class="n">17</span><span class="t">The one action
-                    with no way back</span></a></li>
-              <li><a href="#s-watching-work-you-cannot-see"><span class="n">18</span><span class="t">Watching work you
-                    cannot see</span></a></li>
-              <li><a href="#s-making-the-licence-visible"><span class="n">19</span><span class="t">Making the licence
-                    visible</span></a></li>
-              <li><a href="#s-a-screen-the-client-asked-us-to-rethink"><span class="n">20</span><span class="t">A screen
-                    the client asked us to rethink</span></a></li>
-              <li><a href="#s-one-language-two-products"><span class="n">21</span><span class="t">One language, two
-                    products</span></a></li>
-              <li><a href="#s-design-outcomes-and-shipped-capabilities"><span class="n">22</span><span class="t">Design
-                    outcomes and shipped capabilities</span></a></li>
-              <li><a href="#s-what-i-would-do-differently"><span class="n">23</span><span class="t">What I would do
-                    differently</span></a></li>
-            </ol>
-          </nav>
-        </div>
-      </div>
+      <p class="cs-eb">UX Case Study &middot; Enterprise ETL Platform</p>
+      <h1>Archon ETL</h1>
+      <p class="cs-subtitle">Nine source families, one way of working</p>
+      <p class="sub">Archon ETL is the extraction, transformation and load tool that feeds an enterprise archive
+        platform. It profiles a source system, maps its metadata, defines what to extract, runs the job and proves
+        what moved.</p>
+      <p class="sub">End-to-end UX ownership: strategy, architecture, complex workflow design, interaction design,
+        design system and developer handoff.</p>
       <dl class="facts">
+        <div>
+          <dt>Product</dt>
+          <dd>Archon ETL</dd>
+        </div>
         <div>
           <dt>Employer</dt>
           <dd>Platform 3 Solutions</dd>
@@ -155,12 +360,12 @@
           <dd>Senior UX Lead</dd>
         </div>
         <div>
-          <dt>Participation</dt>
-          <dd>UI / UX 100%</dd>
+          <dt>Period</dt>
+          <dd>February 2019 – September 2026 · core platform 2019–2023, continued enhancements thereafter</dd>
         </div>
         <div>
-          <dt>Years</dt>
-          <dd>2019 onward · core platform 2019–2023, extended since</dd>
+          <dt>Participation</dt>
+          <dd>UI / UX 100%</dd>
         </div>
         <div>
           <dt>Scope</dt>
@@ -174,58 +379,109 @@
           <dt>Type</dt>
           <dd>Enterprise product</dd>
         </div>
-        <div>
-          <dt>Modules</dt>
-          <dd>Source and target profiles · Workspaces · Metadata entities · Extraction entities · Execution · Deletion ·
-            Character analysis · Monitoring · Configuration · User management</dd>
-        </div>
       </dl>
-    </section>
-    <section class="ed" style="padding-top:var(--space-64);">
-      <div class="mg" id="s-what-this-deck-shows-and-what-it-withholds"><span class="eb">Confidentiality</span></div>
-      <div class="ct">
-        <h2 class="claim">What this deck shows, and what it withholds</h2>
-        <div class="prose">
-          <p>Everything described here is work I did. The product and the systems it connects to are withheld under
-            confidentiality, and the interfaces shown here are redrawn rather than captured.</p>
-        </div>
+      <div class="cs-areas">
+        <h2 class="cs-areas-h" id="functional-areas">Functional areas</h2>
+        <ul class="chips" role="list" aria-labelledby="functional-areas">
+          <li><span>Source and Target Profiles</span></li>
+          <li><span>Workspaces</span></li>
+          <li><span>Metadata Entities</span></li>
+          <li><span>Extraction Entities</span></li>
+          <li><span>Execution</span></li>
+          <li><span>Deletion</span></li>
+          <li><span>Character Analysis</span></li>
+          <li><span>Monitoring</span></li>
+          <li><span>Configuration</span></li>
+          <li><span>User Management</span></li>
+        </ul>
       </div>
-      <div class="mg"><span class="note">THE TERMS</span></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Withheld</h3>
-              <p>The product name, the specific systems it connects to, and any customer or sample data. No production
-                screenshot appears here.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Shown</h3>
-              <p>The structure I designed, the decisions I made and why, how I led the work, and what changed as a
-                result.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Redrawn</h3>
-              <p>Where a screen carries the argument, it is reconstructed: the structure, layout and behaviour kept, the
-                identifying content removed and every value replaced with a placeholder.</p>
-            </div>
-          </li>
-        </ol>
+    </section>
+    <div class="cs-layout">
+      <div class="cs-side">
+        <nav class="toc cs-toc" aria-label="Sections in this case study">
+          <p class="toc-h">In this case study</p>
+          <ol>
+            <li class="cs-toc-sec"><a href="#part-1"><span class="n">01</span><span class="t">Product &amp;
+                  Context</span></a>
+              <ol class="cs-toc-sub">
+                <li><a href="#s-what-the-tool-does"><span class="t">What the tool does</span></a></li>
+                <li><a href="#s-who-configures-who-watches"><span class="t">Who configures, who watches</span></a></li>
+              </ol>
+            </li>
+            <li class="cs-toc-sec"><a href="#part-2"><span class="n">02</span><span class="t">My Role and
+                  Responsibilities</span></a>
+              <ol class="cs-toc-sub">
+                <li><a href="#s-what-i-owned"><span class="t">What I owned</span></a></li>
+                <li><a href="#s-closest-to-the-client"><span class="t">Closest to the client</span></a></li>
+                <li><a href="#s-one-path-for-most-features"><span class="t">One path for most features</span></a></li>
+              </ol>
+            </li>
+            <li class="cs-toc-sec"><a href="#part-3"><span class="n">03</span><span class="t">Key Design
+                  Decisions</span></a>
+              <ol class="cs-toc-sub">
+                <li><a href="#s-five-patterns"><span class="t">Five patterns</span></a></li>
+                <li><a href="#s-one-spine-six-stages"><span class="t">One spine, six stages</span></a></li>
+                <li><a href="#s-one-wizard-nine-sources"><span class="t">One wizard, nine sources</span></a></li>
+                <li><a href="#s-room-for-a-new-capability"><span class="t">Room for a new capability</span></a></li>
+              </ol>
+            </li>
+            <li class="cs-toc-sec"><a href="#part-4"><span class="n">04</span><span class="t">Key
+                  Workflows</span></a>
+              <ol class="cs-toc-sub">
+                <li><a href="#s-making-a-join-safe-to-draw"><span class="t">Making a join safe to draw</span></a></li>
+                <li><a href="#s-two-ways-to-list-entities"><span class="t">Two ways to list entities</span></a></li>
+                <li><a href="#s-four-ways-to-say-what-to-take"><span class="t">Four ways to say what to
+                      take</span></a></li>
+                <li><a href="#s-a-job-is-a-pipeline-not-a-form"><span class="t">A job is a pipeline, not a
+                      form</span></a></li>
+                <li><a href="#s-sources-that-don-t-match-the-model"><span class="t">Sources that don’t match the
+                      model</span></a></li>
+              </ol>
+            </li>
+            <li class="cs-toc-sec"><a href="#part-5"><span class="n">05</span><span class="t">Design System and
+                  Process</span></a>
+              <ol class="cs-toc-sub">
+                <li><a href="#s-designing-around-safe-defaults"><span class="t">Designing around safe
+                      defaults</span></a></li>
+                <li><a href="#s-the-one-action-with-no-way-back"><span class="t">The one action with no way
+                      back</span></a></li>
+                <li><a href="#s-watching-work-you-cannot-see"><span class="t">Watching work you cannot see</span></a>
+                </li>
+                <li><a href="#s-making-the-licence-visible"><span class="t">Making the licence visible</span></a></li>
+                <li><a href="#s-a-screen-the-client-asked-us-to-rethink"><span class="t">A screen the client asked us
+                      to rethink</span></a></li>
+              </ol>
+            </li>
+            <li class="cs-toc-sec"><a href="#part-6"><span class="n">06</span><span class="t">Outcomes and
+                  Reflection</span></a>
+              <ol class="cs-toc-sub">
+                <li><a href="#s-one-language-two-products"><span class="t">One language, two products</span></a></li>
+                <li><a href="#s-design-outcomes-and-shipped-capabilities"><span class="t">Design outcomes and shipped
+                      capabilities</span></a></li>
+                <li><a href="#s-what-i-would-do-differently"><span class="t">What I would do differently</span></a>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </nav>
+      </div>
+    <section class="ed cs-flow">
+
+      <!-- ===== SECTION 1 · PRODUCT & CONTEXT ===== -->
+      <div class="mg gap cs-part" id="part-1"><span class="eb">Section 1</span></div>
+      <div class="ct gap">
+        <h2 class="claim">Product &amp; Context</h2>
       </div>
       <div class="mg gap" id="s-what-the-tool-does"><span class="eb">Product &amp; context</span></div>
       <div class="ct gap">
-        <h2 class="claim">What the tool does</h2>
+        <h3 class="cs-h">What the tool does</h3>
         <p class="qual">and why it is harder than it looks</p>
         <div class="prose">
           <p>The platform migrates and archives data from legacy systems. It connects to a source, learns its structure,
             extracts what is asked for, and loads it into a long-term archive target, with a chain-of-custody record of
             what moved.</p>
-          <p>It handles nine source families across thirteen database types: relational databases, flat files, document
-            and collaboration stores, network file shares, mainframe file systems, report archives, multi-value
+          <p>It handles nine source families across thirteen database types: relational databases, flat files, SharePoint,
+            Lotus Notes, network file shares, mainframe file systems, report archives, multi-value
             databases and custom connectors. Each has a different shape and a different set of questions to answer.</p>
           <p>A microservices architecture runs the work as distributed background jobs. Automation of mapping,
             extraction, transformation and load is the product’s stated purpose, so the interface exists to configure
@@ -253,21 +509,21 @@
           <li class="anno"><span class="n">03</span>
             <div>
               <h3>Proof is part of the job</h3>
-              <p>Chain-of-custody files, extraction reports and performance reports are outputs of the run, not
-                afterthoughts. The product sells on demonstrable integrity.</p>
+              <p>The platform provides extraction reports, chain-of-custody files and performance reports to document
+                the process and support validation.</p>
             </div>
           </li>
         </ol>
       </div>
       <div class="mg gap" id="s-who-configures-who-watches"><span class="eb">The users</span></div>
       <div class="ct gap">
-        <h2 class="claim">Who configures, who watches</h2>
+        <h3 class="cs-h">Who configures, who watches</h3>
         <p class="qual">and the gap between the two</p>
         <div class="prose">
           <p>Nine source families, four ways to define an extraction, ten output formats and an irreversible delete, all
             configured before anything runs and all proven after it does.</p>
-          <p>The work is front-loaded. Everything a user decides sits in configuration screens, and the consequence of a
-            wrong decision only appears once a background job has already touched production data.</p>
+          <p>The work is front-loaded. Most consequential decisions are made during configuration, and some
+            configuration errors only become visible when a background job runs against the source data.</p>
           <p>So the design problem is not the running of the job. It is making the configuration legible enough that the
             job is right the first time, and the result provable afterwards.</p>
         </div>
@@ -310,9 +566,15 @@
         <p class="after">Access is permission-controlled throughout. Navbar options a user has no privilege for are not
           shown at all, and the landing page itself changes with role and user preference.</p>
       </div>
+
+      <!-- ===== SECTION 2 · MY ROLE AND RESPONSIBILITIES ===== -->
+      <div class="mg gap cs-part" id="part-2"><span class="eb">Section 2</span></div>
+      <div class="ct gap">
+        <h2 class="claim">My Role and Responsibilities</h2>
+      </div>
       <div class="mg gap" id="s-what-i-owned"><span class="eb">My role &amp; responsibilities</span></div>
       <div class="ct gap">
-        <h2 class="claim">What I owned</h2>
+        <h3 class="cs-h">What I owned</h3>
         <p class="qual">the whole platform experience, end to end</p>
       </div>
       <div class="mg"></div>
@@ -371,7 +633,7 @@
       </div>
       <div class="mg gap" id="s-closest-to-the-client"><span class="eb">Discovery &amp; design review</span></div>
       <div class="ct gap">
-        <h2 class="claim">Closest to the client</h2>
+        <h3 class="cs-h">Closest to the client</h3>
         <p class="qual">what informed the design, and how it was checked</p>
         <div class="prose">
           <p>Discovery ran through the teams closest to our clients. The implementation team works with clients directly
@@ -411,7 +673,7 @@
       </div>
       <div class="mg gap" id="s-one-path-for-most-features"><span class="eb">How I worked</span></div>
       <div class="ct gap">
-        <h2 class="claim">One path for most features</h2>
+        <h3 class="cs-h">One path for most features</h3>
         <p class="qual">from requirement to shipped screen, with a design gate before build</p>
         <div class="prose">
           <p>Most feature work followed a consistent path from requirements and stakeholder discussions through UX
@@ -453,9 +715,15 @@
           sign-off → Build → UX review</div>
         <p class="after">A typical sequence. Smaller changes combined or skipped steps.</p>
       </div>
+
+      <!-- ===== SECTION 3 · KEY DESIGN DECISIONS ===== -->
+      <div class="mg gap cs-part" id="part-3"><span class="eb">Section 3</span></div>
+      <div class="ct gap">
+        <h2 class="claim">Key Design Decisions</h2>
+      </div>
       <div class="mg gap" id="s-five-patterns"><span class="eb">Key insights</span></div>
       <div class="ct gap">
-        <h2 class="claim">Five patterns</h2>
+        <h3 class="cs-h">Five patterns</h3>
         <p class="qual">that the source families kept pointing at</p>
       </div>
       <div class="mg"></div>
@@ -477,7 +745,8 @@
           <li class="anno"><span class="n">03</span>
             <div>
               <h3>Direct manipulation earns its cost when the rule is visual</h3>
-              <p>A join is a relationship between two columns, so validity shows during the drag.</p>
+              <p>A join is a relationship between two columns, so the interaction makes compatibility visible when
+                defining the relationship.</p>
             </div>
           </li>
           <li class="anno"><span class="n">04</span>
@@ -490,14 +759,14 @@
           <li class="anno"><span class="n">05</span>
             <div>
               <h3>Configuration screens carry the risk</h3>
-              <p>Nothing fails in front of the user. It fails in a job, hours later, against production data.</p>
+              <p>Some configuration errors only become visible when a job runs against production data.</p>
             </div>
           </li>
         </ol>
       </div>
       <div class="mg gap" id="s-one-spine-six-stages"><span class="eb">UX architecture</span></div>
       <div class="ct gap">
-        <h2 class="claim">One spine, six stages</h2>
+        <h3 class="cs-h">One spine, six stages</h3>
         <p class="qual">that every source type travels along</p>
         <div class="prose">
           <p>Nine source families could have become nine products. The architecture decision was to make every source
@@ -505,7 +774,7 @@
           <p>Source profile (connect and learn the structure) → Workspace (scope, users and groups) → Metadata entity
             (tables, columns, relationships) → Extraction entity (what to take, and how) → Execution (run, schedule or
             template) → Monitoring (watch, log and prove).</p>
-          <p>Every extractor reuses this spine, relational, collaboration store, file share, mainframe, flat file and
+          <p>Every extractor reuses this spine, relational database, SharePoint, file share, mainframe, flat file and
             report archive alike. The guide says so plainly: the remaining tools follow the same steps in their own
             workspace.</p>
         </div>
@@ -516,8 +785,8 @@
           <li class="anno"><span class="n">01</span>
             <div>
               <h3>The workspace is the unit of scope</h3>
-              <p>A workspace carries the source profile, its users, its groups and its jobs. Access, ownership and audit
-                all resolve to it, so nothing has to be scoped twice.</p>
+              <p>A workspace carries the source profile, its users, its groups and its jobs. Access, accountability and
+                audit all resolve to it, so nothing has to be scoped twice.</p>
             </div>
           </li>
           <li class="anno"><span class="n">02</span>
@@ -538,13 +807,13 @@
       </div>
       <div class="mg gap-s"></div>
       <div class="ct gap-s">
-        <p class="after">Where the spine is reused: relational · collaboration store · file share · mainframe file
+        <p class="after">Where the spine is reused: relational · SharePoint · Lotus Notes · file share · mainframe file
           system · flat file · report archive · multi-value database · custom connectors. Each gets its own workspace
           and its own entities. None gets its own flow.</p>
       </div>
       <div class="mg gap" id="s-one-wizard-nine-sources"><span class="eb">Scalable interaction</span></div>
       <div class="ct gap">
-        <h2 class="claim">One wizard, nine sources</h2>
+        <h3 class="cs-h">One wizard, nine sources</h3>
         <p class="qual">where only the questions change</p>
         <div class="prose">
           <p>Every source profile is created through the same wizard. A relational source adds a schema step. Flat file,
@@ -734,7 +1003,7 @@
       </div>
       <div class="mg gap" id="s-room-for-a-new-capability"><span class="eb">Scalable architecture</span></div>
       <div class="ct gap">
-        <h2 class="claim">Room for a new capability</h2>
+        <h3 class="cs-h">Room for a new capability</h3>
         <p class="qual">change data capture, placed inside the existing model</p>
         <div class="prose">
           <p>Change data capture moves ongoing source changes to the target, in batches or continuously. It was added
@@ -778,9 +1047,15 @@
           introducing a separate navigation pattern.</div>
         <p class="after">Shipped.</p>
       </div>
+
+      <!-- ===== SECTION 4 · KEY WORKFLOWS ===== -->
+      <div class="mg gap cs-part" id="part-4"><span class="eb">Section 4</span></div>
+      <div class="ct gap">
+        <h2 class="claim">Key Workflows</h2>
+      </div>
       <div class="mg gap" id="s-making-a-join-safe-to-draw"><span class="eb">Interaction design</span></div>
       <div class="ct gap">
-        <h2 class="claim">Making a join safe to draw</h2>
+        <h3 class="cs-h">Making a join safe to draw</h3>
         <p class="qual">direct manipulation, with the rules enforced live</p>
         <div class="prose">
           <p>Relationships between tables drive how data is extracted together. They were the most technical thing a
@@ -1056,8 +1331,8 @@
           <li class="anno"><span class="n">02</span>
             <div>
               <h3>Validity is shown during the drag</h3>
-              <p>A compatible target highlights white. A datatype mismatch highlights red, at the moment of the drop
-                rather than on submit.</p>
+              <p>A compatible target highlights white. A datatype mismatch is highlighted in red, helping users
+                identify incompatible columns when defining a join.</p>
             </div>
           </li>
           <li class="anno"><span class="n">03</span>
@@ -1084,7 +1359,7 @@
       </div>
       <div class="mg gap" id="s-two-ways-to-list-entities"><span class="eb">Explorations</span></div>
       <div class="ct gap">
-        <h2 class="claim">Two ways to list entities</h2>
+        <h3 class="cs-h">Two ways to list entities</h3>
         <p class="qual">and why grouping beat browsing</p>
         <div class="prose">
           <p>Entities are listed by category. A workspace can hold many categories, and each category can hold many
@@ -1119,7 +1394,7 @@
       </div>
       <div class="mg gap" id="s-four-ways-to-say-what-to-take"><span class="eb">Graduated complexity</span></div>
       <div class="ct gap">
-        <h2 class="claim">Four ways to say what to take</h2>
+        <h3 class="cs-h">Four ways to say what to take</h3>
         <p class="qual">from no configuration to hand-written SQL</p>
         <div class="prose">
           <p>Defining an extraction is where the range of users is widest. Someone archiving a whole legacy database
@@ -1171,7 +1446,7 @@
       </div>
       <div class="mg gap" id="s-a-job-is-a-pipeline-not-a-form"><span class="eb">Complex workflow design</span></div>
       <div class="ct gap">
-        <h2 class="claim">A job is a pipeline, not a form</h2>
+        <h3 class="cs-h">A job is a pipeline, not a form</h3>
         <p class="qual">so the shape of the work is visible before it runs</p>
         <div class="prose">
           <p>An extraction job has a source, a connection, an entity, output settings and optional downstream tasks such
@@ -1415,7 +1690,7 @@
       </div>
       <div class="mg gap" id="s-sources-that-don-t-match-the-model"><span class="eb">Problem to design</span></div>
       <div class="ct gap">
-        <h2 class="claim">Sources that don’t match the model</h2>
+        <h3 class="cs-h">Sources that don’t match the model</h3>
         <p class="qual">extracting from folders and files as they actually are</p>
         <div class="prose">
           <p>Flat-file extraction expected one folder structure: schema, then table, then data file. A client team’s
@@ -1462,9 +1737,15 @@
         <p class="after">Shipped. After extraction, users choose to move, delete or leave processed files. Edge cases
           were worked through with the BA and engineering.</p>
       </div>
+
+      <!-- ===== SECTION 5 · DESIGN SYSTEM AND PROCESS ===== -->
+      <div class="mg gap cs-part" id="part-5"><span class="eb">Section 5</span></div>
+      <div class="ct gap">
+        <h2 class="claim">Design System and Process</h2>
+      </div>
       <div class="mg gap" id="s-designing-around-safe-defaults"><span class="eb">Designing for risk</span></div>
       <div class="ct gap">
-        <h2 class="claim">Designing around safe defaults</h2>
+        <h3 class="cs-h">Designing around safe defaults</h3>
         <p class="qual">what happens when the user makes no choice</p>
         <div class="prose">
           <p>Two later additions turned on the same question: what the system should do when a user does not change a
@@ -1512,11 +1793,11 @@
       </div>
       <div class="mg gap" id="s-the-one-action-with-no-way-back"><span class="eb">Designing for risk</span></div>
       <div class="ct gap">
-        <h2 class="claim">The one action with no way back</h2>
-        <p class="qual">deletion at source, acknowledged before it runs</p>
+        <h3 class="cs-h">The one action with no way back</h3>
+        <p class="qual">irreversible deletion, with dependencies acknowledged before execution</p>
         <div class="prose">
-          <p>Deletion removes records from the source system after extraction. It is exclusive to the RDBMS tool, it
-            cannot be rolled back, and it can orphan records in tables the user was not thinking about.</p>
+          <p>Deletion is exclusive to the RDBMS tool. It is irreversible, and it can orphan records in tables the user
+            was not thinking about.</p>
           <p>So the design does not put deletion behind a confirmation. It puts a review stage in front of it, and makes
             the dependency the user has to resolve.</p>
         </div>
@@ -1561,11 +1842,11 @@
       </div>
       <div class="mg gap" id="s-watching-work-you-cannot-see"><span class="eb">Asynchronous work</span></div>
       <div class="ct gap">
-        <h2 class="claim">Watching work you cannot see</h2>
+        <h3 class="cs-h">Watching work you cannot see</h3>
         <p class="qual">live status, live logs, and the inputs that produced them</p>
         <div class="prose">
-          <p>Everything the tool does runs in the background. Workspace creation, pre-analysis, metadata generation,
-            extraction, ingestion, deletion. The user configures, commits, and then has nothing to look at unless the
+          <p>The tool handles its major operations through background jobs. Workspace creation, pre-analysis, metadata
+            entity creation, extraction, ingestion, deletion. The user configures, commits, and then has nothing to look at unless the
             product gives them something.</p>
         </div>
       </div>
@@ -1856,8 +2137,8 @@
           <li class="anno"><span class="n">01</span>
             <div>
               <h3>Status arrives without asking</h3>
-              <p>Live updates are pushed over a socket for workspace creation, source creation and deletion, entity
-                extraction and metadata generation, so the view stays current without a refresh.</p>
+              <p>Live updates are pushed over a socket for workspace creation, source creation and deletion,
+                metadata entity creation and extraction, so the view stays current without a refresh.</p>
             </div>
           </li>
           <li class="anno"><span class="n">02</span>
@@ -1869,7 +2150,7 @@
           </li>
           <li class="anno"><span class="n">03</span>
             <div>
-              <h3>The inputs are recoverable</h3>
+              <h3>Job input details remain available for review after execution</h3>
               <p>The job-inputs view reopens the configuration the job actually ran with: profile, host, port, task
                 type, schemas, output path. A failed job can be diagnosed without reconstructing it.</p>
             </div>
@@ -1880,13 +2161,14 @@
       <div class="ct gap-s">
         <p class="after">Scheduled work gets its own view. Jobs scheduled for later sit in schedule monitoring until
           they trigger, with tool and status filters, a link through to their run, and a schedule edit history. Work
-          that has not started yet is a different question from work in flight, so it is a different screen. On the
-          operations dashboard, metric cards link to their sections, charts group workspaces beyond the top five as
-          “Other” and use patterns alongside colour, and inconsistent data shows an error rather than wrong numbers.</p>
+          that has not started yet is a different question from work in flight, so it is a different screen.</p>
+        <p class="after cs-after-more">On the operations dashboard, metric cards link to their sections, charts group
+          workspaces beyond the top five as “Other” and use patterns alongside colour, and inconsistent data shows an
+          error rather than wrong numbers.</p>
       </div>
       <div class="mg gap" id="s-making-the-licence-visible"><span class="eb">Governance</span></div>
       <div class="ct gap">
-        <h2 class="claim">Making the licence visible</h2>
+        <h3 class="cs-h">Making the licence visible</h3>
         <p class="qual">time and volume limits, shown to the right people</p>
         <div class="prose">
           <p>Both time and data-volume limits needed to be visible so teams could act before reaching the licence limit.
@@ -2049,10 +2331,10 @@
           working.</div>
         <p class="after">Shipped. I wrote the volume-licensing brief together with the BA.</p>
       </div>
-      <div class="mg gap" id="s-a-screen-the-client-asked-us-to-rethink"><span class="eb">Research to redesign</span>
+      <div class="mg gap" id="s-a-screen-the-client-asked-us-to-rethink"><span class="eb">Client feedback to redesign</span>
       </div>
       <div class="ct gap">
-        <h2 class="claim">A screen the client asked us to rethink</h2>
+        <h3 class="cs-h">A screen the client asked us to rethink</h3>
         <p class="qual">from everything at once to a list you can read</p>
         <div class="prose">
           <p>The metadata entity is where a user understands what a source system actually contains. The first design
@@ -2338,9 +2620,15 @@
       <div class="ct gap-s">
         <p class="after">Source: client feedback relayed through the internal implementation team.</p>
       </div>
+
+      <!-- ===== SECTION 6 · OUTCOMES AND REFLECTION ===== -->
+      <div class="mg gap cs-part" id="part-6"><span class="eb">Section 6</span></div>
+      <div class="ct gap">
+        <h2 class="claim">Outcomes and Reflection</h2>
+      </div>
       <div class="mg gap" id="s-one-language-two-products"><span class="eb">UX leadership</span></div>
       <div class="ct gap">
-        <h2 class="claim">One language, two products</h2>
+        <h3 class="cs-h">One language, two products</h3>
         <p class="qual">holding a shared vocabulary while both products grew</p>
         <div class="prose">
           <p>This product and the archive platform it feeds are separate products used by the same customers, often by
@@ -2386,7 +2674,7 @@
       </div>
       <div class="mg gap" id="s-design-outcomes-and-shipped-capabilities"><span class="eb">Outcomes</span></div>
       <div class="ct gap">
-        <h2 class="claim">Design outcomes and shipped capabilities</h2>
+        <h3 class="cs-h">Design outcomes and shipped capabilities</h3>
         <p class="qual">stated plainly</p>
       </div>
       <div class="mg gap-s"></div>
@@ -2407,7 +2695,7 @@
               <li>Six-stage spine reused by every extractor rather than a separate flow per source type</li>
               <li>Metadata describing the source kept separate from extraction entities selecting from it</li>
               <li>Configuration separated from execution, so one entity runs now, later, or on a template</li>
-              <li>Workspace established as the single unit of scope for access, ownership and audit</li>
+              <li>Workspace established as the single unit of scope for access, accountability and audit</li>
             </ul>
           </div>
         </div>
@@ -2449,7 +2737,7 @@
       </div>
       <div class="mg gap" id="s-what-i-would-do-differently"><span class="eb">Reflection</span></div>
       <div class="ct gap">
-        <h2 class="claim">What I would do differently</h2>
+        <h3 class="cs-h">What I would do differently</h3>
         <p class="qual">the review I had available and did not use</p>
         <div class="prose">
           <p>The metadata entity was redesigned after the client asked for something more usable. The feedback was right
@@ -2483,6 +2771,7 @@
           it · treat defaults as design decisions.</p>
       </div>
     </section>
+    </div>
     <div class="nextbar"><a href="billing-consumption.html"><span class="lbl">Next case study</span><br><span
           class="nx">Client consumption, read against what was purchased</span></a><span class="sp">Billing &amp;
         Consumption · 2025</span></div>
@@ -2531,6 +2820,37 @@
     </div>
   </footer>
 
+  <!-- SECTION INDEX, ETL case study only. On desktop the left index is sticky.
+     If it is taller than the window, its sticky offset follows the scroll
+     (down reveals the bottom links, up reveals the top ones) between 24px from
+     the top and 24px from the bottom, so it never leaves the screen and never
+     needs a scrollbar of its own. When it fits, the offset stays at 24px.
+     Without JavaScript it is simply sticky at 24px. -->
+  <script>
+    (function () {
+      var side = document.querySelector('.cs-side');
+      if (!side) return;
+      var GAP = 24, top = GAP, lastY = window.scrollY, ticking = false;
+
+      function update() {
+        ticking = false;
+        var y = window.scrollY, dy = y - lastY;
+        lastY = y;
+        if (getComputedStyle(side).position !== 'sticky') { side.style.top = ''; return; }
+        var lowest = Math.min(GAP, window.innerHeight - side.offsetHeight - GAP);
+        top = Math.max(lowest, Math.min(GAP, top - dy));
+        side.style.top = top + 'px';
+      }
+
+      function request() {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+      }
+
+      window.addEventListener('scroll', request, { passive: true });
+      window.addEventListener('resize', request);
+      update();
+    })();
+  </script>
   <script src="../assets/js/site.js" defer></script>
 </body>
 
