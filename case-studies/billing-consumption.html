@@ -27,9 +27,9 @@
          filename. No HTML editing needed.
      ========================================================================== -->
 
-  <title>Billing &amp; Consumption · Daniel Kumar M</title>
+  <title>Archon Billing System · UX Case Study · Daniel Kumar M</title>
   <meta name="description"
-    content="Focused case study: client consumption, read against what was purchased. An internal operational tool, 2025–2026. Product identity withheld under confidentiality.">
+    content="UX case study: Archon Billing System, an internal operational tool built for Platform 3 Solutions to manage client billing and consumption across the Archon platform. Senior UX Lead, 2025–2026.">
   <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
 
   <!-- FONTS, needs internet. Without it the site falls back to Georgia / Arial
@@ -40,6 +40,217 @@
     href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
 
   <link rel="stylesheet" href="../assets/css/site.css">
+
+  <!-- PAGE-SCOPED ADDITIONS, Billing case study only. The layout follows the
+     ADS case study: a sticky section index on the left, the case study as one
+     column on the right. site.css has no sidebar-layout, sub-heading or
+     in-text list component, so these rules live here, on shared tokens. -->
+  <style>
+    /* ===== LAYOUT: section index left, case study right ===== */
+    .cs-layout {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 0 var(--space-48);
+      align-items: start;
+      padding-top: var(--space-64);
+    }
+
+    .cs-side {
+      position: sticky;
+      top: var(--space-24);
+      min-width: 0;
+    }
+
+    .cs-side .toc ol {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cs-side .toc li a {
+      padding: 8px 0;
+    }
+
+    .cs-side .toc .t {
+      font-size: 12px;
+    }
+
+    .ed.cs-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      max-width: 920px;
+    }
+
+    .ed.cs-flow .mg:empty {
+      display: none;
+    }
+
+    .ed.cs-flow .mg.gap {
+      margin-top: var(--space-64);
+      padding-top: var(--space-40);
+      border-top: 1px solid var(--border-default);
+    }
+
+    .ed.cs-flow .mg.gap:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .ed.cs-flow .ct.gap {
+      margin-top: var(--space-12);
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .ed.cs-flow .mg.gap-s,
+    .ed.cs-flow .ct.gap-s {
+      margin-top: var(--space-40);
+    }
+
+    .ed.cs-flow .mg:not(:empty)+.ct {
+      margin-top: var(--space-12);
+    }
+
+    .ed.cs-flow .mg .cap,
+    .ed.cs-flow .mg .dis {
+      max-width: 80ch;
+    }
+
+    .ed.cs-flow .prose {
+      max-width: 72ch;
+    }
+
+    /* Subsection headings (Decision 1, Workflow 1 ...), one step below the
+       section claim, as on ADS. */
+    .ed .cs-h {
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 1.3rem;
+      line-height: 1.3;
+      letter-spacing: -.012em;
+      color: var(--fg-default);
+      margin: 0;
+      max-width: 60ch;
+      text-wrap: balance;
+    }
+
+    .cs-h+.prose {
+      margin-top: var(--space-16);
+    }
+
+    .cs-facts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0 var(--space-32);
+      margin-top: var(--space-32);
+    }
+
+    .cs-facts dd {
+      line-height: 1.5;
+    }
+
+    .cs-list {
+      list-style: none;
+      margin: var(--space-16) 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+      max-width: 72ch;
+      font-family: var(--font-reading);
+      font-size: 1.09rem;
+      line-height: 1.66;
+      color: var(--fg-reading);
+    }
+
+    .cs-list li {
+      position: relative;
+      padding-left: var(--space-20);
+    }
+
+    .cs-list li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: .74em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--apparatus-default);
+    }
+
+    .cs-list+.prose {
+      margin-top: var(--space-16);
+    }
+
+    /* Below 1024px a sidebar would squeeze the content: the index moves above
+       the case study as a compact list. */
+    @media (max-width:1024px) {
+      .cs-layout {
+        display: block;
+        padding-top: var(--space-40);
+      }
+
+      .cs-side {
+        position: static;
+        margin-bottom: var(--space-48);
+      }
+
+      .cs-side .toc {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .cs-side .toc ol {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .ed.cs-flow {
+        max-width: none;
+      }
+    }
+
+    @media (max-width:900px) {
+      .ed .cs-h {
+        font-size: 1.2rem;
+      }
+
+      .cs-list {
+        font-size: 1.02rem;
+      }
+
+      .cs-facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 var(--space-24);
+      }
+
+      .ed.cs-flow .mg.gap {
+        margin-top: var(--space-48);
+        padding-top: var(--space-32);
+      }
+
+      .ed.cs-flow .mg.gap-s,
+      .ed.cs-flow .ct.gap-s {
+        margin-top: var(--space-32);
+      }
+    }
+
+    @media (max-width:640px) {
+      .cs-side .toc ol {
+        grid-template-columns: minmax(0, 1fr);
+        max-height: none;
+      }
+
+      .cs-side .toc li a {
+        padding: 6px 0;
+      }
+    }
+
+    @media (max-width:520px) {
+      .cs-facts {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 
   <!-- The only inline script on the site: it sets the theme before the first
      paint so the page never flashes the wrong background. -->
@@ -84,406 +295,222 @@
 
   <main id="main" class="shell" tabindex="-1">
     <section class="cs-hero"><a class="back" href="../work.html">&larr; All work</a>
-      <div class="cs-head">
-        <div class="cs-head-a">
-          <p class="cs-eb">Billing &amp; Consumption &middot; UX Case Study &middot; Internal Operational Tool</p>
-          <h1>Client consumption, read against what was purchased</h1>
-          <p class="sub">An internal operational tool for selecting clients, comparing their consumption with purchased
-            limits, following usage trends, configuring threshold alerts and supporting internal billing activities.</p>
-        </div>
-        <div class="cs-head-b">
-          <nav class="toc" aria-label="Sections in this case study">
-            <p class="toc-h">In this case study</p>
-            <ol>
-              <li><a href="#s-what-this-deck-shows-and-what-it-withholds"><span class="n">01</span><span class="t">What
-                    this deck shows, and what it withholds</span></a></li>
-              <li><a href="#s-an-internal-view-of-client-consumption"><span class="n">02</span><span class="t">An
-                    internal view of client consumption</span></a></li>
-              <li><a href="#s-consumption-needs-context-to-be-read"><span class="n">03</span><span class="t">Consumption
-                    needs context to be read</span></a></li>
-              <li><a href="#s-three-teams-one-source-of-truth"><span class="n">04</span><span class="t">Three teams, one
-                    source of truth</span></a></li>
-              <li><a href="#s-what-i-owned"><span class="n">05</span><span class="t">What I owned</span></a></li>
-              <li><a href="#s-deciding-how-the-concepts-relate"><span class="n">06</span><span class="t">Deciding how
-                    the concepts relate</span></a></li>
-              <li><a href="#s-rules-as-interface-behaviour"><span class="n">07</span><span class="t">Rules as interface
-                    behaviour</span></a></li>
-              <li><a href="#s-select-the-client-once"><span class="n">08</span><span class="t">Select the client
-                    once</span></a></li>
-              <li><a href="#s-position-first-then-direction"><span class="n">09</span><span class="t">Position first,
-                    then direction</span></a></li>
-              <li><a href="#s-two-entitlement-models-shown-separately"><span class="n">10</span><span class="t">Two
-                    entitlement models, shown separately</span></a></li>
-              <li><a href="#s-alerts-set-against-the-limits-they-protect"><span class="n">11</span><span
-                    class="t">Alerts set against the limits they protect</span></a></li>
-              <li><a href="#s-carrying-the-design-through-build"><span class="n">12</span><span class="t">Carrying the
-                    design through build</span></a></li>
-              <li><a href="#s-what-the-design-established"><span class="n">13</span><span class="t">What the design
-                    established</span></a></li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-      <dl class="facts">
-        <div>
-          <dt>Employer</dt>
-          <dd>Platform 3 Solutions</dd>
-        </div>
-        <div>
-          <dt>Role</dt>
-          <dd>Senior UX Lead</dd>
-        </div>
-        <div>
-          <dt>Participation</dt>
-          <dd>UI / UX 100%</dd>
-        </div>
-        <div>
-          <dt>Year</dt>
-          <dd>2025 to 2026 · Shipped</dd>
-        </div>
-        <div>
-          <dt>Type</dt>
-          <dd>Internal tool</dd>
-        </div>
-        <div>
-          <dt>Team</dt>
-          <dd>Individual ownership</dd>
-        </div>
-        <div>
-          <dt>Areas</dt>
-          <dd>Client selection · Consumption dashboard · Tier plans · Alert configuration · Billing · Plans · Clients
-          </dd>
-        </div>
-      </dl>
+      <p class="cs-eb">UX Case Study &middot; Internal Operational Tool</p>
+      <h1>Archon Billing System</h1>
     </section>
-    <section class="ed" style="padding-top:var(--space-64);">
-      <div class="mg" id="s-what-this-deck-shows-and-what-it-withholds"><span class="eb">Confidentiality</span></div>
-      <div class="ct">
-        <h2 class="claim">What this deck shows, and what it withholds</h2>
-        <div class="prose">
-          <p>Everything described here is work I did. The product and its figures are withheld under confidentiality,
-            and the interfaces shown here are redrawn rather than captured.</p>
-        </div>
+    <div class="cs-layout">
+      <div class="cs-side">
+        <nav class="toc" aria-label="Sections in this case study">
+          <p class="toc-h">In this case study</p>
+          <ol>
+            <li><a href="#s-opening-and-product-context"><span class="n">01</span><span class="t">Opening and Product
+                  Context</span></a></li>
+            <li><a href="#s-users-roles-and-the-design-challenge"><span class="n">02</span><span class="t">Users, Roles
+                  and the Design Challenge</span></a></li>
+            <li><a href="#s-key-design-decisions"><span class="n">03</span><span class="t">Key Design
+                  Decisions</span></a></li>
+            <li><a href="#s-key-workflows"><span class="n">04</span><span class="t">Key Workflows</span></a></li>
+            <li><a href="#s-design-system-and-process"><span class="n">05</span><span class="t">Design System and
+                  Process</span></a></li>
+            <li><a href="#s-outcomes-and-reflection"><span class="n">06</span><span class="t">Outcomes and
+                  Reflection</span></a></li>
+          </ol>
+        </nav>
       </div>
-      <div class="mg"><span class="note">THE TERMS</span></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Withheld</h3>
-              <p>The product name, and all client, tier and consumption figures. No production screenshot appears here.
-              </p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Shown</h3>
-              <p>The structure I designed, the decisions I made and why, and how the design was carried through build.
-              </p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Redrawn</h3>
-              <p>Where a screen carries the argument, it is reconstructed: the structure, layout and behaviour kept, the
-                identifying content removed and every value replaced with a placeholder.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap" id="s-an-internal-view-of-client-consumption"><span class="eb">Product context</span></div>
+    <section class="ed cs-flow">
+
+      <!-- ===== SECTION 1 · OPENING AND PRODUCT CONTEXT ===== -->
+      <div class="mg gap" id="s-opening-and-product-context"><span class="eb">Section 1 &middot; Opening and Product
+          Context</span></div>
       <div class="ct gap">
-        <h2 class="claim">An internal view of client consumption</h2>
-        <p class="qual">who uses the tool, and for what</p>
+        <h2 class="claim">An internal tool built for three different operational questions about the same data</h2>
         <div class="prose">
-          <p>The platform sells capacity. Clients purchase tiers that set limits across usage dimensions. This tool sits
-            inside the organisation, between those limits and the teams that act on them.</p>
-          <p>Client (purchases tiers) → Platform (records consumption) → Billing &amp; Consumption tool (relates
-            consumption to what was purchased) → Internal teams: sales, finance, product team heads. Clients do not use
-            this tool.</p>
+          <p>The Archon Billing System is an internal operational tool built for Platform 3 Solutions to manage client
+            billing and consumption across the Archon platform. It sits behind the product, not in front of customers.
+            The people who use it daily are internal teams (Sales, Finance, and product team heads), each arriving
+            with a different question about the same underlying data.</p>
+          <p>Sales wants to know where a client stands against what it purchased. Finance wants to know which
+            consumption figures are relevant to a specific billing cycle. Product team heads want to understand how
+            capacity is being used across the client base.</p>
+          <p>The same entitlement data has to serve all three. That was the design problem.</p>
+        </div>
+        <dl class="facts cs-facts">
+          <div>
+            <dt>Employer</dt>
+            <dd>Platform 3 Solutions</dd>
+          </div>
+          <div>
+            <dt>Role</dt>
+            <dd>Senior UX Lead</dd>
+          </div>
+          <div>
+            <dt>Participation</dt>
+            <dd>UI/UX 100%</dd>
+          </div>
+          <div>
+            <dt>Year</dt>
+            <dd>2025–2026 · Shipped</dd>
+          </div>
+          <div>
+            <dt>Type</dt>
+            <dd>Internal tool</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>Individual ownership</dd>
+          </div>
+          <div>
+            <dt>Areas</dt>
+            <dd>Client management · Consumption dashboard · Tier plans · Alert configuration · Billing</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- ===== SECTION 2 · USERS, ROLES AND THE DESIGN CHALLENGE ===== -->
+      <div class="mg gap" id="s-users-roles-and-the-design-challenge"><span class="eb">Section 2 &middot; Users, Roles
+          and the Design Challenge</span></div>
+      <div class="ct gap">
+        <h2 class="claim">Three teams, one entitlement model, three different operational priorities</h2>
+        <div class="prose">
+          <p>The tool serves three internal user groups.</p>
+          <p>Sales tracks client standing relative to purchased entitlements. Their primary question is whether a
+            client is approaching, within, or over what it bought. They need to interpret consumption figures quickly,
+            usually in the context of a client conversation.</p>
+          <p>Finance works within billing periods. Their concern is not the full consumption picture but the
+            consumption figures that are relevant to a specific billing cycle.</p>
+          <p>Product team heads want to understand how capacity is being used across the client base.</p>
+          <p>Each group shares access to the same interface. The design challenge was not to build three separate
+            views. It was to structure the information so that each team’s question could be answered from a shared
+            set of screens, without forcing any team to filter through data it did not need to reach what it did.</p>
+          <p>The additional complexity: the entitlement model is not simple. Archon tracks two independent tier
+            structures, a data tier and a usage tier, each with its own limits across multiple dimensions. Neither is
+            a subset of the other. Any interface that collapsed them or treated them as a single table would
+            misrepresent how the product is actually licensed and billed.</p>
         </div>
       </div>
-      <div class="mg"><span class="note">WHAT INTERNAL TEAMS DO HERE</span></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Select a client</h3>
-              <p></p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Compare consumption with purchase</h3>
-              <p></p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Follow usage trends</h3>
-              <p></p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">04</span>
-            <div>
-              <h3>Configure threshold alerts</h3>
-              <p></p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">05</span>
-            <div>
-              <h3>Support billing activities</h3>
-              <p></p>
-            </div>
-          </li>
-        </ol>
+
+      <!-- ===== SECTION 3 · KEY DESIGN DECISIONS ===== -->
+      <div class="mg gap" id="s-key-design-decisions"><span class="eb">Section 3 &middot; Key Design Decisions</span>
       </div>
-      <div class="mg gap-s"></div>
+      <div class="ct gap">
+        <h2 class="claim">Four decisions that reflect the billing model, not just the billing screens</h2>
+        <div class="prose">
+          <p>Before designing any screen, the work started with understanding the business rules that govern what
+            numbers mean in this context. Four rules shaped the interface directly.</p>
+        </div>
+      </div>
+      <div class="mg gap-s"><span class="eb">Decision 1</span></div>
       <div class="ct gap-s">
-        <p class="after">Usage dimensions include storage, query volume, data transfer, users and compute.</p>
-      </div>
-      <div class="mg gap" id="s-consumption-needs-context-to-be-read"><span class="eb">The UX problem</span></div>
-      <div class="ct gap">
-        <h2 class="claim">Consumption needs context to be read</h2>
-        <p class="qual">the problem behind the screens</p>
+        <h3 class="cs-h">Make the entitlement model the foundation of the information architecture</h3>
         <div class="prose">
-          <p>Each piece of information was available on its own. None of them, alone, told an internal team whether a
-            client was within what it purchased.</p>
-          <p>Consumption only becomes meaningful when it is read with the rest of the chain.</p>
+          <p>The billing model is built around purchased entitlements. Every usage figure only makes sense relative to
+            the allowance it was purchased against. Showing consumption without allowance creates the wrong
+            interpretation: a number without its ceiling.</p>
+          <p>The interface follows the same logic. Wherever consumption is displayed, the purchased allowance
+            accompanies it. Current consumption and purchased allowance are shown together for direct comparison, not
+            on separate screens or in separate columns that require the user to hold one in memory while reading the
+            other.</p>
+          <p>This was an information design decision before it was a visual one.</p>
         </div>
       </div>
-      <div class="mg"><span class="note">THE RELATIONSHIP THE INTERFACE EXPRESSES</span></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Client</h3>
-              <p>Which client?</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Entitlement</h3>
-              <p>What did it purchase?</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Consumption</h3>
-              <p>What has it used?</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">04</span>
-            <div>
-              <h3>Billing period</h3>
-              <p>For which period?</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">05</span>
-            <div>
-              <h3>Alerts</h3>
-              <p>What should raise attention?</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">06</span>
-            <div>
-              <h3>Billing context</h3>
-              <p>What matters for billing?</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
+      <div class="mg gap-s"><span class="eb">Decision 2</span></div>
       <div class="ct gap-s">
-        <p class="after">The chain describes the relationship the design had to express, not a formal method.</p>
-      </div>
-      <div class="mg gap" id="s-three-teams-one-source-of-truth"><span class="eb">Shared information model</span></div>
-      <div class="ct gap">
-        <h2 class="claim">Three teams, one source of truth</h2>
-        <p class="qual">different internal questions, answered from the same model</p>
+        <h3 class="cs-h">Separate the data tier and usage tier</h3>
         <div class="prose">
-          <p>Each team asks something different. Each question depends on the same relationships, so the tool presents
-            one shared model rather than a view per team.</p>
-          <p>One shared model: client, entitlement, consumption and billing period. The same figures, read against the
-            same limits and period, for every team.</p>
+          <p>The two entitlement models are independent. An interface that merges them into a single table would
+            obscure this distinction. Users working in Finance or Sales need to see the two tiers as the product treats
+            them: distinct, parallel, and individually complete.</p>
+          <p>The tier plan screen shows two separate matrices. Each has its own CURRENT badge marking the active tier.
+            The separation is structural, not stylistic.</p>
         </div>
       </div>
-      <div class="mg"><span class="note">THE QUESTION EACH TEAM ASKS</span></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Sales</h3>
-              <p>Where does this client stand against what it purchased?</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Finance</h3>
-              <p>What consumption is relevant to billing activities in this period?</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Product team heads</h3>
-              <p>How is capacity being used across clients?</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
+      <div class="mg gap-s"><span class="fn">FIG. 01</span><span class="cap" id="cap-fig-01">Two tier structures, each badged with its own current position.</span><span
+          class="dis">Representative interface reconstruction. Layouts, counts and placeholder values are
+          illustrative, not exact product data or confirmed quantities.</span></div>
       <div class="ct gap-s">
-        <p class="after">Each team reads the part of the shared model that answers its question.</p>
+        <figure style="margin:0;" role="figure" aria-labelledby="cap-fig-01">
+          <div class="fig" aria-label="FIG. 01"><svg viewBox="0 0 980 486" xmlns="http://www.w3.org/2000/svg" role="img"
+              aria-label="Reconstruction of the tier plan. Two separate matrices are stacked: the data tier above and the usage tier below. Each matrix carries its own CURRENT badge on the active tier, because a client sits on a data tier and a usage tier at the same time and the two move independently, so one combined table would imply a single hierarchy. Tier names, parameters and values are shown as neutral placeholders, and the numbers of tiers, rows and cards are illustrative, not confirmed quantities.">
+              <rect width="980" height="486" fill="var(--bg-surface)" />
+              <rect x="0" y="0" width="980" height="486" fill="var(--bg-page)" />
+              <rect x="0" y="0" width="980" height="26" rx="2" fill="var(--apparatus-default)" opacity="0.1" />
+              <g transform="translate(24 0) scale(0.951 0.974)">
+              <circle cx="14" cy="13" r="4.4" fill="none" stroke="var(--apparatus-default)" stroke-width="1.2" /><text
+                x="13.4" y="16.2" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8"
+                fill="var(--apparatus-default)" text-anchor="middle" font-weight="700">i</text><rect x="26" y="9.9" width="190" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              
+              
+              <text x="0" y="84" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5"
+                fill="var(--fg-default)" text-anchor="start" font-weight="600">Data tier</text>
+              <rect x="0" y="96" width="980" height="56" rx="2" fill="var(--bg-surface)" stroke="var(--border-default)"
+                stroke-width="1" /><rect x="150" y="109.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="280.3" y="96" width="138.3" height="56" fill="var(--apparatus-default)" opacity="0.1" /><rect x="288.3" y="109.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="330.3" y="106" width="51" height="16" rx="2" fill="none" stroke="var(--apparatus-default)"
+                stroke-width="0.8" opacity="0.8" /><text x="338.3" y="117.5"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
+                text-anchor="start">CURRENT</text><rect x="426.7" y="109.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="109.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="109.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="109.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="14" y="109.9" width="44" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="0" y1="126" x2="980" y2="126" stroke="var(--border-default)" stroke-width="1" /><rect x="14" y="136.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="150" y="136.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="136.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="426.7" y="136.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="136.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="136.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="136.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="0" y="196"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
+                text-anchor="start" font-weight="600">Usage tier</text>
+              <rect x="0" y="208" width="980" height="186" rx="2" fill="var(--bg-surface)"
+                stroke="var(--border-default)" stroke-width="1" /><rect x="150" y="221.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="221.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="418.7" y="208" width="138.3" height="186" fill="var(--apparatus-default)" opacity="0.1" /><rect x="426.7" y="221.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="468.7" y="218" width="51" height="16" rx="2" fill="none" stroke="var(--apparatus-default)"
+                stroke-width="0.8" opacity="0.8" /><text x="476.7" y="229.5"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
+                text-anchor="start">CURRENT</text><rect x="565" y="221.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="221.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="221.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="14" y="221.9" width="44" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="0" y1="238" x2="980" y2="238" stroke="var(--border-default)" stroke-width="1" /><rect x="14" y="248.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="150" y="248.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="248.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="426.7" y="248.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="248.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="248.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="248.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="14" y1="264" x2="966" y2="264" stroke="var(--border-subtle)" stroke-width="1" /><rect x="14" y="274.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="150" y="274.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="274.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="426.7" y="274.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="274.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="274.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="274.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="14" y1="290" x2="966" y2="290" stroke="var(--border-subtle)" stroke-width="1" /><rect x="14" y="300.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="150" y="300.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="300.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="426.7" y="300.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="300.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="300.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="300.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="14" y1="316" x2="966" y2="316" stroke="var(--border-subtle)" stroke-width="1" /><rect x="14" y="326.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="150" y="326.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="326.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="426.7" y="326.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="326.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="326.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="326.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="14" y1="342" x2="966" y2="342" stroke="var(--border-subtle)" stroke-width="1" /><rect x="14" y="352.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="150" y="352.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="352.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="426.7" y="352.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="352.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="352.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="352.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="14" y1="368" x2="966" y2="368" stroke="var(--border-subtle)" stroke-width="1" /><rect x="14" y="378.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="150" y="378.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="288.3" y="378.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="426.7" y="378.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="565" y="378.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="703.3" y="378.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="841.7" y="378.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="0" y1="412" x2="980" y2="412" stroke="var(--apparatus-default)" stroke-width="1.4"
+                stroke-dasharray="3 3" /><text x="0" y="430" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
+                font-size="9" fill="var(--fg-muted)" text-anchor="start">Two tables, not one. A client sits on a data
+                tier and a usage tier at the same time, and the two move independently, so one combined structure would
+                imply</text><text x="0" y="442" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
+                fill="var(--fg-muted)" text-anchor="start">a single hierarchy that moves together.</text>
+                </g>
+            </svg></div>
+        </figure>
       </div>
-      <div class="mg gap" id="s-what-i-owned"><span class="eb">My role</span></div>
-      <div class="ct gap">
-        <h2 class="claim">What I owned</h2>
-        <p class="qual">UI/UX 100%, from requirements to reviewed build</p>
-        <div class="prose">
-          <p>My ownership did not stop at handoff. It ran from interpreting requirements through reviewing what was
-            built.</p>
-          <p>Requirements (from the BA and stakeholders) → Business rules (how tiers, usage, periods and alerts relate)
-            → Information architecture (flows, screen relationships, scope) → UX design (dashboard, tiers, alerts;
-            alternatives explored) → Figma and prototype (designs on the shared design system) → Review (with
-            stakeholders and the implementation team) → Handoff (supported developer handoff) → UX review and QA
-            (reviewed builds, raised UX issues, refined designs).</p>
-        </div>
-      </div>
-      <div class="mg"></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Decisions</h3>
-              <p>Explored alternatives and made the UX decisions, not only the screens.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Consistency</h3>
-              <p>Applied the shared design system and component language used across the product family.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Quality</h3>
-              <p>Raised UX issues during implementation and QA, and refined designs based on feedback and constraints.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap" id="s-deciding-how-the-concepts-relate"><span class="eb">Requirements to model</span></div>
-      <div class="ct gap">
-        <h2 class="claim">Deciding how the concepts relate</h2>
-        <p class="qual">the work between requirements and screens</p>
-        <div class="prose">
-          <p>The need came from Sales and Finance and reached me as requirements through the BA. The requirements listed
-            what the tool should contain. My work was deciding how those pieces relate.</p>
-        </div>
-      </div>
-      <div class="mg"></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Read together</h3>
-              <p>Some values only make sense side by side. Consumption, allowance and current tier are placed in one
-                card and one cell, never split across places.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Carried across views</h3>
-              <p>Some context applies everywhere. Client and billing period are chosen once, in the header, and every
-                client view inherits them.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Global or client-specific</h3>
-              <p>Two scopes need two places. Global holds clients, plans and billing; one client holds dashboard, tier
-                plan and billing. “Billing” appears in both scopes as two different destinations.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">04</span>
-            <div>
-              <h3>One question per screen</h3>
-              <p>Each screen has a single job. Where is the client now (dashboard) · what did it purchase (tier plan) ·
-                what should raise attention (alerts) · what matters for billing (billing). A screen that answers one
-                question can put that answer first.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
+      <div class="mg gap-s"><span class="eb">Decision 3</span></div>
       <div class="ct gap-s">
-        <p class="after">Read from the shipped structure: these four decisions shape every screen that follows.</p>
-      </div>
-      <div class="mg gap" id="s-rules-as-interface-behaviour"><span class="eb">Business rules</span></div>
-      <div class="ct gap">
-        <h2 class="claim">Rules as interface behaviour</h2>
-        <p class="qual">each rule, its UX implication and the design response</p>
+        <h3 class="cs-h">Anchor all figures to a billing period</h3>
         <div class="prose">
-          <p>Each business rule created a reading problem. The interface resolves it where the figure is shown.</p>
+          <p>A consumption figure without a period is ambiguous. The same number means different things depending on
+            whether it represents a full month, a partial billing cycle, or a historical snapshot.</p>
+          <p>The billing period was placed above the consumption data, not beside it or in a metadata footer. It frames
+            the figures before the user reads them. Keeping the billing period visible gives users the context they need
+            to interpret consumption figures and distinguish the current period from historical data.</p>
         </div>
       </div>
-      <div class="mg"><span class="note">RULE · UX IMPLICATION · INTERFACE BEHAVIOUR · CONSEQUENCE</span></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Each dimension has a purchased allowance</h3>
-              <p>Usage alone does not show headroom. Used and allowed are shown together, so headroom is read, not
-                calculated.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Data tier and usage tier are held independently</h3>
-              <p>One tier label per page would be wrong. Tier is shown per metric, across two tables, so position is
-                read correctly on each structure.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Figures belong to a billing period</h3>
-              <p>A figure without its period can be misread. The period sits above and the time sits on each reading, so
-                each figure states when it was true.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">04</span>
-            <div>
-              <h3>Alerts use thresholds against limits</h3>
-              <p>Rules set apart from limits are hard to reason about. Configuration opens over the tier plan, so rules
-                are set and read against their limits.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap" id="s-select-the-client-once"><span class="eb">Information architecture</span></div>
-      <div class="ct gap">
-        <h2 class="claim">Select the client once</h2>
-        <p class="qual">persistent context and two levels of scope</p>
-        <div class="prose">
-          <p>Most views describe one client in one period; some modules exist across all clients.</p>
-          <p>The decision: client selector in the header, persisting across tabs. Global modules in the sidebar. Client
-            views in tabs.</p>
-        </div>
-      </div>
-      <div class="mg gap-s"><span class="fn">FIG. 01</span><span class="cap" id="cap-s-select-the-client-once">Two
-          scopes, two places: global modules in the sidebar, one client in the tabs, the client chosen once above
-          both.</span><span class="dis">Representative interface reconstruction. Sanitized representation of the
-          original product design.</span></div>
+      <div class="mg gap-s"><span class="eb">Decision 4</span></div>
       <div class="ct gap-s">
-        <figure style="margin:0;" role="figure" aria-labelledby="cap-s-select-the-client-once">
-          <div class="fig" aria-label="FIG. 01"><svg viewBox="0 0 980 380" xmlns="http://www.w3.org/2000/svg" role="img"
-              aria-label="Reconstruction of the tool’s two scopes. A sidebar holds the modules that exist across all clients: clients, plans and billing. The header holds the client selector, chosen once and inherited by every view beneath it, and the tabs hold the views that describe that one client. A line beneath the tabs states the moment the figures were true.">
-              <rect width="980" height="380" fill="var(--bg-surface)" />
-              <rect x="0" y="0" width="150" height="300" fill="var(--apparatus-default)" />
-              <rect x="20" y="16" width="56" height="14" rx="2" fill="var(--bg-surface)" opacity="0.2" /><text x="20"
-                y="54" font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--bg-surface)"
-                text-anchor="start" letter-spacing="0.09em">MENU</text>
+        <h3 class="cs-h">Place alert configuration in context, not in a separate settings area</h3>
+        <div class="prose">
+          <p>Alerts are configured against entitlement limits. A threshold that is defined without reference to those
+            limits is harder to reason about. A user setting a warning threshold needs to see the tier values at the
+            same time.</p>
+          <p>The alert configuration panel opens as an overlay on the tier plan screen. The tier data remains visible in
+            the background while the user sets thresholds, selects severity levels (warning or critical), assigns
+            recipients, and sets a repeat percentage. The configuration and the data it references occupy the same
+            view.</p>
+          <p>This was directly informed by watching how users approached the original alert setup process: they
+            navigated away from tier data to find the alerts area, then had to remember the numbers they needed.</p>
+        </div>
+      </div>
+      <div class="mg gap-s"><span class="fn">FIG. 02</span><span class="cap" id="cap-fig-02">Alert configuration opening over the tier plan, so a rule is set beside the number it guards.</span><span
+          class="dis">Representative interface reconstruction. Layouts, counts and placeholder values are
+          illustrative, not exact product data or confirmed quantities.</span></div>
+      <div class="ct gap-s">
+        <figure style="margin:0;" role="figure" aria-labelledby="cap-fig-02">
+          <div class="fig" aria-label="FIG. 02"><svg viewBox="0 0 980 494" xmlns="http://www.w3.org/2000/svg" role="img"
+              aria-label="Reconstruction of alert configuration. The panel opens over the tier plan rather than on a page of its own, so the entitlement limits stay visible behind it while alerts are set. Each rule is one row showing the metric it watches, its threshold, a severity chip of warning or critical, and an enabled toggle; a rule switched off is paused and kept. One row is expanded to show its repeat percentage, its warning and critical thresholds as percentages of the limit, and its recipients, individuals and groups, folded into an accordion so a long list does not lengthen the panel. Names and values are shown as neutral placeholders, and the numbers of tiers, rows and cards are illustrative, not confirmed quantities.">
+              <rect width="980" height="494" fill="var(--bg-surface)" />
+              <rect x="0" y="0" width="150" height="448" fill="var(--apparatus-default)" />
+              <rect x="20" y="16" width="56" height="14" rx="2" fill="var(--bg-surface)" opacity="0.2" /><rect x="20" y="48.2" width="24" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
               <rect x="0" y="65" width="150" height="24" fill="var(--bg-surface)" opacity="0.1" />
               <rect x="0" y="65" width="2.5" height="24" fill="var(--bg-surface)" />
               <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="1">
@@ -522,29 +549,207 @@
               <line x1="166" y1="15" x2="178" y2="15" stroke="var(--fg-muted)" stroke-width="1.4" />
               <line x1="166" y1="20" x2="178" y2="20" stroke="var(--fg-muted)" stroke-width="1.4" />
               <line x1="166" y1="25" x2="178" y2="25" stroke="var(--fg-muted)" stroke-width="1.4" />
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <circle cx="844.5" cy="17.9" r="3.4" />
-                <line x1="846.9" y1="20.5" x2="851" y2="23.4" />
-              </g>
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <rect x="862" y="14" width="5.0" height="5.0" rx="1" />
-                <rect x="868.0" y="14" width="5.0" height="5.0" rx="1" />
-                <rect x="862" y="19.5" width="5.0" height="5.0" rx="1" />
-                <rect x="868.0" y="19.5" width="5.0" height="5.0" rx="1" />
-              </g>
-              <circle cx="888" cy="20" r="10" fill="var(--apparatus-default)" /><text x="888" y="23.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8" fill="var(--bg-surface)"
-                text-anchor="middle" font-weight="600">SA</text><text x="904" y="17"
+              <circle cx="888" cy="20" r="10" fill="var(--apparatus-default)" /><rect x="904" y="10.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="904" y="23.6" width="34" height="5" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="150" y="40" width="830" height="24" fill="var(--bg-page)" /><rect x="166" y="50.2" width="22" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="203.2" y="50.2" width="36" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="150" y1="64" x2="980" y2="64" stroke="var(--border-subtle)" stroke-width="1" />
+              <rect x="150" y="64" width="830" height="40" fill="var(--bg-surface)" /><text x="202.3" y="88"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-muted)"
+                text-anchor="middle">Dashboard</text><text x="274.9" y="88"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
+                text-anchor="middle" font-weight="600">Tier plan</text>
+              <rect x="244.6" y="96" width="60.6" height="2" fill="var(--apparatus-default)" /><text x="342.1" y="88"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-muted)"
+                text-anchor="middle">Billing</text><text x="770" y="66"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
+                text-anchor="start">Select client</text><text x="770" y="84"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
+                text-anchor="start">Client name</text>
+              <line x1="770" y1="91" x2="960" y2="91" stroke="var(--border-interactive)" stroke-width="1" />
+              <path d="M948 78 L952 82 L956 78" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" />
+              <line x1="150" y1="104" x2="980" y2="104" stroke="var(--border-default)" stroke-width="1" />
+              <rect x="150" y="104" width="830" height="344" fill="var(--bg-page)" />
+              <rect x="166" y="116" width="798" height="26" rx="2" fill="var(--apparatus-default)" opacity="0.1" />
+              <circle cx="180" cy="129" r="4.4" fill="none" stroke="var(--apparatus-default)" stroke-width="1.2" /><text
+                x="179.4" y="132.2" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8"
+                fill="var(--apparatus-default)" text-anchor="middle" font-weight="700">i</text><rect x="192" y="125.9" width="190" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="166" y="166"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
+                text-anchor="start" font-weight="600">Usage tier</text>
+              <rect x="166" y="176" width="798" height="210" rx="2" fill="var(--bg-surface)"
+                stroke="var(--border-default)" stroke-width="1" /><rect x="316" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="424" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="524" y="176" width="108" height="210" fill="var(--apparatus-default)" opacity="0.1" /><rect x="532" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="640" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="748" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="856" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="180" y="189.9" width="44" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="166" y1="206" x2="964" y2="206" stroke="var(--border-default)" stroke-width="1" /><rect x="180" y="218.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="316" y="218.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="424" y="218.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="532" y="218.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="640" y="218.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="748" y="218.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="856" y="218.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="180" y1="235" x2="950" y2="235" stroke="var(--border-subtle)" stroke-width="1" /><rect x="180" y="247.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="316" y="247.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="424" y="247.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="532" y="247.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="640" y="247.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="748" y="247.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="856" y="247.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="180" y1="264" x2="950" y2="264" stroke="var(--border-subtle)" stroke-width="1" /><rect x="180" y="276.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="316" y="276.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="424" y="276.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="532" y="276.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="640" y="276.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="748" y="276.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="856" y="276.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="180" y1="293" x2="950" y2="293" stroke="var(--border-subtle)" stroke-width="1" /><rect x="180" y="305.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="316" y="305.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="424" y="305.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="532" y="305.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="640" y="305.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="748" y="305.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="856" y="305.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="180" y1="322" x2="950" y2="322" stroke="var(--border-subtle)" stroke-width="1" /><rect x="180" y="334.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="316" y="334.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="424" y="334.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="532" y="334.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="640" y="334.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="748" y="334.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="856" y="334.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="180" y1="351" x2="950" y2="351" stroke="var(--border-subtle)" stroke-width="1" /><rect x="180" y="363.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="316" y="363.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="424" y="363.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="532" y="363.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="640" y="363.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="748" y="363.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="856" y="363.9" width="30" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="150" y="104" width="830" height="344" fill="var(--bg-inverse)" opacity="0.3" />
+              <rect x="360" y="0" width="620" height="448" fill="var(--bg-surface)" stroke="var(--border-default)"
+                stroke-width="1" /><text x="380" y="28" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
+                font-size="12" fill="var(--fg-default)" text-anchor="start" font-weight="600">Alert configuration</text>
+              <line x1="360" y1="42" x2="980" y2="42" stroke="var(--border-subtle)" stroke-width="1" />
+              
+              
+              
+              <text x="642" y="106"
+                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
+                text-anchor="start" letter-spacing="0.09em">METRIC</text><text x="736" y="106"
+                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
+                text-anchor="start" letter-spacing="0.09em">THRESHOLD</text><text x="804" y="106"
+                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
+                text-anchor="start" letter-spacing="0.09em">SEVERITY</text><text x="876" y="106"
+                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
+                text-anchor="start" letter-spacing="0.09em">ENABLED</text>
+              <line x1="380" y1="115" x2="960" y2="115" stroke="var(--border-default)" stroke-width="1" />
+              <rect x="372" y="118" width="596" height="28" rx="2" fill="var(--apparatus-default)" opacity="0.1" />
+              <path d="M384 129 l5 5 5 -5" fill="none" stroke="var(--apparatus-default)" stroke-width="1.3" /><rect x="402" y="129.9" width="84" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="642" y="129.9" width="52" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="736" y="129.9" width="22" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="799" y="124" width="61" height="16" rx="8" fill="var(--fig-warn)" opacity="0.1" />
+              <circle cx="809" cy="132" r="2.6" fill="var(--fig-warn)" /><text x="816" y="135.5"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-warn)"
+                text-anchor="start" font-weight="600">Warning</text>
+              <rect x="876" y="126" width="24" height="13" rx="6.5" fill="var(--apparatus-default)" opacity="0.5" />
+              <circle cx="892" cy="132.5" r="5" fill="var(--apparatus-default)" />
+              
+              
+              
+              <rect x="372" y="146" width="596" height="76" fill="var(--apparatus-default)" opacity="0.1" /><text 
+                x="402" y="164" font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5"
+                fill="var(--fg-muted)" text-anchor="start" letter-spacing="0.09em">REPEAT PERCENTAGE</text><rect x="402" y="173.5" width="46" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="600" y="164"
+                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
+                text-anchor="start" letter-spacing="0.09em">THRESHOLDS AND SEVERITY</text><text x="600" y="180"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
+                text-anchor="start">Warning and critical, each a percentage of the limit</text>
+              <rect x="392" y="192" width="556" height="22" rx="2" fill="var(--bg-mat)" /><text x="404" y="207"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">Internal user</text><text x="904" y="29"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8" fill="var(--fg-muted)"
-                text-anchor="start">Sales team</text>
-              <rect x="150" y="40" width="830" height="24" fill="var(--bg-page)" /><text x="166" y="56"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">Home</text><text x="193.2" y="56"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">›</text><text x="203.2" y="56" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="8.5" fill="var(--fg-default)" text-anchor="start" font-weight="600">Tier plan</text>
+                text-anchor="start" font-weight="600">Recipients</text><text x="468" y="207"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
+                text-anchor="start">Individuals and groups</text>
+              <path d="M928 200 l5 5 5 -5" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" />
+              <line x1="380" y1="222" x2="960" y2="222" stroke="var(--border-subtle)" stroke-width="1" />
+              <path d="M386 235 l5 5 -5 5" fill="none" stroke="var(--fg-muted)" stroke-width="1.3" /><rect x="402" y="237.9" width="84" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="642" y="237.9" width="52" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="736" y="237.9" width="22" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="799" y="232" width="66" height="16" rx="8" fill="var(--fig-stop)" opacity="0.1" />
+              <circle cx="809" cy="240" r="2.6" fill="var(--fig-stop)" /><text x="816" y="243.5"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-stop)"
+                text-anchor="start" font-weight="600">Critical</text>
+              <rect x="876" y="234" width="24" height="13" rx="6.5" fill="var(--apparatus-default)" opacity="0.5" />
+              <circle cx="892" cy="240.5" r="5" fill="var(--apparatus-default)" />
+              
+              
+              
+              <line x1="380" y1="254" x2="960" y2="254" stroke="var(--border-subtle)" stroke-width="1" />
+              <path d="M386 267 l5 5 -5 5" fill="none" stroke="var(--fg-muted)" stroke-width="1.3" /><rect x="402" y="269.9" width="84" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="642" y="269.9" width="52" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="736" y="269.9" width="22" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="799" y="264" width="61" height="16" rx="8" fill="var(--fig-warn)" opacity="0.1" />
+              <circle cx="809" cy="272" r="2.6" fill="var(--fig-warn)" /><text x="816" y="275.5"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-warn)"
+                text-anchor="start" font-weight="600">Warning</text>
+              <rect x="876" y="266" width="24" height="13" rx="6.5" fill="var(--apparatus-default)" opacity="0.5" />
+              <circle cx="892" cy="272.5" r="5" fill="var(--apparatus-default)" />
+              
+              
+              
+              <line x1="380" y1="286" x2="960" y2="286" stroke="var(--border-subtle)" stroke-width="1" />
+              <path d="M386 299 l5 5 -5 5" fill="none" stroke="var(--fg-muted)" stroke-width="1.3" /><rect x="402" y="301.9" width="84" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="642" y="301.9" width="52" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="736" y="301.9" width="22" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="799" y="296" width="66" height="16" rx="8" fill="var(--fig-stop)" opacity="0.1" />
+              <circle cx="809" cy="304" r="2.6" fill="var(--fig-stop)" /><text x="816" y="307.5"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-stop)"
+                text-anchor="start" font-weight="600">Critical</text>
+              <rect x="876" y="298" width="24" height="13" rx="6.5" fill="var(--fg-muted)" opacity="0.3" />
+              <circle cx="884" cy="304.5" r="5" fill="var(--fg-muted)" />
+              
+              
+              
+              <line x1="380" y1="318" x2="960" y2="318" stroke="var(--border-subtle)" stroke-width="1" />
+              <rect x="890" y="408" width="70" height="26" rx="2" fill="var(--apparatus-default)" /><text x="925"
+                y="424.4" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--bg-surface)"
+                text-anchor="middle" font-weight="600">Close</text>
+              <line x1="150" y1="462" x2="360" y2="462" stroke="var(--apparatus-default)" stroke-width="1.4"
+                stroke-dasharray="3 3" />
+              <line x1="150" y1="462" x2="150" y2="456" stroke="var(--apparatus-default)" stroke-width="1.4" />
+              <line x1="360" y1="462" x2="360" y2="456" stroke="var(--apparatus-default)" stroke-width="1.4" /><text
+                x="150" y="480" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
+                fill="var(--fg-muted)" text-anchor="start">The limits stay on screen while the thresholds that protect
+                them are set, so a rule is never written away from the number it guards.</text>
+            </svg></div>
+        </figure>
+      </div>
+
+      <!-- ===== SECTION 4 · KEY WORKFLOWS ===== -->
+      <div class="mg gap" id="s-key-workflows"><span class="eb">Section 4 &middot; Key Workflows</span></div>
+      <div class="ct gap">
+        <h2 class="claim">Workflows designed around how each team moves through the tool</h2>
+      </div>
+      <div class="mg gap-s"><span class="eb">Workflow 1</span></div>
+      <div class="ct gap-s">
+        <h3 class="cs-h">Client selection and persistent context</h3>
+        <div class="prose">
+          <p>The tool manages multiple clients. Any session begins with selecting a client, and that selection needs to
+            persist throughout the session so that every figure the user reads is unambiguously tied to the right
+            account.</p>
+          <p>The client selector sits in the page header. Once a client is selected, it is inherited across all
+            client-specific views without requiring re-selection as the user moves between screens. The navigation is
+            split across two scopes:</p>
+        </div>
+        <ul class="cs-list" role="list">
+          <li>The global sidebar handles top-level modules: Dashboard, Clients, Plans, and Billing. These exist
+            independently of any single client.</li>
+          <li>The client-specific tab bar handles the views that belong to a selected client: Dashboard, Tier Plan, and
+            Billing.</li>
+        </ul>
+        <div class="prose">
+          <p>The two scopes are visually and structurally distinct. The sidebar is always present. The tab bar only
+            appears when a client context is active.</p>
+        </div>
+      </div>
+      <div class="mg gap-s"><span class="fn">FIG. 03</span><span class="cap" id="cap-fig-03">Two scopes, two places: global modules in the sidebar, one client in the tabs, the client chosen once above both.</span><span
+          class="dis">Representative interface reconstruction. Layouts, counts and placeholder values are
+          illustrative, not exact product data or confirmed quantities.</span></div>
+      <div class="ct gap-s">
+        <figure style="margin:0;" role="figure" aria-labelledby="cap-fig-03">
+          <div class="fig" aria-label="FIG. 03"><svg viewBox="0 0 980 380" xmlns="http://www.w3.org/2000/svg" role="img"
+              aria-label="Reconstruction of the tool’s two scopes. A sidebar holds the modules that exist across all clients: dashboard, clients, plans and billing. The header holds the client selector, chosen once and inherited by every view beneath it, and the tabs hold the views that describe that one client: dashboard, tier plan and billing. A line beneath the tabs holds the timestamp of the figures. Values are shown as neutral placeholders, and the numbers of tiers, rows and cards are illustrative, not confirmed quantities.">
+              <rect width="980" height="380" fill="var(--bg-surface)" />
+              <rect x="0" y="0" width="150" height="300" fill="var(--apparatus-default)" />
+              <rect x="20" y="16" width="56" height="14" rx="2" fill="var(--bg-surface)" opacity="0.2" /><rect x="20" y="48.2" width="24" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="0" y="65" width="150" height="24" fill="var(--bg-surface)" opacity="0.1" />
+              <rect x="0" y="65" width="2.5" height="24" fill="var(--bg-surface)" />
+              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="1">
+                <rect x="16" y="69" width="9" height="7" rx="1" />
+                <line x1="16" y1="72.5" x2="25" y2="72.5" />
+              </g><text x="34" y="78" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
+                fill="var(--bg-surface)" text-anchor="start" font-weight="600" opacity="1">Dashboard</text><text x="136"
+                y="78" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
+                text-anchor="end" opacity="0.6">›</text>
+              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="0.7">
+                <circle cx="19.5" cy="97.9" r="3.4" />
+                <line x1="21.9" y1="100.5" x2="25" y2="102.4" />
+              </g><text x="34" y="104" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
+                fill="var(--bg-surface)" text-anchor="start" opacity="0.8">Clients</text><text x="136" y="104"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
+                text-anchor="end" opacity="0.6">›</text>
+              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="0.7">
+                <rect x="16" y="121" width="4.0" height="4.0" rx="1" />
+                <rect x="20.9" y="121" width="4.0" height="4.0" rx="1" />
+                <rect x="16" y="125.5" width="4.0" height="4.0" rx="1" />
+                <rect x="20.9" y="125.5" width="4.0" height="4.0" rx="1" />
+              </g><text x="34" y="130" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
+                fill="var(--bg-surface)" text-anchor="start" opacity="0.8">Plans</text><text x="136" y="130"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
+                text-anchor="end" opacity="0.6">›</text>
+              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="0.7">
+                <line x1="16" y1="148.5" x2="25" y2="148.5" />
+                <line x1="16" y1="151" x2="25" y2="151" />
+                <line x1="16" y1="153.5" x2="21.4" y2="153.5" />
+              </g><text x="34" y="156" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
+                fill="var(--bg-surface)" text-anchor="start" opacity="0.8">Billing</text><text x="136" y="156"
+                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
+                text-anchor="end" opacity="0.6">›</text>
+              <rect x="150" y="0" width="830" height="40" fill="var(--bg-surface)" />
+              <line x1="150" y1="40" x2="980" y2="40" stroke="var(--border-default)" stroke-width="1" />
+              <line x1="166" y1="15" x2="178" y2="15" stroke="var(--fg-muted)" stroke-width="1.4" />
+              <line x1="166" y1="20" x2="178" y2="20" stroke="var(--fg-muted)" stroke-width="1.4" />
+              <line x1="166" y1="25" x2="178" y2="25" stroke="var(--fg-muted)" stroke-width="1.4" />
+              <circle cx="888" cy="20" r="10" fill="var(--apparatus-default)" /><rect x="904" y="10.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="904" y="23.6" width="34" height="5" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="150" y="40" width="830" height="24" fill="var(--bg-page)" /><rect x="166" y="50.2" width="22" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="203.2" y="50.2" width="36" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
               <line x1="150" y1="64" x2="980" y2="64" stroke="var(--border-subtle)" stroke-width="1" />
               <rect x="150" y="64" width="830" height="40" fill="var(--bg-surface)" /><text x="202.3" y="88"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-muted)"
@@ -565,49 +770,17 @@
               <rect x="166" y="116" width="798" height="26" rx="2" fill="var(--apparatus-default)" opacity="0.1" />
               <circle cx="180" cy="129" r="4.4" fill="none" stroke="var(--apparatus-default)" stroke-width="1.2" /><text
                 x="179.4" y="132.2" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8"
-                fill="var(--apparatus-default)" text-anchor="middle" font-weight="700">i</text><text x="192" y="132.4"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--apparatus-default)"
-                text-anchor="start">As on 12 Feb 2026, 00:00:01 in the reporting time zone.</text><text x="166" y="166"
+                fill="var(--apparatus-default)" text-anchor="middle" font-weight="700">i</text><rect x="192" y="125.9" width="190" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="166" y="166"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">Data tier information</text>
+                text-anchor="start" font-weight="600">Data tier</text>
               <rect x="166" y="176" width="798" height="60" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="180" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Parameters</text><text x="306" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 1</text><text x="306" y="224"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start">2 TB</text>
-              <rect x="409.7" y="176" width="109.7" height="60" fill="var(--apparatus-default)" opacity="0.1" /><text
-                x="415.7" y="196" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
-                fill="var(--fg-default)" text-anchor="start" font-weight="600">Tier 2</text><text x="415.7" y="224"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">8 TB</text>
+                stroke="var(--border-default)" stroke-width="1" /><rect x="180" y="189.9" width="44" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="306" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="306" y="217.5" width="30" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="409.7" y="176" width="109.7" height="60" fill="var(--apparatus-default)" opacity="0.1" /><rect x="415.7" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="415.7" y="217.5" width="30" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
               <rect x="455.7" y="186" width="51" height="16" rx="2" fill="none" stroke="var(--apparatus-default)"
                 stroke-width="0.8" opacity="0.8" /><text x="463.7" y="197.5"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">CURRENT</text><text x="449.7" y="224"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(5.2 TB used)</text><text x="525.3" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 3</text><text x="525.3" y="224"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start">25 TB</text><text x="635" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 4</text><text x="635" y="224"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start">60 TB</text><text x="744.7" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 5</text><text x="744.7" y="224"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start">150 TB</text><text x="854.3" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 6</text><text x="854.3" y="224"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start">Above 150 TB</text>
-              <line x1="166" y1="206" x2="964" y2="206" stroke="var(--border-subtle)" stroke-width="1" /><text x="180"
-                y="224" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Data tier limit</text>
+                text-anchor="start">CURRENT</text><rect x="525.3" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="525.3" y="217.5" width="30" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="635" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="635" y="217.5" width="30" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="744.7" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="744.7" y="217.5" width="30" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="854.3" y="189.9" width="26" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="854.3" y="217.5" width="30" height="5.9" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <line x1="166" y1="206" x2="964" y2="206" stroke="var(--border-subtle)" stroke-width="1" /><rect x="180" y="217.9" width="62" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
               <line x1="770" y1="306" x2="960" y2="306" stroke="var(--apparatus-default)" stroke-width="1.4"
                 stroke-dasharray="3 3" />
               <line x1="770" y1="306" x2="770" y2="300" stroke="var(--apparatus-default)" stroke-width="1.4" />
@@ -617,9 +790,9 @@
                 so the client is never asked for again.</text>
               <line x1="0" y1="306" x2="150" y2="306" stroke="var(--apparatus-default)" stroke-width="1.4" />
               <line x1="0" y1="306" x2="0" y2="300" stroke="var(--apparatus-default)" stroke-width="1.4" />
-              <line x1="150" y1="306" x2="150" y2="300" stroke="var(--apparatus-default)" stroke-width="1.4" /><text
+              <line x1="150" y1="306" x2="150" y2="300" stroke="var(--apparatus-default)" stroke-width="1.4" /><text 
                 x="0" y="324" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Global scope: clients, plans and billing across all clients.</text><text x="0"
+                text-anchor="start">Global scope: dashboard, clients, plans and billing across all clients.</text><text x="0"
                 y="336" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
                 text-anchor="start">Client scope lives in the tabs above. Billing appears in both,</text><text x="0"
                 y="348" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
@@ -627,55 +800,31 @@
             </svg></div>
         </figure>
       </div>
-      <div class="mg"></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Reasoning</h3>
-              <p>Context should be inherited, not re-entered. Two scopes need two distinct places.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Consequence</h3>
-              <p>The client is never asked for again. “Billing” appears in both scopes as two destinations.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Supporting exploration</h3>
-              <p>A top menu was explored; the sidebar was chosen, with the top row kept for client context.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
+      <div class="mg gap-s"><span class="eb">Workflow 2</span></div>
       <div class="ct gap-s">
-        <p class="after">Redrawn layout. Labels are generic, and no production screenshot is shown.</p>
-      </div>
-      <div class="mg gap" id="s-position-first-then-direction"><span class="eb">Data-heavy UX</span></div>
-      <div class="ct gap">
-        <h2 class="claim">Position first, then direction</h2>
-        <p class="qual">the order of questions on the dashboard</p>
+        <h3 class="cs-h">The consumption dashboard</h3>
         <div class="prose">
-          <p>The first question is where the client stands: used of allowed, with the current tier for that dimension.
-            The limit sits with the figure.</p>
+          <p>The dashboard answers the first question most users have when they open a client record: where does this
+            client stand right now?</p>
+          <p>The information hierarchy follows a “position first, then direction” structure. For each dimension, the
+            dashboard shows current consumption alongside purchased allowance for direct comparison, the current tier,
+            and the percentage change versus the previous period. Separate trend charts for storage and query usage
+            provide directional context below the summary data.</p>
+          <p>This ordering was deliberate. A user who opens the dashboard in a client conversation needs to know the
+            client’s position before they can interpret movement. The reverse order, leading with trends and expecting
+            the user to construct a summary, requires more effort and introduces more opportunity for misreading.</p>
         </div>
       </div>
-      <div class="mg gap-s"><span class="fn">FIG. 02</span><span class="cap"
-          id="cap-s-position-first-then-direction">Used against allowed, with the tier on the card, before any trend
-          line.</span><span class="dis">Representative interface reconstruction. Sanitized representation of the
-          original product design.</span></div>
+      <div class="mg gap-s"><span class="fn">FIG. 04</span><span class="cap" id="cap-fig-04">Used against allowed, with the tier on the card, before any trend line.</span><span
+          class="dis">Representative interface reconstruction. Layouts, counts and placeholder values are
+          illustrative, not exact product data or confirmed quantities.</span></div>
       <div class="ct gap-s">
-        <figure style="margin:0;" role="figure" aria-labelledby="cap-s-position-first-then-direction">
-          <div class="fig" aria-label="FIG. 02"><svg viewBox="0 0 980 500" xmlns="http://www.w3.org/2000/svg" role="img"
-              aria-label="Reconstruction of the consumption dashboard. A row of five cards answers the first question, one card per usage dimension: the amount used stated against the amount allowed, a bar showing how much of the allowance is gone, the change against the previous period, and the client’s current tier for that dimension stated on the card itself. Beneath them, trend charts answer the second question of how usage is moving through the period. Alert status is deliberately absent from this screen.">
+        <figure style="margin:0;" role="figure" aria-labelledby="cap-fig-04">
+          <div class="fig" aria-label="FIG. 04"><svg viewBox="0 0 980 500" xmlns="http://www.w3.org/2000/svg" role="img"
+              aria-label="Reconstruction of the consumption dashboard. A row of cards answers the first question, one card per usage dimension: current consumption stated against the purchased allowance, a bar showing how much of the allowance is used, the change against the previous period, and the client’s current tier. Beneath them, separate storage and query trend charts answer the second question of how usage is moving through the period. Alert status is not shown on this screen. Dimension names and values are shown as neutral placeholders, and the numbers of tiers, rows and cards are illustrative, not confirmed quantities.">
               <rect width="980" height="500" fill="var(--bg-surface)" />
               <rect x="0" y="0" width="150" height="500" fill="var(--apparatus-default)" />
-              <rect x="20" y="16" width="56" height="14" rx="2" fill="var(--bg-surface)" opacity="0.2" /><text x="20"
-                y="54" font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--bg-surface)"
-                text-anchor="start" letter-spacing="0.09em">MENU</text>
+              <rect x="20" y="16" width="56" height="14" rx="2" fill="var(--bg-surface)" opacity="0.2" /><rect x="20" y="48.2" width="24" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
               <rect x="0" y="65" width="150" height="24" fill="var(--bg-surface)" opacity="0.1" />
               <rect x="0" y="65" width="2.5" height="24" fill="var(--bg-surface)" />
               <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="1">
@@ -714,29 +863,8 @@
               <line x1="166" y1="15" x2="178" y2="15" stroke="var(--fg-muted)" stroke-width="1.4" />
               <line x1="166" y1="20" x2="178" y2="20" stroke="var(--fg-muted)" stroke-width="1.4" />
               <line x1="166" y1="25" x2="178" y2="25" stroke="var(--fg-muted)" stroke-width="1.4" />
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <circle cx="844.5" cy="17.9" r="3.4" />
-                <line x1="846.9" y1="20.5" x2="851" y2="23.4" />
-              </g>
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <rect x="862" y="14" width="5.0" height="5.0" rx="1" />
-                <rect x="868.0" y="14" width="5.0" height="5.0" rx="1" />
-                <rect x="862" y="19.5" width="5.0" height="5.0" rx="1" />
-                <rect x="868.0" y="19.5" width="5.0" height="5.0" rx="1" />
-              </g>
-              <circle cx="888" cy="20" r="10" fill="var(--apparatus-default)" /><text x="888" y="23.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8" fill="var(--bg-surface)"
-                text-anchor="middle" font-weight="600">SA</text><text x="904" y="17"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">Internal user</text><text x="904" y="29"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8" fill="var(--fg-muted)"
-                text-anchor="start">Sales team</text>
-              <rect x="150" y="40" width="830" height="24" fill="var(--bg-page)" /><text x="166" y="56"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">Home</text><text x="193.2" y="56"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">›</text><text x="203.2" y="56" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="8.5" fill="var(--fg-default)" text-anchor="start" font-weight="600">Dashboard</text>
+              <circle cx="888" cy="20" r="10" fill="var(--apparatus-default)" /><rect x="904" y="10.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="904" y="23.6" width="34" height="5" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
+              <rect x="150" y="40" width="830" height="24" fill="var(--bg-page)" /><rect x="166" y="50.2" width="22" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="203.2" y="50.2" width="36" height="5.3" rx="1.5" fill="var(--fg-muted)" opacity="0.26" />
               <line x1="150" y1="64" x2="980" y2="64" stroke="var(--border-subtle)" stroke-width="1" />
               <rect x="150" y="64" width="830" height="40" fill="var(--bg-surface)" /><text x="202.3" y="88"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
@@ -759,80 +887,60 @@
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
                 text-anchor="start">Where does this client stand right now?</text>
               <rect x="166" y="138" width="151.6" height="90" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="178" y="156"
+                stroke="var(--border-default)" stroke-width="1" /><rect x="178" y="149.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="178" y="166.5" width="28" height="8.7" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="234.4" y="176"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Storage</text><text x="178" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="14" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">5.2 TB</text><text x="234.4" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">of 8 TB</text>
+                text-anchor="start">of allowance</text>
               <rect x="178" y="184" width="127.6" height="4" rx="2" fill="var(--fg-muted)" opacity="0.2" />
               <rect x="178" y="184" width="82.9" height="4" rx="2" fill="var(--apparatus-default)" /><text x="178"
                 y="202" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">+9% vs previous period</text>
+                text-anchor="start">Change vs previous period</text>
               <line x1="166" y1="210" x2="317.6" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text x="178"
                 y="223" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5"
-                fill="var(--apparatus-default)" text-anchor="start">Current tier 2</text>
+                fill="var(--apparatus-default)" text-anchor="start">Current tier</text>
               <rect x="327.6" y="138" width="151.6" height="90" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="339.6" y="156"
+                stroke="var(--border-default)" stroke-width="1" /><rect x="339.6" y="149.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="339.6" y="166.5" width="28" height="8.7" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="379.2" y="176"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Query volume</text><text x="339.6" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="14" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">5.1M</text><text x="379.2" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">of 8M units</text>
+                text-anchor="start">of allowance</text>
               <rect x="339.6" y="184" width="127.6" height="4" rx="2" fill="var(--fg-muted)" opacity="0.2" />
               <rect x="339.6" y="184" width="81.7" height="4" rx="2" fill="var(--apparatus-default)" /><text x="339.6"
                 y="202" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">+4% vs previous period</text>
-              <line x1="327.6" y1="210" x2="479.2" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text
+                text-anchor="start">Change vs previous period</text>
+              <line x1="327.6" y1="210" x2="479.2" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text 
                 x="339.6" y="223" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5"
-                fill="var(--apparatus-default)" text-anchor="start">Current tier 3</text>
+                fill="var(--apparatus-default)" text-anchor="start">Current tier</text>
               <rect x="489.2" y="138" width="151.6" height="90" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="501.2" y="156"
+                stroke="var(--border-default)" stroke-width="1" /><rect x="501.2" y="149.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="501.2" y="166.5" width="28" height="8.7" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="566" y="176"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Data transfer</text><text x="501.2" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="14" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">34.5 TB</text><text x="566" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">of 40 TB</text>
+                text-anchor="start">of allowance</text>
               <rect x="501.2" y="184" width="127.6" height="4" rx="2" fill="var(--fg-muted)" opacity="0.2" />
-              <rect x="501.2" y="184" width="109.7" height="4" rx="2" fill="var(--fig-warn)" /><text x="501.2" y="202"
+              <rect x="501.2" y="184" width="109.7" height="4" rx="2" fill="var(--apparatus-default)" /><text x="501.2" y="202"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">+18% vs previous period</text>
-              <line x1="489.2" y1="210" x2="640.8" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text
+                text-anchor="start">Change vs previous period</text>
+              <line x1="489.2" y1="210" x2="640.8" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text 
                 x="501.2" y="223" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5"
-                fill="var(--apparatus-default)" text-anchor="start">Current tier 3</text>
+                fill="var(--apparatus-default)" text-anchor="start">Current tier</text>
               <rect x="650.8" y="138" width="151.6" height="90" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="662.8" y="156"
+                stroke="var(--border-default)" stroke-width="1" /><rect x="662.8" y="149.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="662.8" y="166.5" width="28" height="8.7" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="694" y="176"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Users</text><text x="662.8" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="14" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">268</text><text x="694" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">of 400 users</text>
+                text-anchor="start">of allowance</text>
               <rect x="662.8" y="184" width="127.6" height="4" rx="2" fill="var(--fg-muted)" opacity="0.2" />
               <rect x="662.8" y="184" width="85.5" height="4" rx="2" fill="var(--apparatus-default)" /><text x="662.8"
                 y="202" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">+6% vs previous period</text>
-              <line x1="650.8" y1="210" x2="802.4" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text
+                text-anchor="start">Change vs previous period</text>
+              <line x1="650.8" y1="210" x2="802.4" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text 
                 x="662.8" y="223" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5"
-                fill="var(--apparatus-default)" text-anchor="start">Current tier 3</text>
+                fill="var(--apparatus-default)" text-anchor="start">Current tier</text>
               <rect x="812.4" y="138" width="151.6" height="90" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="824.4" y="156"
+                stroke="var(--border-default)" stroke-width="1" /><rect x="824.4" y="149.9" width="46" height="5.6" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><rect x="824.4" y="166.5" width="28" height="8.7" rx="1.5" fill="var(--fg-muted)" opacity="0.26" /><text x="855.6" y="176"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Compute</text><text x="824.4" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="14" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">640</text><text x="855.6" y="176"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">of 960 hrs</text>
+                text-anchor="start">of allowance</text>
               <rect x="824.4" y="184" width="127.6" height="4" rx="2" fill="var(--fg-muted)" opacity="0.2" />
               <rect x="824.4" y="184" width="85.5" height="4" rx="2" fill="var(--apparatus-default)" /><text x="824.4"
                 y="202" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">−3% vs previous period</text>
-              <line x1="812.4" y1="210" x2="964" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text
+                text-anchor="start">Change vs previous period</text>
+              <line x1="812.4" y1="210" x2="964" y2="210" stroke="var(--border-subtle)" stroke-width="1" /><text 
                 x="824.4" y="223" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5"
-                fill="var(--apparatus-default)" text-anchor="start">Current tier 3</text><text x="166" y="254"
+                fill="var(--apparatus-default)" text-anchor="start">Current tier</text><text x="166" y="254"
                 font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
                 text-anchor="start" letter-spacing="0.09em">DIRECTION</text><text x="232" y="254"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
@@ -842,21 +950,11 @@
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--fg-default)"
                 text-anchor="start" font-weight="600">Storage consumption</text>
               <line x1="180" y1="298" x2="545" y2="298" stroke="var(--border-subtle)" stroke-width="1" />
-              <line x1="210" y1="320" x2="541" y2="320" stroke="var(--border-subtle)" stroke-width="1" /><text x="202"
-                y="323" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">8</text>
-              <line x1="210" y1="343" x2="541" y2="343" stroke="var(--border-subtle)" stroke-width="1" /><text x="202"
-                y="346" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">6</text>
-              <line x1="210" y1="366" x2="541" y2="366" stroke="var(--border-subtle)" stroke-width="1" /><text x="202"
-                y="369" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">4</text>
-              <line x1="210" y1="389" x2="541" y2="389" stroke="var(--border-subtle)" stroke-width="1" /><text x="202"
-                y="392" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">2</text>
-              <line x1="210" y1="412" x2="541" y2="412" stroke="var(--border-subtle)" stroke-width="1" /><text x="202"
-                y="415" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">0</text>
+              <line x1="210" y1="320" x2="541" y2="320" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="210" y1="343" x2="541" y2="343" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="210" y1="366" x2="541" y2="366" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="210" y1="389" x2="541" y2="389" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="210" y1="412" x2="541" y2="412" stroke="var(--border-subtle)" stroke-width="1" />
               <polyline
                 points="210.0,400.5 240.1,389.0 270.2,354.5 300.3,377.5 330.4,354.5 360.5,407.4 390.5,366.0 420.6,389.0 450.7,366.0 480.8,389.0 510.9,400.5 541.0,389.0"
                 fill="none" stroke="var(--apparatus-default)" stroke-width="2" stroke-linejoin="round"
@@ -873,41 +971,17 @@
               <circle cx="480.8" cy="389" r="2.6" fill="var(--apparatus-default)" />
               <circle cx="510.9" cy="400.5" r="2.6" fill="var(--apparatus-default)" />
               <circle cx="541" cy="389" r="2.6" fill="var(--apparatus-default)" />
-              <line x1="210" y1="412" x2="541" y2="412" stroke="var(--border-default)" stroke-width="1" /><text
-                x="223.8" y="426" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7"
-                fill="var(--fg-muted)" text-anchor="middle">Jan</text><text x="279.0" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Mar</text><text x="334.1" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">May</text><text x="389.3" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Jul</text><text x="444.5" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Sep</text><text x="499.6" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Nov</text><text x="362.5" y="442"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7.5" fill="var(--fg-muted)"
-                text-anchor="middle">Months</text>
+              <line x1="210" y1="412" x2="541" y2="412" stroke="var(--border-default)" stroke-width="1" />
               <rect x="571" y="266" width="393" height="172" rx="2" fill="var(--bg-surface)"
                 stroke="var(--border-default)" stroke-width="1" /><text x="585" y="288"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--fg-default)"
                 text-anchor="start" font-weight="600">Query consumption</text>
               <line x1="585" y1="298" x2="950" y2="298" stroke="var(--border-subtle)" stroke-width="1" />
-              <line x1="615" y1="320" x2="946" y2="320" stroke="var(--border-subtle)" stroke-width="1" /><text x="607"
-                y="323" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">8</text>
-              <line x1="615" y1="343" x2="946" y2="343" stroke="var(--border-subtle)" stroke-width="1" /><text x="607"
-                y="346" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">6</text>
-              <line x1="615" y1="366" x2="946" y2="366" stroke="var(--border-subtle)" stroke-width="1" /><text x="607"
-                y="369" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">4</text>
-              <line x1="615" y1="389" x2="946" y2="389" stroke="var(--border-subtle)" stroke-width="1" /><text x="607"
-                y="392" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">2</text>
-              <line x1="615" y1="412" x2="946" y2="412" stroke="var(--border-subtle)" stroke-width="1" /><text x="607"
-                y="415" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="end">0</text>
+              <line x1="615" y1="320" x2="946" y2="320" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="615" y1="343" x2="946" y2="343" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="615" y1="366" x2="946" y2="366" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="615" y1="389" x2="946" y2="389" stroke="var(--border-subtle)" stroke-width="1" />
+              <line x1="615" y1="412" x2="946" y2="412" stroke="var(--border-subtle)" stroke-width="1" />
               <rect x="620.2" y="359.1" width="17.1" height="52.9" rx="2" fill="var(--apparatus-default)" />
               <rect x="647.8" y="371.8" width="17.1" height="40.2" rx="2" fill="var(--apparatus-default)" />
               <rect x="675.4" y="351.1" width="17.1" height="60.9" rx="2" fill="var(--apparatus-default)" />
@@ -920,21 +994,7 @@
               <rect x="868.5" y="389" width="17.1" height="23" rx="2" fill="var(--apparatus-default)" />
               <rect x="896.1" y="377.5" width="17.1" height="34.5" rx="2" fill="var(--apparatus-default)" />
               <rect x="923.7" y="370.6" width="17.1" height="41.4" rx="2" fill="var(--apparatus-default)" />
-              <line x1="615" y1="412" x2="946" y2="412" stroke="var(--border-default)" stroke-width="1" /><text
-                x="628.8" y="426" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7"
-                fill="var(--fg-muted)" text-anchor="middle">Jan</text><text x="684.0" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Mar</text><text x="739.1" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">May</text><text x="794.3" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Jul</text><text x="849.5" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Sep</text><text x="904.6" y="426"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7" fill="var(--fg-muted)"
-                text-anchor="middle">Nov</text><text x="767.5" y="442"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="7.5" fill="var(--fg-muted)"
-                text-anchor="middle">Months</text><text x="166" y="466"
+              <line x1="615" y1="412" x2="946" y2="412" stroke="var(--border-default)" stroke-width="1" /><text x="166" y="466"
                 font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
                 text-anchor="start" letter-spacing="0.09em">NOT ON THIS SCREEN</text><text x="282" y="466"
                 font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
@@ -943,771 +1003,102 @@
             </svg></div>
         </figure>
       </div>
-      <div class="mg"></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>First: where does the client stand?</h3>
-              <p>Used of allowed, with the current tier for that dimension. The limit sits with the figure.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Then: how is usage changing?</h3>
-              <p>Change against the previous period, then trend charts for follow-up questions.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Not here: what needs attention?</h3>
-              <p>The dashboard does not show alert status. Thresholds and severity live in the alerting model.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">04</span>
-            <div>
-              <h3>Why tier is per dimension</h3>
-              <p>Data and usage tiers can differ, so a single page-level tier would mislead.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
+      <div class="mg gap-s"><span class="eb">Workflow 3</span></div>
       <div class="ct gap-s">
-        <p class="after">Redrawn. One card stands for every usage dimension, and every value shown is a placeholder.</p>
-      </div>
-      <div class="mg gap" id="s-two-entitlement-models-shown-separately"><span class="eb">Business rule decision</span>
-      </div>
-      <div class="ct gap">
-        <h2 class="claim">Two entitlement models, shown separately</h2>
-        <p class="qual">locating one client on both</p>
+        <h3 class="cs-h">Tier plan and alert configuration</h3>
         <div class="prose">
-          <p>A client holds a data tier and a usage tier, and the two change independently. A single combined
-            representation would suggest one hierarchy that moves together.</p>
+          <p>The tier plan view is the reference screen for entitlement detail. It shows both tier matrices (data and
+            usage) with the active tier marked on each. Users read this screen to understand what is contracted, not
+            what is consumed.</p>
+          <p>Alert configuration is initiated from this screen. When a user opens the alert configuration panel, the
+            tier data remains visible behind the panel. The user sets:</p>
         </div>
-      </div>
-      <div class="mg gap-s"><span class="fn">FIG. 03</span><span class="cap"
-          id="cap-s-two-entitlement-models-shown-separately">Two tier structures, each badged with its own current
-          position.</span><span class="dis">Representative interface reconstruction. Sanitized representation of the
-          original product design.</span></div>
-      <div class="ct gap-s">
-        <figure style="margin:0;" role="figure" aria-labelledby="cap-s-two-entitlement-models-shown-separately">
-          <div class="fig" aria-label="FIG. 03"><svg viewBox="0 0 980 486" xmlns="http://www.w3.org/2000/svg" role="img"
-              aria-label="Reconstruction of the tier plan. Two separate matrices are stacked: data tier information above, with a single parameter across six tiers, and usage tier information below, with six parameters across the same six tiers. Each matrix badges its own current tier independently, and the amount consumed is printed inside the current tier’s cell beside the limit it counts against. A line above states the moment the figures were true, and a billing period selector sits with them.">
-              <rect width="980" height="486" fill="var(--bg-surface)" />
-              <rect x="0" y="0" width="980" height="486" fill="var(--bg-page)" />
-              <rect x="0" y="0" width="980" height="26" rx="2" fill="var(--apparatus-default)" opacity="0.1" />
-              <g transform="translate(24 0) scale(0.951 0.974)">
-              <circle cx="14" cy="13" r="4.4" fill="none" stroke="var(--apparatus-default)" stroke-width="1.2" /><text
-                x="13.4" y="16.2" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8"
-                fill="var(--apparatus-default)" text-anchor="middle" font-weight="700">i</text><text x="26" y="16.4"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--apparatus-default)"
-                text-anchor="start">As on 12 Feb 2026, 00:00:01 in the reporting time zone.</text><text x="680" y="40"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">Billing period</text><text x="680" y="58"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
-                text-anchor="start">Period start to period end</text>
-              <line x1="680" y1="65" x2="870" y2="65" stroke="var(--border-interactive)" stroke-width="1" />
-              <path d="M858 52 L862 56 L866 52" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" />
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <circle cx="897" cy="52.4" r="3.4" />
-                <line x1="899.4" y1="55" x2="904" y2="58.4" />
-              </g>
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <rect x="918" y="48" width="5.4" height="5.4" rx="1" />
-                <rect x="924.6" y="48" width="5.4" height="5.4" rx="1" />
-                <rect x="918" y="54" width="5.4" height="5.4" rx="1" />
-                <rect x="924.6" y="54" width="5.4" height="5.4" rx="1" />
-              </g>
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <line x1="944" y1="49.5" x2="956" y2="49.5" />
-                <line x1="944" y1="53.5" x2="956" y2="53.5" />
-                <line x1="944" y1="57.5" x2="951.2" y2="57.5" />
-              </g><text x="0" y="84" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5"
-                fill="var(--fg-default)" text-anchor="start" font-weight="600">Data tier information</text>
-              <rect x="0" y="96" width="980" height="56" rx="2" fill="var(--bg-surface)" stroke="var(--border-default)"
-                stroke-width="1" /><text x="150" y="116" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="9" fill="var(--fg-muted)" text-anchor="start">Tier 1</text>
-              <rect x="280.3" y="96" width="138.3" height="56" fill="var(--apparatus-default)" opacity="0.1" /><text
-                x="288.3" y="116" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
-                fill="var(--fg-default)" text-anchor="start" font-weight="600">Tier 2</text>
-              <rect x="330.3" y="106" width="51" height="16" rx="2" fill="none" stroke="var(--apparatus-default)"
-                stroke-width="0.8" opacity="0.8" /><text x="338.3" y="117.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">CURRENT</text><text x="426.7" y="116"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 3</text><text x="565" y="116"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 4</text><text x="703.3" y="116"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 5</text><text x="841.7" y="116"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 6</text><text x="14" y="116"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Parameters</text>
-              <line x1="0" y1="126" x2="980" y2="126" stroke="var(--border-default)" stroke-width="1" /><text x="14"
-                y="143" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Data tier limit</text><text x="150" y="143"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2 TB</text><text x="288.3" y="143"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">8 TB</text><text x="315.1" y="143"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(5.2 TB used)</text><text x="426.7" y="143"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">25 TB</text><text x="565" y="143"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">60 TB</text><text x="703.3" y="143"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">150 TB</text><text x="841.7" y="143"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Above 150 TB</text><text x="0" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">Usage tier information</text>
-              <rect x="0" y="208" width="980" height="186" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="150" y="228"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 1</text><text x="288.3" y="228"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 2</text>
-              <rect x="418.7" y="208" width="138.3" height="186" fill="var(--apparatus-default)" opacity="0.1" /><text
-                x="426.7" y="228" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
-                fill="var(--fg-default)" text-anchor="start" font-weight="600">Tier 3</text>
-              <rect x="468.7" y="218" width="51" height="16" rx="2" fill="none" stroke="var(--apparatus-default)"
-                stroke-width="0.8" opacity="0.8" /><text x="476.7" y="229.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">CURRENT</text><text x="565" y="228"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 4</text><text x="703.3" y="228"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 5</text><text x="841.7" y="228"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 6</text><text x="14" y="228"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Parameters</text>
-              <line x1="0" y1="238" x2="980" y2="238" stroke="var(--border-default)" stroke-width="1" /><text x="14"
-                y="255" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Unit queries</text><text x="150" y="255"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">250K</text><text x="288.3" y="255"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2M</text><text x="426.7" y="255"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">8M</text><text x="443.1" y="255"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(5.1M used)</text><text x="565" y="255"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">16M</text><text x="703.3" y="255"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">40M</text><text x="841.7" y="255"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">60M</text>
-              <line x1="14" y1="264" x2="966" y2="264" stroke="var(--border-subtle)" stroke-width="1" /><text x="14"
-                y="281" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Storage requests</text><text x="150" y="281"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">300K</text><text x="288.3" y="281"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">3M</text><text x="426.7" y="281"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">9M</text><text x="443.1" y="281"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(6.2M used)</text><text x="565" y="281"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">18M</text><text x="703.3" y="281"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">36M</text><text x="841.7" y="281"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">64M</text>
-              <line x1="14" y1="290" x2="966" y2="290" stroke="var(--border-subtle)" stroke-width="1" /><text x="14"
-                y="307" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Concurrent users</text><text x="150" y="307"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">8</text><text x="288.3" y="307"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">8</text><text x="426.7" y="307"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">16</text><text x="443.1" y="307"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(9 used)</text><text x="565" y="307"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">24</text><text x="703.3" y="307"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">24</text><text x="841.7" y="307"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">24</text>
-              <line x1="14" y1="316" x2="966" y2="316" stroke="var(--border-subtle)" stroke-width="1" /><text x="14"
-                y="333" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Total users</text><text x="150" y="333"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">80</text><text x="288.3" y="333"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">80</text><text x="426.7" y="333"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">400</text><text x="448.3" y="333"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(268 used)</text><text x="565" y="333"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">800</text><text x="703.3" y="333"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">800</text><text x="841.7" y="333"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">4,000</text>
-              <line x1="14" y1="342" x2="966" y2="342" stroke="var(--border-subtle)" stroke-width="1" /><text x="14"
-                y="359" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Data transfer</text><text x="150" y="359"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2 to 4 TB</text><text x="288.3" y="359"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">4 to 24 TB</text><text x="426.7" y="359"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">24 to 40 TB</text><text x="489.9" y="359"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(34.5 TB used)</text><text x="565" y="359"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">40 to 56 TB</text><text x="703.3" y="359"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">56 to 80 TB</text><text x="841.7" y="359"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Above 80 TB</text>
-              <line x1="14" y1="368" x2="966" y2="368" stroke="var(--border-subtle)" stroke-width="1" /><text x="14"
-                y="385" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Compute</text><text x="150" y="385"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">400 hrs</text><text x="288.3" y="385"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">720 hrs</text><text x="426.7" y="385"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">960 hrs</text><text x="469.1" y="385"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--apparatus-default)"
-                text-anchor="start">(640 hrs used)</text><text x="565" y="385"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2,000 hrs</text><text x="703.3" y="385"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2,560 hrs</text><text x="841.7" y="385"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">3,600 hrs</text>
-              <line x1="0" y1="412" x2="980" y2="412" stroke="var(--apparatus-default)" stroke-width="1.4"
-                stroke-dasharray="3 3" /><text x="0" y="430" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="9" fill="var(--fg-muted)" text-anchor="start">Two tables, not one. A client sits on a data
-                tier and a usage tier at the same time, and the two move independently, so one combined structure would
-                imply</text><text x="0" y="442" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
-                fill="var(--fg-muted)" text-anchor="start">a single hierarchy that moves together.</text><text x="0"
-                y="466" font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">CONSUMPTION SITS INSIDE THE CURRENT TIER’S ENTITLEMENT CELL,
-                SO HEADROOM IS READ RATHER THAN CALCULATED</text>
-                </g>
-            </svg></div>
-        </figure>
-      </div>
-      <div class="mg"></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Design response</h3>
-              <p>Two separate tables. The current tier badged on each. Consumption inside the entitlement cell. Readings
-                timestamped for the selected period.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Rationale</h3>
-              <p>A combined structure would imply the two entitlement models move together, so I represented them
-                separately.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Resulting UX</h3>
-              <p>Users see the client’s position on each structure without reconciling two entitlement models
-                themselves.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
-      <div class="ct gap-s">
-        <p class="after">Consumption sits inside the current tier’s entitlement cell. Redrawn: tier names and limits are
-          placeholders, and the positions are illustrative.</p>
-      </div>
-      <div class="mg gap" id="s-alerts-set-against-the-limits-they-protect"><span class="eb">Alerting model</span></div>
-      <div class="ct gap">
-        <h2 class="claim">Alerts set against the limits they protect</h2>
-        <p class="qual">configuration kept in context</p>
+        <ul class="cs-list" role="list">
+          <li>A threshold expressed as a percentage of the relevant limit</li>
+          <li>A severity level: warning or critical</li>
+          <li>One or more recipients</li>
+          <li>A repeat percentage for notifications</li>
+        </ul>
         <div class="prose">
-          <p>From limit to notification: tier limit → threshold → warning or critical → notification to recipients.</p>
+          <p>One implementation finding from the review: listing recipients in full made the panel unnecessarily long,
+            so recipients were presented in an accordion that users could expand when needed. This keeps the panel
+            compact without hiding recipient information.</p>
         </div>
       </div>
-      <div class="mg gap-s"><span class="fn">FIG. 04</span><span class="cap"
-          id="cap-s-alerts-set-against-the-limits-they-protect">Alert configuration opening over the tier plan, so a
-          rule is set beside the number it guards.</span><span class="dis">Representative interface reconstruction.
-          Sanitized representation of the original product design.</span></div>
-      <div class="ct gap-s">
-        <figure style="margin:0;" role="figure" aria-labelledby="cap-s-alerts-set-against-the-limits-they-protect">
-          <div class="fig" aria-label="FIG. 04"><svg viewBox="0 0 980 494" xmlns="http://www.w3.org/2000/svg" role="img"
-              aria-label="Reconstruction of alert configuration. The panel opens over the tier plan rather than on a page of its own, so the limits stay on screen while the thresholds that protect them are set. Each rule is one row stating its name, type, the metric it watches, its threshold, a severity chip of warning or critical, an enable toggle and a row action. One row is expanded to show how often the alert repeats, where the warning and critical points sit, and the recipients folded into an accordion so a long list does not make the panel scroll.">
-              <rect width="980" height="494" fill="var(--bg-surface)" />
-              <rect x="0" y="0" width="150" height="448" fill="var(--apparatus-default)" />
-              <rect x="20" y="16" width="56" height="14" rx="2" fill="var(--bg-surface)" opacity="0.2" /><text x="20"
-                y="54" font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--bg-surface)"
-                text-anchor="start" letter-spacing="0.09em">MENU</text>
-              <rect x="0" y="65" width="150" height="24" fill="var(--bg-surface)" opacity="0.1" />
-              <rect x="0" y="65" width="2.5" height="24" fill="var(--bg-surface)" />
-              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="1">
-                <rect x="16" y="69" width="9" height="7" rx="1" />
-                <line x1="16" y1="72.5" x2="25" y2="72.5" />
-              </g><text x="34" y="78" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
-                fill="var(--bg-surface)" text-anchor="start" font-weight="600" opacity="1">Dashboard</text><text x="136"
-                y="78" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
-                text-anchor="end" opacity="0.6">›</text>
-              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="0.7">
-                <circle cx="19.5" cy="97.9" r="3.4" />
-                <line x1="21.9" y1="100.5" x2="25" y2="102.4" />
-              </g><text x="34" y="104" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
-                fill="var(--bg-surface)" text-anchor="start" opacity="0.8">Clients</text><text x="136" y="104"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
-                text-anchor="end" opacity="0.6">›</text>
-              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="0.7">
-                <rect x="16" y="121" width="4.0" height="4.0" rx="1" />
-                <rect x="20.9" y="121" width="4.0" height="4.0" rx="1" />
-                <rect x="16" y="125.5" width="4.0" height="4.0" rx="1" />
-                <rect x="20.9" y="125.5" width="4.0" height="4.0" rx="1" />
-              </g><text x="34" y="130" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
-                fill="var(--bg-surface)" text-anchor="start" opacity="0.8">Plans</text><text x="136" y="130"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
-                text-anchor="end" opacity="0.6">›</text>
-              <g stroke="var(--bg-surface)" stroke-width="1.1" fill="none" opacity="0.7">
-                <line x1="16" y1="148.5" x2="25" y2="148.5" />
-                <line x1="16" y1="151" x2="25" y2="151" />
-                <line x1="16" y1="153.5" x2="21.4" y2="153.5" />
-              </g><text x="34" y="156" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10"
-                fill="var(--bg-surface)" text-anchor="start" opacity="0.8">Billing</text><text x="136" y="156"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--bg-surface)"
-                text-anchor="end" opacity="0.6">›</text>
-              <rect x="150" y="0" width="830" height="40" fill="var(--bg-surface)" />
-              <line x1="150" y1="40" x2="980" y2="40" stroke="var(--border-default)" stroke-width="1" />
-              <line x1="166" y1="15" x2="178" y2="15" stroke="var(--fg-muted)" stroke-width="1.4" />
-              <line x1="166" y1="20" x2="178" y2="20" stroke="var(--fg-muted)" stroke-width="1.4" />
-              <line x1="166" y1="25" x2="178" y2="25" stroke="var(--fg-muted)" stroke-width="1.4" />
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <circle cx="844.5" cy="17.9" r="3.4" />
-                <line x1="846.9" y1="20.5" x2="851" y2="23.4" />
-              </g>
-              <g stroke="var(--fg-muted)" stroke-width="1.1" fill="none" opacity="0.8">
-                <rect x="862" y="14" width="5.0" height="5.0" rx="1" />
-                <rect x="868.0" y="14" width="5.0" height="5.0" rx="1" />
-                <rect x="862" y="19.5" width="5.0" height="5.0" rx="1" />
-                <rect x="868.0" y="19.5" width="5.0" height="5.0" rx="1" />
-              </g>
-              <circle cx="888" cy="20" r="10" fill="var(--apparatus-default)" /><text x="888" y="23.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8" fill="var(--bg-surface)"
-                text-anchor="middle" font-weight="600">SA</text><text x="904" y="17"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">Internal user</text><text x="904" y="29"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8" fill="var(--fg-muted)"
-                text-anchor="start">Sales team</text>
-              <rect x="150" y="40" width="830" height="24" fill="var(--bg-page)" /><text x="166" y="56"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">Home</text><text x="193.2" y="56"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">›</text><text x="203.2" y="56" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="8.5" fill="var(--fg-default)" text-anchor="start" font-weight="600">Tier plan</text>
-              <line x1="150" y1="64" x2="980" y2="64" stroke="var(--border-subtle)" stroke-width="1" />
-              <rect x="150" y="64" width="830" height="40" fill="var(--bg-surface)" /><text x="202.3" y="88"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-muted)"
-                text-anchor="middle">Dashboard</text><text x="274.9" y="88"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="middle" font-weight="600">Tier plan</text>
-              <rect x="244.6" y="96" width="60.6" height="2" fill="var(--apparatus-default)" /><text x="342.1" y="88"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-muted)"
-                text-anchor="middle">Billing</text><text x="770" y="66"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start">Select client</text><text x="770" y="84"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
-                text-anchor="start">Client name</text>
-              <line x1="770" y1="91" x2="960" y2="91" stroke="var(--border-interactive)" stroke-width="1" />
-              <path d="M948 78 L952 82 L956 78" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" />
-              <line x1="150" y1="104" x2="980" y2="104" stroke="var(--border-default)" stroke-width="1" />
-              <rect x="150" y="104" width="830" height="344" fill="var(--bg-page)" />
-              <rect x="166" y="116" width="798" height="26" rx="2" fill="var(--apparatus-default)" opacity="0.1" />
-              <circle cx="180" cy="129" r="4.4" fill="none" stroke="var(--apparatus-default)" stroke-width="1.2" /><text
-                x="179.4" y="132.2" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8"
-                fill="var(--apparatus-default)" text-anchor="middle" font-weight="700">i</text><text x="192" y="132.4"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--apparatus-default)"
-                text-anchor="start">As on 12 Feb 2026, 00:00:01 in the reporting time zone.</text><text x="166" y="166"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10.5" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">Usage tier information</text>
-              <rect x="166" y="176" width="798" height="210" rx="2" fill="var(--bg-surface)"
-                stroke="var(--border-default)" stroke-width="1" /><text x="316" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 1</text><text x="424" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 2</text>
-              <rect x="524" y="176" width="108" height="210" fill="var(--apparatus-default)" opacity="0.1" /><text
-                x="532" y="196" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
-                fill="var(--fg-default)" text-anchor="start" font-weight="600">Tier 3</text><text x="640" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 4</text><text x="748" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 5</text><text x="856" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier 6</text><text x="180" y="196"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Parameters</text>
-              <line x1="166" y1="206" x2="964" y2="206" stroke="var(--border-default)" stroke-width="1" /><text x="180"
-                y="225" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Unit queries</text><text x="316" y="225"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">250K</text><text x="424" y="225"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2M</text><text x="532" y="225" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="9" fill="var(--fg-default)" text-anchor="start" font-weight="600">8M</text><text x="640"
-                y="225" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">16M</text><text x="748" y="225"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">40M</text><text x="856" y="225"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">60M</text>
-              <line x1="180" y1="235" x2="950" y2="235" stroke="var(--border-subtle)" stroke-width="1" /><text x="180"
-                y="254" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Storage requests</text><text x="316" y="254"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">300K</text><text x="424" y="254"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">3M</text><text x="532" y="254" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="9" fill="var(--fg-default)" text-anchor="start" font-weight="600">9M</text><text x="640"
-                y="254" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">18M</text><text x="748" y="254"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">36M</text><text x="856" y="254"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">64M</text>
-              <line x1="180" y1="264" x2="950" y2="264" stroke="var(--border-subtle)" stroke-width="1" /><text x="180"
-                y="283" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Concurrent users</text><text x="316" y="283"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">8</text><text x="424" y="283" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="9" fill="var(--fg-default)" text-anchor="start">8</text><text x="532" y="283"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">16</text><text x="640" y="283"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">24</text><text x="748" y="283" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="9" fill="var(--fg-default)" text-anchor="start">24</text><text x="856" y="283"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">24</text>
-              <line x1="180" y1="293" x2="950" y2="293" stroke="var(--border-subtle)" stroke-width="1" /><text x="180"
-                y="312" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Total users</text><text x="316" y="312"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">80</text><text x="424" y="312" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="9" fill="var(--fg-default)" text-anchor="start">80</text><text x="532" y="312"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">400</text><text x="640" y="312"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">800</text><text x="748" y="312"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">800</text><text x="856" y="312"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">4,000</text>
-              <line x1="180" y1="322" x2="950" y2="322" stroke="var(--border-subtle)" stroke-width="1" /><text x="180"
-                y="341" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Data transfer</text><text x="316" y="341"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2 TB</text><text x="424" y="341"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">4 TB</text><text x="532" y="341"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">24 TB</text><text x="640" y="341"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">40 TB</text><text x="748" y="341"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">56 TB</text><text x="856" y="341"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">80 TB</text>
-              <line x1="180" y1="351" x2="950" y2="351" stroke="var(--border-subtle)" stroke-width="1" /><text x="180"
-                y="370" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Compute</text><text x="316" y="370"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">400 hrs</text><text x="424" y="370"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">720 hrs</text><text x="532" y="370"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">960 hrs</text><text x="640" y="370"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2,000 hrs</text><text x="748" y="370"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">2,560 hrs</text><text x="856" y="370"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">3,600 hrs</text>
-              <rect x="150" y="104" width="830" height="344" fill="var(--bg-inverse)" opacity="0.3" />
-              <rect x="360" y="0" width="620" height="448" fill="var(--bg-surface)" stroke="var(--border-default)"
-                stroke-width="1" /><text x="380" y="28" font-family="Archivo,Helvetica Neue,Arial,sans-serif"
-                font-size="12" fill="var(--fg-default)" text-anchor="start" font-weight="600">Alert configuration</text>
-              <line x1="360" y1="42" x2="980" y2="42" stroke="var(--border-subtle)" stroke-width="1" />
-              <rect x="380" y="56" width="530" height="26" rx="2" fill="none" stroke="var(--border-default)"
-                stroke-width="1" />
-              <circle cx="393" cy="68" r="3.6" fill="none" stroke="var(--fg-muted)" stroke-width="1.1" />
-              <line x1="395.6" y1="70.6" x2="398" y2="73" stroke="var(--fg-muted)" stroke-width="1.1" /><text x="405"
-                y="72.6" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="10" fill="var(--fg-muted)"
-                text-anchor="start" opacity="0.8">Search</text>
-              <circle cx="934" cy="69" r="9" fill="var(--apparatus-default)" /><text x="934" y="72.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="12" fill="var(--bg-surface)"
-                text-anchor="middle" font-weight="700">+</text><text x="380" y="106"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">ALERT NAME</text><text x="560" y="106"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">TYPE</text><text x="642" y="106"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">METRIC</text><text x="736" y="106"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">THRESHOLD</text><text x="804" y="106"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">SEVERITY</text><text x="876" y="106"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">ENABLED</text><text x="924" y="106"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">ACTION</text>
-              <line x1="380" y1="115" x2="960" y2="115" stroke="var(--border-default)" stroke-width="1" />
-              <rect x="372" y="118" width="596" height="28" rx="2" fill="var(--apparatus-default)" opacity="0.1" />
-              <path d="M384 129 l5 5 5 -5" fill="none" stroke="var(--apparatus-default)" stroke-width="1.3" /><text
-                x="402" y="136" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
-                fill="var(--fg-default)" text-anchor="start">Storage above 80%</text><text x="560" y="136"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Threshold</text><text x="642" y="136"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Data tier limit</text><text x="736" y="136"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">80%</text>
-              <rect x="799" y="124" width="61" height="16" rx="8" fill="var(--fig-warn)" opacity="0.1" />
-              <circle cx="809" cy="132" r="2.6" fill="var(--fig-warn)" /><text x="816" y="135.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-warn)"
-                text-anchor="start" font-weight="600">Warning</text>
-              <rect x="876" y="126" width="24" height="13" rx="6.5" fill="var(--apparatus-default)" opacity="0.5" />
-              <circle cx="892" cy="132.5" r="5" fill="var(--apparatus-default)" />
-              <circle cx="926" cy="126" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="130.5" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="135" r="1.2" fill="var(--fg-muted)" />
-              <rect x="372" y="146" width="596" height="76" fill="var(--apparatus-default)" opacity="0.1" /><text
-                x="402" y="164" font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5"
-                fill="var(--fg-muted)" text-anchor="start" letter-spacing="0.09em">REPEAT EVERY</text><text x="402"
-                y="180" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start">10% of the limit</text><text x="600" y="164"
-                font-family="IBM Plex Mono,ui-monospace,Menlo,monospace" font-size="8.5" fill="var(--fg-muted)"
-                text-anchor="start" letter-spacing="0.09em">SEVERITY</text><text x="600" y="180"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--fg-default)"
-                text-anchor="start">Warning at 80%, critical at 90%</text>
-              <rect x="392" y="192" width="556" height="22" rx="2" fill="var(--bg-mat)" /><text x="404" y="207"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start" font-weight="600">Recipients</text><text x="468" y="207"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">3 people, 1 group</text>
-              <path d="M928 200 l5 5 5 -5" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" />
-              <line x1="380" y1="222" x2="960" y2="222" stroke="var(--border-subtle)" stroke-width="1" />
-              <path d="M386 235 l5 5 -5 5" fill="none" stroke="var(--fg-muted)" stroke-width="1.3" /><text x="402"
-                y="244" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Storage requests above 90%</text><text x="560" y="244"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Threshold</text><text x="642" y="244"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Usage tier</text><text x="736" y="244"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">90%</text>
-              <rect x="799" y="232" width="66" height="16" rx="8" fill="var(--fig-stop)" opacity="0.1" />
-              <circle cx="809" cy="240" r="2.6" fill="var(--fig-stop)" /><text x="816" y="243.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-stop)"
-                text-anchor="start" font-weight="600">Critical</text>
-              <rect x="876" y="234" width="24" height="13" rx="6.5" fill="var(--apparatus-default)" opacity="0.5" />
-              <circle cx="892" cy="240.5" r="5" fill="var(--apparatus-default)" />
-              <circle cx="926" cy="234" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="238.5" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="243" r="1.2" fill="var(--fg-muted)" />
-              <line x1="380" y1="254" x2="960" y2="254" stroke="var(--border-subtle)" stroke-width="1" />
-              <path d="M386 267 l5 5 -5 5" fill="none" stroke="var(--fg-muted)" stroke-width="1.3" /><text x="402"
-                y="276" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Daily usage request</text><text x="560" y="276"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Daily usage</text><text x="642" y="276"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Usage tier</text><text x="736" y="276"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Not set</text>
-              <rect x="799" y="264" width="61" height="16" rx="8" fill="var(--fig-warn)" opacity="0.1" />
-              <circle cx="809" cy="272" r="2.6" fill="var(--fig-warn)" /><text x="816" y="275.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-warn)"
-                text-anchor="start" font-weight="600">Warning</text>
-              <rect x="876" y="266" width="24" height="13" rx="6.5" fill="var(--apparatus-default)" opacity="0.5" />
-              <circle cx="892" cy="272.5" r="5" fill="var(--apparatus-default)" />
-              <circle cx="926" cy="266" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="270.5" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="275" r="1.2" fill="var(--fg-muted)" />
-              <line x1="380" y1="286" x2="960" y2="286" stroke="var(--border-subtle)" stroke-width="1" />
-              <path d="M386 299 l5 5 -5 5" fill="none" stroke="var(--fg-muted)" stroke-width="1.3" /><text x="402"
-                y="308" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-default)"
-                text-anchor="start">Tier upgrade</text><text x="560" y="308"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Tier shift</text><text x="642" y="308"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Usage tier</text><text x="736" y="308"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9" fill="var(--fg-muted)"
-                text-anchor="start">Not set</text>
-              <rect x="799" y="296" width="66" height="16" rx="8" fill="var(--fig-stop)" opacity="0.1" />
-              <circle cx="809" cy="304" r="2.6" fill="var(--fig-stop)" /><text x="816" y="307.5"
-                font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="8.5" fill="var(--fig-stop)"
-                text-anchor="start" font-weight="600">Critical</text>
-              <rect x="876" y="298" width="24" height="13" rx="6.5" fill="var(--fg-muted)" opacity="0.3" />
-              <circle cx="884" cy="304.5" r="5" fill="var(--fg-muted)" />
-              <circle cx="926" cy="298" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="302.5" r="1.2" fill="var(--fg-muted)" />
-              <circle cx="926" cy="307" r="1.2" fill="var(--fg-muted)" />
-              <line x1="380" y1="318" x2="960" y2="318" stroke="var(--border-subtle)" stroke-width="1" />
-              <rect x="890" y="408" width="70" height="26" rx="2" fill="var(--apparatus-default)" /><text x="925"
-                y="424.4" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9.5" fill="var(--bg-surface)"
-                text-anchor="middle" font-weight="600">Close</text>
-              <line x1="150" y1="462" x2="360" y2="462" stroke="var(--apparatus-default)" stroke-width="1.4"
-                stroke-dasharray="3 3" />
-              <line x1="150" y1="462" x2="150" y2="456" stroke="var(--apparatus-default)" stroke-width="1.4" />
-              <line x1="360" y1="462" x2="360" y2="456" stroke="var(--apparatus-default)" stroke-width="1.4" /><text
-                x="150" y="480" font-family="Archivo,Helvetica Neue,Arial,sans-serif" font-size="9"
-                fill="var(--fg-muted)" text-anchor="start">The limits stay on screen while the thresholds that protect
-                them are set, so a rule is never written away from the number it guards.</text>
-            </svg></div>
-        </figure>
-      </div>
-      <div class="mg"></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Metric</h3>
-              <p>The dimension the rule watches, chosen from the tier plan it applies to.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Thresholds and severity</h3>
-              <p>Warning and Critical are separate states, each set as a percentage of the limit.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">03</span>
-            <div>
-              <h3>Recipients</h3>
-              <p>Individual recipients and groups, listed against the rule.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">04</span>
-            <div>
-              <h3>Repeat</h3>
-              <p>Repeat is set as a percentage of the limit rather than on a timer.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">05</span>
-            <div>
-              <h3>Enabled</h3>
-              <p>Off pauses the rule and keeps it, so turning something off is not a destructive act.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
-      <div class="ct gap-s">
-        <div class="pull" style="margin-top:0;">The panel opens over the tier plan, so the limit stays visible while
-          thresholds are set.</div>
-        <p class="after">Rules read back in their own terms: type, metric, threshold, recipients. Redrawn: storage
-          thresholds shown as the confirmed example, other values replaced with placeholders.</p>
-      </div>
-      <div class="mg gap" id="s-carrying-the-design-through-build"><span class="eb">Delivery and UX quality</span></div>
+
+      <!-- ===== SECTION 5 · DESIGN SYSTEM AND PROCESS ===== -->
+      <div class="mg gap" id="s-design-system-and-process"><span class="eb">Section 5 &middot; Design System and
+          Process</span></div>
       <div class="ct gap">
-        <h2 class="claim">Carrying the design through build</h2>
-        <p class="qual">shared patterns, handoff and UX review</p>
+        <h2 class="claim">Shared components, adapted for a billing context</h2>
         <div class="prose">
-          <p>Requirements → UX design → Figma → Review → Handoff → Build → UX review, with refinement from feedback and
-            constraints along the way.</p>
-          <p>After handoff, I reviewed built screens against approved designs and raised UX issues during implementation
-            and QA.</p>
+          <p>The Archon Billing System was designed within the same design system used across the Archon platform. The
+            visual and component language is consistent: header context strip, sidebar navigation, tab bars, data
+            tables, panels, and accordions. Users who work across Archon products move into the billing tool without
+            relearning the interface.</p>
+          <p>The process followed a familiar pattern for internal tools: stakeholder conversations to establish the
+            business rules, information modelling, then wireframing and design, with layout and component decisions
+            tied to specific usage behaviours rather than to visual preference. The designs were handed off to
+            engineering in Figma, and the implemented and deployed features then went through a UX review, with UX
+            issues tracked and resolved through that review.</p>
+          <p>The implementation review, carried out after handoff and implementation, produced one concrete change: the
+            recipients accordion, which addressed a panel height problem identified during the review rather than in
+            earlier design phases. This kind of late-stage finding is normal. The review process exists to catch exactly
+            this category of issue.</p>
+          <p>The tool brings together client management, consumption dashboards, tier plans, alert configuration, and
+            billing. These areas were designed as a coherent system, with consistent navigation, shared contextual
+            headers, and a unified approach to how data is labelled and scoped by period.</p>
         </div>
       </div>
-      <div class="mg"></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
-          <li class="anno"><span class="n">01</span>
-            <div>
-              <h3>Shared component language</h3>
-              <p>Designed with the patterns used across the product family: header context, sidebar navigation, tabs,
-                data tables, panels and accordions.</p>
-            </div>
-          </li>
-          <li class="anno"><span class="n">02</span>
-            <div>
-              <h3>Example from implementation review</h3>
-              <p>Alert configuration panel: recipients listed in full made the panel scroll unnecessarily. Implemented
-                as an accordion, opened only when needed.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="mg gap-s"></div>
-      <div class="ct gap-s">
-        <p class="after">Raised in implementation review, and implemented.</p>
-      </div>
-      <div class="mg gap" id="s-what-the-design-established"><span class="eb">Outcomes and takeaways</span></div>
+
+      <!-- ===== SECTION 6 · OUTCOMES AND REFLECTION ===== -->
+      <div class="mg gap" id="s-outcomes-and-reflection"><span class="eb">Section 6 &middot; Outcomes and
+          Reflection</span></div>
       <div class="ct gap">
-        <h2 class="claim">What the design established</h2>
-        <p class="qual">and what carries forward</p>
+        <h2 class="claim">What the tool delivered, and what good internal UX means in this context</h2>
+        <div class="prose">
+          <p>The Archon Billing System shipped.</p>
+          <p>Quantified results were not captured, so none are claimed.</p>
+        </div>
       </div>
       <div class="mg gap-s"></div>
       <div class="ct gap-s">
-        <div class="cols2">
-          <div>
-            <h3>What the design established</h3>
-            <ul>
-              <li>Consumption and entitlement presented together</li>
-              <li>Client context selected once, carried across views</li>
-              <li>Global and client scope separated</li>
-              <li>Independent tier structures made explicit</li>
-            </ul>
-          </div>
-          <div>
-            <h3>And</h3>
-            <ul>
-              <li>Figures tied to a billing period and time</li>
-              <li>Alerts connected to the relevant limits</li>
-              <li>Business rules shown directly in the interface</li>
-              <li>Shared component patterns applied</li>
-            </ul>
-          </div>
+        <h3 class="cs-h">Reflection</h3>
+        <div class="prose">
+          <p>Three things this project reinforced:</p>
         </div>
-      </div>
-      <div class="mg"><span class="note">WHAT I TOOK FORWARD</span></div>
-      <div class="ct">
-        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);">
+        <ol class="annos" style="list-style:none;margin:0;padding:0;padding-top:var(--space-24);margin-top:var(--space-24);">
           <li class="anno"><span class="n">01</span>
             <div>
               <h3>Relate the concepts before designing the screens.</h3>
-              <p></p>
+              <p>The billing model (two independent tier structures, usage measured against purchased allowances,
+                figures that belong to a period) had to be understood precisely before any screen was drawn. Getting
+                the information model right made every layout decision easier and more defensible.</p>
             </div>
           </li>
           <li class="anno"><span class="n">02</span>
             <div>
               <h3>Show the context that gives a number its meaning.</h3>
-              <p></p>
+              <p>A usage figure without its allowance is incomplete. A consumption snapshot without its billing period is
+                ambiguous. The design keeps these pairs together so users can interpret data immediately, without
+                reconstructing context from memory or additional clicks.</p>
             </div>
           </li>
           <li class="anno"><span class="n">03</span>
             <div>
               <h3>Optimise internal tools for fast interpretation and clear operational decisions.</h3>
-              <p></p>
+              <p>Internal users are not casual. They return to these screens repeatedly, often in time-sensitive
+                situations. The measure of a successful internal tool is not how pleasant it is on first use but how
+                quickly and confidently experienced users can answer the question they came with.</p>
             </div>
           </li>
         </ol>
-      </div>
-      <div class="mg gap-s"></div>
-      <div class="ct gap-s">
         <p class="after">The tool shipped. Quantified results were not captured, so none are claimed.</p>
       </div>
     </section>
+    </div>
     <div class="nextbar"><a href="enterprise-data-platform.html"><span class="lbl">Next case study</span><br><span
-          class="nx">Warehouse and lake in one platform, under one set of rules</span></a><span class="sp">Enterprise
+          class="nx">Archon Data Store (ADS): UX Case Study</span></a><span class="sp">Enterprise
         Data Platform · 2022–2026</span></div>
   </main>
 
